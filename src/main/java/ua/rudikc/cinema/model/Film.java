@@ -1,6 +1,7 @@
 package ua.rudikc.cinema.model;
 
 import java.util.Date;
+import java.util.Set;
 
 public class Film {
 
@@ -11,6 +12,7 @@ public class Film {
     private Date premiereDate;
     private long budget;
     private double duration;
+    private Set<FilmGenre> genres;
 
     public Film() {
     }

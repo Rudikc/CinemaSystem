@@ -1,9 +1,12 @@
 package ua.rudikc.cinema.model;
 
+import java.util.Set;
+
 public class FilmGenre {
 
     private int id;
     private String name;
+    private Set<Film> films;
 
     public FilmGenre() {
     }
