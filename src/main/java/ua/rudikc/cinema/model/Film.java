@@ -13,6 +13,8 @@ public class Film {
     private long budget;
     private double duration;
     private Set<FilmGenre> genres;
+    private String posterPic;
+
 
     public Film() {
     }
@@ -92,6 +94,11 @@ public class Film {
         this.posterPic = posterPic;
     }
 
-    private String posterPic;
+    public Set<FilmGenre> getGenres() {
+        return genres;
+    }
 
+    public void setGenres(Set<FilmGenre> genres) {
+        this.genres = genres;
+    }
 }

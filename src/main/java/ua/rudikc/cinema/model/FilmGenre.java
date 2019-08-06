@@ -31,4 +31,12 @@ public class FilmGenre {
     public void setName(String name) {
         this.name = name;
     }
+
+    public Set<Film> getFilms() {
+        return films;
+    }
+
+    public void setFilms(Set<Film> films) {
+        this.films = films;
+    }
 }

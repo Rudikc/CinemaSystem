@@ -2,6 +2,7 @@
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<my:template>
     <jsp:attribute name="title"><title>${labels.loginPage}</title></jsp:attribute>
     <jsp:body>
         <div id="login-container">
@@ -36,3 +37,4 @@
             </div>
         </div>
     </jsp:body>
+</my:template>
