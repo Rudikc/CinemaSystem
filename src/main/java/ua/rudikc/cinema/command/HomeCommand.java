@@ -3,9 +3,9 @@ package ua.rudikc.cinema.command;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class LoginCommand implements Command{
+public class HomeCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        return "login";
+        return "index";
     }
 }

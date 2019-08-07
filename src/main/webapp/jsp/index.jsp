@@ -2,11 +2,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<fmt:setLocale value="en"/>
-<fmt:setBundle basename="text"/>
+<fmt:setBundle basename="messages_en"/>
+<fmt:setLocale value=""/>
 
 <html>
 <body>
-<h2><fmt:message key="index.jsp.greeting" /></h2>
+<h2><fmt:message key="hello.me"/></h2>
 </body>
 </html>

@@ -1,5 +1,6 @@
 package ua.rudikc.cinema.model;
 
+import java.sql.Time;
 import java.util.Date;
 import java.util.Set;
 
@@ -11,7 +12,7 @@ public class Film {
     private String director;
     private Date premiereDate;
     private long budget;
-    private double duration;
+    private Time duration;
     private Set<FilmGenre> genres;
     private String posterPic;
 
@@ -19,7 +20,7 @@ public class Film {
     public Film() {
     }
 
-    public Film(int id, String name, double imbdRating, String director, Date premiereDate, long budget, double duration, String posterPic) {
+    public Film(int id, String name, double imbdRating, String director, Date premiereDate, long budget, Time duration, String posterPic) {
         this.id = id;
         this.name = name;
         this.imbdRating = imbdRating;
@@ -78,11 +79,11 @@ public class Film {
         this.budget = budget;
     }
 
-    public java.sql.Date getDuration() {
+    public Time getDuration() {
         return duration;
     }
 
-    public void setDuration(java.sql.Date duration) {
+    public void setDuration(Time duration) {
         this.duration = duration;
     }
 

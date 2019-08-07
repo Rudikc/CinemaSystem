@@ -1,19 +1,11 @@
 package ua.rudikc.cinema.filters;
 
 import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
-import javax.servlet.annotation.WebInitParam;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 import static ua.rudikc.cinema.utils.Constants.*;
 
-
-
-/*@WebFilter(
-        urlPatterns = {"/*"},
-        initParams = {@WebInitParam(name = "bundle",value = "text"),@WebInitParam(name = "locale",value = "en")})
-*/
 
 public class LocalizationFilter implements Filter {
 

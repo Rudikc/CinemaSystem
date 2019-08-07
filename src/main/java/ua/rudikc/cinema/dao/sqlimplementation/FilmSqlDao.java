@@ -65,7 +65,7 @@ public class FilmSqlDao implements FilmDao {
             preparedStatement.setString(3,film.getDirector());
             preparedStatement.setDate(4, (Date) film.getPremiereDate());
             preparedStatement.setDouble(5,film.getBudget());
-            preparedStatement.setDate(6,film.getDuration());
+            preparedStatement.setTime(6,film.getDuration());
             preparedStatement.setString(7,film.getPosterPic());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -91,7 +91,7 @@ public class FilmSqlDao implements FilmDao {
             film.setId(resultSet.getInt(FILM_ID));
             film.setBudget((long) resultSet.getDouble(FILM_BUDGET_$));
             film.setDirector(resultSet.getString(FILM_director));
-            film.setDuration(resultSet.getDate(FILM_DURATION));
+            film.setDuration(resultSet.getTime(FILM_DURATION));
             film.setImbdRating(resultSet.getDouble(FILM_IMDB_RATING));
             film.setPosterPic(resultSet.getString(FILM_POSTER_PIC));
             film.setName(resultSet.getString(FILM_NAME));

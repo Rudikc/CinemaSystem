@@ -28,7 +28,7 @@ public class DispatcherServlet extends HttpServlet {
     private void handleRequest(HttpServletRequest request, HttpServletResponse response){
 
         String action = request.getRequestURI().substring(request.getRequestURI().lastIndexOf('/')+1);
-        Command command = CommandFactory.getCommand(request);
+        Command command = CommandFactory.defineCommand(action);
         String page = command.execute(request,response);
 
         if (!page.isEmpty()){
@@ -40,7 +40,5 @@ public class DispatcherServlet extends HttpServlet {
                 e.printStackTrace();
             }
         }
-
-
     }
 }
