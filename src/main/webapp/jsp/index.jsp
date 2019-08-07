@@ -1,0 +1,12 @@
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<fmt:setLocale value="en"/>
+<fmt:setBundle basename="text"/>
+
+<html>
+<body>
+<h2><fmt:message key="index.jsp.greeting" /></h2>
+</body>
+</html>

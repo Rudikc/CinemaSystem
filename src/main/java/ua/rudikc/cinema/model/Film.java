@@ -78,11 +78,11 @@ public class Film {
         this.budget = budget;
     }
 
-    public double getDuration() {
+    public java.sql.Date getDuration() {
         return duration;
     }
 
-    public void setDuration(double duration) {
+    public void setDuration(java.sql.Date duration) {
         this.duration = duration;
     }
 

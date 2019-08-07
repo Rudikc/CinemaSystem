@@ -10,23 +10,18 @@ public class User {
     private String email;
     private String firstName;
     private String lastName;
-    private Date registerDate;
-    private String adress;
     private UserRole role;
     private String phone;
 
     public User() {
     }
 
-    public User(int id, String password, String email, String firstName, String lastName,
-                Date registerDate, String adress, UserRole role, String phone) {
+    public User(int id, String password, String email, String firstName, String lastName, UserRole role, String phone) {
         this.id = id;
         this.password = password;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.registerDate = registerDate;
-        this.adress = adress;
         this.role = role;
         this.phone = phone;
     }
@@ -69,22 +64,6 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public Date getRegisterDate() {
-        return registerDate;
-    }
-
-    public void setRegisterDate(Date registerDate) {
-        this.registerDate = registerDate;
-    }
-
-    public String getAdress() {
-        return adress;
-    }
-
-    public void setAdress(String adress) {
-        this.adress = adress;
     }
 
     public UserRole getRole() {
