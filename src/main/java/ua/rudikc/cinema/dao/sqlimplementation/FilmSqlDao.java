@@ -23,40 +23,42 @@ public class FilmSqlDao implements FilmDao {
     private static final String SELECT_BY_ID = "SELECT * FROM cinema_db.films WHERE film_id = ?";
     private static final String SELECT_BY_NAME = "SELECT * FROM cinema_db.films WHERE film_name = ?";
     private static final String DELETE_BY_ID = "DELETE FROM cinema_db.film_genres WHERE film_genre_id = ?";
-    private final static String UPDATE_FILM = "UPDATE cinema_db.films SET name=?,director=?,premiere_date=?,duration=?,poster_pic=? WHERE film_id =?";
-    private final static String INSERT_FILM = "INSERT INTO cinema_db.films (name,director,premiere_date,duration,poster_pic) VALUES (?,?,?,?,?)";
+    private final static String UPDATE_FILM = "UPDATE cinema_db.films SET film_name=?,director=?,premiere_date=?,duration=?,poster_pic=? WHERE film_id =?";
+    private final static String INSERT_FILM = "INSERT INTO cinema_db.films (film_name,director,premiere_date,duration,poster_pic) VALUES (?,?,?,?,?)";
 
 
     @Override
     public Film findFilmById(int id) throws DaoException {
+        Film film = null;
         try {
             PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(SELECT_BY_ID);
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                return extractFromResultSet(resultSet);
+                film = extractFromResultSet(resultSet);
             }
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return film;
     }
 
     @Override
     public Film findFilmByName(String name) throws DaoException {
+        Film film = null;
         try {
             PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(SELECT_BY_NAME);
             preparedStatement.setString(1, name);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                return extractFromResultSet(resultSet);
+                film = extractFromResultSet(resultSet);
             }
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return film;
     }
 
     @Override
@@ -103,7 +105,7 @@ public class FilmSqlDao implements FilmDao {
 
     @Override
     public ArrayList<Film> findActualFilms() throws DaoException {
-        ArrayList resultFilms = new ArrayList();
+        ArrayList<Film> resultFilms = new ArrayList<>();
         try {
             PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(SELECT_ALL_ACTUAL_FILMS);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -119,7 +121,7 @@ public class FilmSqlDao implements FilmDao {
 
     @Override
     public Film extractFromResultSet(ResultSet resultSet) {
-        Film film = new Film();
+        Film film = null;
         try {
             film.setId(resultSet.getInt(FILM_ID));
             film.setDirector(resultSet.getString(FILM_director));

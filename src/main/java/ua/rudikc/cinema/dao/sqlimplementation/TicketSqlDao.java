@@ -72,13 +72,14 @@ public class TicketSqlDao implements TicketDao {
 
     @Override
     public Ticket findTicketById(int id) throws DaoException {
+        Ticket ticket = null;
         try {
             PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(FIND_BY_ID);
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                return extractFromResultSet(resultSet);
+                ticket = extractFromResultSet(resultSet);
             }
             resultSet.close();
 
@@ -86,7 +87,7 @@ public class TicketSqlDao implements TicketDao {
             logger.log(Level.ERROR, "Unable to fin a ticket by id ", e);
             throw new DaoException();
         }
-        return null;
+        return ticket;
     }
 
     @Override

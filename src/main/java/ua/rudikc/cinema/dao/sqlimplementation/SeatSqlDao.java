@@ -28,7 +28,7 @@ public class SeatSqlDao implements SeatDao {
 
     @Override
     public Seat findSeatById(int id) throws DaoException {
-        Seat seat = new Seat();
+        Seat seat = null;
         try {
             PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(SELECT_SEAT_BY_ID);
             preparedStatement.setInt(1, id);

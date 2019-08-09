@@ -49,7 +49,7 @@ public class SeatTypeSqlDao implements SeatTypeDao {
 
     @Override
     public SeatType findSeatTypeById(int id) throws DaoException {
-        SeatType seatType = new SeatType();
+        SeatType seatType = null;
         try {
             PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(SELECT_BY_ID);
             ResultSet resultSet = preparedStatement.executeQuery();

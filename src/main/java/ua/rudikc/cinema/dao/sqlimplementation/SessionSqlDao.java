@@ -26,6 +26,7 @@ public class SessionSqlDao implements SessionDao {
 
     @Override
     public Session findSessionById(int id) throws DaoException {
+        Session session = null;
         try {
             PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(FIND_BY_ID);
             preparedStatement.setInt(1, id);

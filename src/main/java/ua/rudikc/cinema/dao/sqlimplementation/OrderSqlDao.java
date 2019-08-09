@@ -1,5 +1,6 @@
 package ua.rudikc.cinema.dao.sqlimplementation;
 
+import com.sun.tools.corba.se.idl.constExpr.Or;
 import org.apache.log4j.Logger;
 import ua.rudikc.cinema.dao.OrderDao;
 import ua.rudikc.cinema.dao.exception.DaoException;
@@ -84,19 +85,20 @@ public class OrderSqlDao implements OrderDao {
 
     @Override
     public Order findOrderById(int id) throws DaoException {
+        Order order = null;
         try {
             PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(SELECT_ORDER_BY_ID);
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                return extractFromResulSet(resultSet);
+                order = extractFromResulSet(resultSet);
             }
             resultSet.close();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return order;
     }
 
     @Override
