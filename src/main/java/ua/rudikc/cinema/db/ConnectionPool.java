@@ -11,7 +11,7 @@ public class ConnectionPool {
     private static final BasicDataSource basicDataSource = new BasicDataSource();
 
     static {
-        ResourceBundle dbSettings = ResourceBundle.getBundle("dbSettings");
+        ResourceBundle dbSettings = ResourceBundle.getBundle("databaseConfiguration/dbSettings");
         basicDataSource.setUrl(dbSettings.getString("url"));
         basicDataSource.setUsername(dbSettings.getString("username"));
         basicDataSource.setPassword(dbSettings.getString("password"));

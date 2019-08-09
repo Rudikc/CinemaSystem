@@ -7,15 +7,7 @@ public class Constants {
     public static final String LOCALE = "locale";
     public static final String BUNDLE = "bundle";
 
-
-
-
-
-
-
-
-
-
+    
     //Database table names
 
     //Users
@@ -59,16 +51,14 @@ public class Constants {
 
     //Films
     public static final String FILM_ID = "film_id";
-    public static final String FILM_NAME = "name";
-    public static final String FILM_IMDB_RATING = "imbd_rating";
+    public static final String FILM_NAME = "film_name";
     public static final String FILM_director = "director";
     public static final String FILM_PREMIERE_DATE = "premiere_date";
-    public static final String FILM_BUDGET_$ = "budget_$";
     public static final String FILM_DURATION = "duration";
     public static final String FILM_POSTER_PIC = "poster_pic";
 
     //Film genres
     public static final String FILM_GENRE_ID = "film_genre_id";
-    public static final String FILM_GENRE_NAME = "name";
+    public static final String FILM_GENRE_NAME = "film_genre_name";
 
 }
