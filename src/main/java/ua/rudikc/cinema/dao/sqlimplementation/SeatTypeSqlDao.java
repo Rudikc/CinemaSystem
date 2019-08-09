@@ -4,7 +4,6 @@ import org.apache.log4j.Logger;
 import ua.rudikc.cinema.dao.SeatTypeDao;
 import ua.rudikc.cinema.dao.exception.DaoException;
 import ua.rudikc.cinema.db.ConnectionPool;
-import ua.rudikc.cinema.model.Seat;
 import ua.rudikc.cinema.model.SeatType;
 
 import java.sql.PreparedStatement;
@@ -57,6 +56,8 @@ public class SeatTypeSqlDao implements SeatTypeDao {
             if (resultSet.next()) {
                 seatType = extractSeatFromResultSet(resultSet);
             }
+            resultSet.close();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -72,6 +73,8 @@ public class SeatTypeSqlDao implements SeatTypeDao {
             while (resultSet.next()) {
                 seatTypes.add(extractSeatFromResultSet(resultSet));
             }
+            resultSet.close();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

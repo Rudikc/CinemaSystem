@@ -6,6 +6,7 @@ import ua.rudikc.cinema.dao.TicketDao;
 import ua.rudikc.cinema.dao.exception.DaoException;
 import ua.rudikc.cinema.db.ConnectionPool;
 import ua.rudikc.cinema.model.Order;
+import ua.rudikc.cinema.model.Seat;
 import ua.rudikc.cinema.model.Session;
 import ua.rudikc.cinema.model.Ticket;
 
@@ -17,9 +18,10 @@ import java.util.List;
 
 import static ua.rudikc.cinema.utils.Constants.*;
 
+
 public class TicketSqlDao implements TicketDao {
 
-    Logger logger = Logger.getLogger(TicketSqlDao.class);
+    private static final Logger logger = Logger.getLogger(TicketSqlDao.class);
 
     private static final String FIND_ALL_BY_SESSION_ID = "SELECT * FROM cinema_db.tickets WHERE session_id = ?";
     private static final String FIND_ALL_BY_ORDER_ID = "SELECT * FROM cinema_db.tickets WHERE order_id = ?";
@@ -38,6 +40,8 @@ public class TicketSqlDao implements TicketDao {
             while (resultSet.next()) {
                 tickets.add(extractFromResultSet(resultSet));
             }
+            resultSet.close();
+
 
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Unable to find tickets by session id", e);
@@ -56,6 +60,8 @@ public class TicketSqlDao implements TicketDao {
             while (resultSet.next()) {
                 tickets.add(extractFromResultSet(resultSet));
             }
+            resultSet.close();
+
 
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Unable to find tickets by session id", e);
@@ -74,6 +80,8 @@ public class TicketSqlDao implements TicketDao {
             if (resultSet.next()) {
                 return extractFromResultSet(resultSet);
             }
+            resultSet.close();
+
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Unable to fin a ticket by id ", e);
             throw new DaoException();
@@ -85,7 +93,7 @@ public class TicketSqlDao implements TicketDao {
     public void createTicket(Ticket ticket) throws DaoException {
         try {
             PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(INSERT_TICKET);
-            preparedStatement.setInt(1, ticket.getId());
+            preparedStatement.setInt(1, ticket.getSeat().getId());
             preparedStatement.setInt(2, ticket.getOrder().getId());
             preparedStatement.setInt(3, ticket.getSession().getId());
             preparedStatement.executeUpdate();
@@ -114,14 +122,16 @@ public class TicketSqlDao implements TicketDao {
         Ticket ticket = new Ticket();
         Order order = new Order();
         Session session = new Session();
+        Seat seat = new Seat();
         try {
             ticket.setId(resultSet.getInt(TICKET_ID));
-            session.setId(resultSet.getInt(SESSION_ID));
-            order.setId(resultSet.getInt(ORDER_ID));
+            session.setId(resultSet.getInt(TICKET_SESSION_ID));
+            order.setId(resultSet.getInt(TICKET_ORDER_ID));
+            seat.setId(resultSet.getInt(TICKET_SEAT_ID));
             ticket.setOrder(order);
             ticket.setSession(session);
         } catch (SQLException e) {
-            logger.log(Level.ERROR, "Unable to extract ticket from resul set", e);
+            logger.log(Level.ERROR, "Unable to extract ticket from result set", e);
             throw new DaoException();
         }
         return ticket;

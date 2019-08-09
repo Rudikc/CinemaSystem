@@ -2,7 +2,10 @@ package ua.rudikc.cinema.model;
 
 public enum  UserRole {
 
-    ADMIN,
-    USER,
-    GUEST
+    ADMIN("ADMIN"),
+    USER("USER"),
+    GUEST("GUEST");
+
+    UserRole(String role) {
+    }
 }

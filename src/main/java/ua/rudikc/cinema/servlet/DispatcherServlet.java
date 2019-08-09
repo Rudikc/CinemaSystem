@@ -17,23 +17,32 @@ import static ua.rudikc.cinema.utils.Constants.JSP_PATH;
 public class DispatcherServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        handleRequest(req,resp);
+        handleRequest(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        handleRequest(req,resp);
+        handleRequest(req, resp);
     }
 
-    private void handleRequest(HttpServletRequest request, HttpServletResponse response){
+    private void handleRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String action = request.getRequestURI().substring(request.getRequestURI().lastIndexOf('/')+1);
+//        String action = req.getRequestURI().substring(req.getRequestURI().lastIndexOf('/') + 1);
+//        Command command = CommandFactory.defineCommand(action);
+//        String resultPage;
+//        resultPage = command.execute(req, resp);
+//        if (req.getMethod().equals("POST")) {
+//            req.getRequestDispatcher("/jsp/" + resultPage + ".jsp").forward(req, resp);
+//        } else if (req.getMethod().equals("GET")) {
+//            req.getRequestDispatcher("/jsp/" + resultPage + ".jsp").forward(req, resp);
+//        }
+        String action = req.getRequestURI().substring(req.getRequestURI().lastIndexOf('/')+1);
         Command command = CommandFactory.defineCommand(action);
-        String page = command.execute(request,response);
+        String page = command.execute(req,resp);
 
         if (!page.isEmpty()){
             try {
-                request.getRequestDispatcher(String.format(JSP_PATH,page)).forward(request,response);
+                req.getRequestDispatcher(String.format(JSP_PATH,page)).forward(req,resp);
             } catch (ServletException e) {
                 e.printStackTrace();
             } catch (IOException e) {

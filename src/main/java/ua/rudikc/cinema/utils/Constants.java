@@ -25,9 +25,11 @@ public class Constants {
     public static final String USER_FIRST_NAME = "first_name";
     public static final String USER_LAST_NAME = "last_name";
     public static final String USER_PHONE = "phone";
+    public static final String USER_ROLE = "user_role";
 
     //Tickets
     public static final String TICKET_ID = "ticket_id";
+    public static final String TICKET_SEAT_ID = "seat_id";
     public static final String TICKET_SESSION_ID = "session_id";
     public static final String TICKET_ORDER_ID = "order_id";
 
@@ -52,7 +54,7 @@ public class Constants {
     //Orders
     public static final String ORDER_ID = "order_id";
     public static final String ORDER_USER_ID = "user_id";
-    public static final String ORDER_RRICE = "price";
+    public static final String ORDER_PRICE = "price";
     public static final String ORDER_ORDER_TIME = "order_time";
 
     //Films

@@ -4,7 +4,6 @@ import ua.rudikc.cinema.command.Command;
 import ua.rudikc.cinema.command.HomeCommand;
 import ua.rudikc.cinema.command.LoginCommand;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 

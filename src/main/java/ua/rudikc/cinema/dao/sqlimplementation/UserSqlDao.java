@@ -8,12 +8,12 @@ import ua.rudikc.cinema.db.ConnectionPool;
 import ua.rudikc.cinema.model.User;
 import ua.rudikc.cinema.model.UserRole;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import static ua.rudikc.cinema.utils.Constants.*;
+
 
 public class UserSqlDao implements UserDao {
 
@@ -25,7 +25,6 @@ public class UserSqlDao implements UserDao {
     private static final String UPDATE_ROLE = "UPDATE cinema_db.users SET user_role = ? WHERE user_id = ?";
     private final static String UPDATE_USER = "UPDATE cinema_db.users SET password=?, email=? ,first_name=?, last_name=?, user_role=?, phone=? WHERE user_id=?";
     private static final String INSERT_USER = "INSERT INTO cinema_db.users (password,email,first_name,last_name,user_role,phone) VALUES (?,?,?,?,?,?)";
-
 
     public UserSqlDao() {
     }
@@ -40,6 +39,7 @@ public class UserSqlDao implements UserDao {
             if (resultSet.next()) {
                 user = extractFromResultSet(resultSet);
             }
+
             resultSet.close();
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Unable to find user by id ", e);
@@ -58,10 +58,6 @@ public class UserSqlDao implements UserDao {
             preparedStatement.setString(4, user.getLastName());
             preparedStatement.setString(5, String.valueOf(user.getRole()));
             preparedStatement.setString(6, user.getPhone());
-
-            if (0 < preparedStatement.executeUpdate()) {
-
-            }
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Unable to create a user ", e);
             throw new DaoException();
@@ -80,8 +76,6 @@ public class UserSqlDao implements UserDao {
             statement.setString(6, user.getPhone());
             statement.setInt(7, user.getId());
             statement.executeUpdate();
-
-
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Unable to update a user ", e);
             throw new DaoException();
@@ -100,7 +94,6 @@ public class UserSqlDao implements UserDao {
             preparedStatement.setString(1, String.valueOf(userRole));
             preparedStatement.setInt(2, user.getId());
             preparedStatement.executeUpdate();
-
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Unable to change user role ", e);
             throw new DaoException();
@@ -116,14 +109,11 @@ public class UserSqlDao implements UserDao {
             PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(SELECT_BY_EMAIL);
             preparedStatement.setString(1, email);
             ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                return true;
-            }
+            return resultSet.next();
         } catch (SQLException e) {
-            logger.log(Level.ERROR, "Something gone wrong while isRgistered method ", e);
+            logger.log(Level.ERROR, "Something gone wrong while isRegistered method ", e);
             throw new DaoException();
         }
-        return false;
     }
 
 
@@ -134,14 +124,11 @@ public class UserSqlDao implements UserDao {
             preparedStatement.setString(1, email);
             preparedStatement.setString(2, password);
             ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                return extractFromResultSet(resultSet);
-            }
+            return extractFromResultSet(resultSet);
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Unable to find user by email and password ", e);
             throw new DaoException();
         }
-        return null;
     }
 
     @Override
@@ -154,7 +141,7 @@ public class UserSqlDao implements UserDao {
             user.setFirstName(resultSet.getString(USER_FIRST_NAME));
             user.setLastName(resultSet.getString(USER_LAST_NAME));
             user.setPhone(resultSet.getString(USER_PHONE));
-            user.setRole(UserRole.valueOf(resultSet.getString(USER_EMAIL)));
+            user.setRole(UserRole.valueOf(resultSet.getString(USER_ROLE)));
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Unable to extract a user from a result set ", e);
             throw new DaoException();

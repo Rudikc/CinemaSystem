@@ -33,6 +33,8 @@ public class SessionSqlDao implements SessionDao {
             if (resultSet.next()) {
                 return extractFromResultSet(resultSet);
             }
+            resultSet.close();
+
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Unable to find a session by id ", e);
             throw new DaoException();

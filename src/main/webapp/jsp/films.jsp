@@ -7,7 +7,6 @@
 
 <html>
 <body>
-<h1><a href = "http://localhost:8080/finalProject/login">Sign in</a>
 <h2><fmt:message key="hello.me"/></h2>
 </body>
 </html>

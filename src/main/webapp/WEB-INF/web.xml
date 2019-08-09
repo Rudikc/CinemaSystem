@@ -16,7 +16,7 @@
     <filter-class>ua.rudikc.cinema.filters.LocalizationFilter</filter-class>
     <init-param>
       <param-name>bundle</param-name>
-      <param-value>messages</param-value>
+      <param-value>messages_en</param-value>
     </init-param>
     <init-param>
       <param-name>locale</param-name>

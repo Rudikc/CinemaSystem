@@ -17,6 +17,7 @@ import java.util.List;
 import static ua.rudikc.cinema.utils.Constants.*;
 
 public class SeatSqlDao implements SeatDao {
+
     Logger logger = Logger.getLogger(Seat.class);
 
     private static final String SELECT_ALL_SEATS = "SELECT * FROM cinema_db.seats";
@@ -35,6 +36,8 @@ public class SeatSqlDao implements SeatDao {
             if (resultSet.next()) {
                 seat = extractSeatFromResultSet(resultSet);
             }
+            resultSet.close();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -50,6 +53,8 @@ public class SeatSqlDao implements SeatDao {
             while (resultSet.next()) {
                 seats.add(extractSeatFromResultSet(resultSet));
             }
+            resultSet.close();
+
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Unable to find all seats ", e);
             throw new DaoException();

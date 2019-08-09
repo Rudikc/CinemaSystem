@@ -8,10 +8,8 @@ public class Film {
 
     private int id;
     private String name;
-    private double imbdRating;
     private String director;
     private Date premiereDate;
-    private long budget;
     private Time duration;
     private Set<FilmGenre> genres;
     private String posterPic;
@@ -23,10 +21,8 @@ public class Film {
     public Film(int id, String name, double imbdRating, String director, Date premiereDate, long budget, Time duration, String posterPic) {
         this.id = id;
         this.name = name;
-        this.imbdRating = imbdRating;
         this.director = director;
         this.premiereDate = premiereDate;
-        this.budget = budget;
         this.duration = duration;
         this.posterPic = posterPic;
     }
@@ -47,14 +43,6 @@ public class Film {
         this.name = name;
     }
 
-    public double getImbdRating() {
-        return imbdRating;
-    }
-
-    public void setImbdRating(double imbdRating) {
-        this.imbdRating = imbdRating;
-    }
-
     public String getDirector() {
         return director;
     }
@@ -69,14 +57,6 @@ public class Film {
 
     public void setPremiereDate(Date premiereDate) {
         this.premiereDate = premiereDate;
-    }
-
-    public long getBudget() {
-        return budget;
-    }
-
-    public void setBudget(long budget) {
-        this.budget = budget;
     }
 
     public Time getDuration() {

@@ -13,6 +13,7 @@ import static ua.rudikc.cinema.utils.Constants.FILM_GENRE_ID;
 import static ua.rudikc.cinema.utils.Constants.FILM_GENRE_NAME;
 
 public class FilmGenreSqlDao implements FilmGenreDao {
+
     Logger logger = Logger.getLogger(FilmGenreSqlDao.class);
 
     private static final String SELECT_BY_ID = "SELECT * FROM cinema_db.film_genres WHERE film_genre_id = ?";
@@ -30,6 +31,8 @@ public class FilmGenreSqlDao implements FilmGenreDao {
             if (resultSet.next()) {
                 return extractFromResultSet(resultSet);
             }
+            resultSet.close();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -45,6 +48,8 @@ public class FilmGenreSqlDao implements FilmGenreDao {
             if (resultSet.next()) {
                 return extractFromResultSet(resultSet);
             }
+            resultSet.close();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

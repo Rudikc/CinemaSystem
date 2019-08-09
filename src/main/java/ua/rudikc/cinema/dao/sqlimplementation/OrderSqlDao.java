@@ -19,6 +19,7 @@ import static ua.rudikc.cinema.utils.Constants.*;
 public class OrderSqlDao implements OrderDao {
 
     Logger logger = Logger.getLogger(OrderSqlDao.class);
+
     private static final String DELETE_BY_ID = "DELETE FROM cinema_db.orders WHERE order_id =?";
     private static final String SELECT_ORDER_BY_ID = "SELECT * FROM cinema_db.orders WHERE order_id =?";
     private static final String SELECT_BY_USER_ID = "SELECT * FROM cinema_db.orders WHERE user_id =?";
@@ -27,7 +28,6 @@ public class OrderSqlDao implements OrderDao {
 
     @Override
     public void createOrder(Order order) throws DaoException {
-
         try {
             PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(INSERT_ORDER);
             preparedStatement.setInt(1, order.getUser().getId());
@@ -37,7 +37,6 @@ public class OrderSqlDao implements OrderDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
 
@@ -50,7 +49,6 @@ public class OrderSqlDao implements OrderDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
@@ -76,22 +74,25 @@ public class OrderSqlDao implements OrderDao {
             while (resultSet.next()) {
                 orders.add(extractFromResulSet(resultSet));
             }
+            resultSet.close();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return orders;
-
     }
 
     @Override
     public Order findOrderById(int id) throws DaoException {
         try {
             PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(SELECT_ORDER_BY_ID);
-            preparedStatement.setInt(1,id);
+            preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 return extractFromResulSet(resultSet);
             }
+            resultSet.close();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -104,7 +105,7 @@ public class OrderSqlDao implements OrderDao {
         Order order = new Order();
         try {
             order.setId(resultSet.getInt(ORDER_ID));
-            order.setPrice(resultSet.getDouble(ORDER_RRICE));
+            order.setPrice(resultSet.getDouble(ORDER_PRICE));
             user.setId(resultSet.getInt(ORDER_USER_ID));
             order.setUser(user);
         } catch (SQLException e) {
