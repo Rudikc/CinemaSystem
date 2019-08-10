@@ -59,4 +59,15 @@ public class Session {
     public void setPrice(double price) {
         this.price = price;
     }
+
+    @Override
+    public String toString() {
+        return "Session{" +
+                "id=" + id +
+                ", start=" + start +
+                ", end=" + end +
+                ", film=" + film +
+                ", price=" + price +
+                '}';
+    }
 }

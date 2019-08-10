@@ -1,26 +1,26 @@
 package ua.rudikc.cinema.command;
 
+import ua.rudikc.cinema.dao.SessionDao;
 import ua.rudikc.cinema.dao.exception.DaoException;
-import ua.rudikc.cinema.dao.sqlimplementation.FilmSqlDao;
 import ua.rudikc.cinema.factory.DaoFactory;
-import ua.rudikc.cinema.model.Film;
+import ua.rudikc.cinema.model.Session;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
+import java.util.List;
 
-public class GetTitlesCommand implements Command {
-
+public class GetSessionsCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        FilmSqlDao dao = (FilmSqlDao) DaoFactory.getDao("filmDao");
+        SessionDao sessionDao = (SessionDao) DaoFactory.getDao("sessionDao");
         try {
-            ArrayList<Film> films = dao.findActualFilms();
-            request.setAttribute("films",films);
+            List<Session> sessions = sessionDao.findSessionsByDate(request.getParameter("date"));
+            request.setAttribute("sessions",sessions);
+
         } catch (DaoException e) {
             e.printStackTrace();
         }
-        return "titles";
+        return "sessions";
     }
 }

@@ -8,24 +8,43 @@ import ua.rudikc.cinema.db.ConnectionPool;
 import ua.rudikc.cinema.model.Film;
 import ua.rudikc.cinema.model.Session;
 
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static ua.rudikc.cinema.utils.Constants.*;
 
 public class SessionSqlDao implements SessionDao {
 
-    Logger logger = Logger.getLogger(SessionSqlDao.class);
+    private Logger logger = Logger.getLogger(SessionSqlDao.class);
 
+
+    private static final String FIND_SESSIONS_BY_DATE = "SELECT * FROM cinema_db.sessions WHERE DATE(session_start) = ?";
     private static final String FIND_BY_ID = "SELECT * FROM cinema_db.sessions WHERE session_id = ?";
     private static final String DELETE_BY_ID = "DELETE FROM cinema_db.sessions WHERE session_id = ?";
     private final static String UPDATE_SESSION = "UPDATE cinema_db.sessions SET session_start=?,session_end=?,film_id=?,ticket_price=? WHERE session_id=?";
     private static final String INSERT_SESSION = "INSERT INTO cinema_db.sessions (session_start,session_end,film_id,ticket_price) VALUES (?,?,?,?)";
 
+
     @Override
-    public Session findSessionById(int id) throws DaoException {
+    public List<Session> findSeancesByDate(String date) throws DaoException {
+        ArrayList<Session> sessions = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(FIND_SESSIONS_BY_DATE);
+            preparedStatement.setString(1, date);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                sessions.add(extractFromResultSet(resultSet));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return sessions;
+    }
+
+    @Override
+    public Session findSeanceById(int id) throws DaoException {
         Session session = null;
         try {
             PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(FIND_BY_ID);
@@ -44,11 +63,11 @@ public class SessionSqlDao implements SessionDao {
     }
 
     @Override
-    public void updateSession(Session session) throws DaoException {
+    public void updateSeance(Session session) throws DaoException {
         try {
             PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(UPDATE_SESSION);
-            preparedStatement.setDate(1, (Date) session.getStart());
-            preparedStatement.setDate(2, (Date) session.getEnd());
+            preparedStatement.setTimestamp(1, (Timestamp) session.getStart());
+            preparedStatement.setTimestamp(2, (Timestamp) session.getEnd());
             preparedStatement.setInt(3, session.getFilm().getId());
             preparedStatement.setDouble(4, session.getPrice());
             preparedStatement.executeUpdate();
@@ -60,11 +79,11 @@ public class SessionSqlDao implements SessionDao {
     }
 
     @Override
-    public void createSession(Session session) throws DaoException {
+    public void createSeance(Session session) throws DaoException {
         try {
             PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(INSERT_SESSION);
-            preparedStatement.setDate(1, (Date) session.getStart());
-            preparedStatement.setDate(2, (Date) session.getEnd());
+            preparedStatement.setTimestamp(1, (Timestamp) session.getStart());
+            preparedStatement.setTimestamp(2, (Timestamp) session.getEnd());
             preparedStatement.setInt(3, session.getFilm().getId());
             preparedStatement.setDouble(4, session.getPrice());
             preparedStatement.executeUpdate();
@@ -76,7 +95,7 @@ public class SessionSqlDao implements SessionDao {
     }
 
     @Override
-    public void deleteSession(Session session) throws DaoException {
+    public void deleteSeance(Session session) throws DaoException {
         try {
             PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(DELETE_BY_ID);
             preparedStatement.setInt(1, session.getId());
@@ -93,8 +112,8 @@ public class SessionSqlDao implements SessionDao {
         Film film = new Film();
         try {
             session.setId(resultSet.getInt(SESSION_ID));
-            session.setStart(resultSet.getDate(SESSION_START));
-            session.setEnd(resultSet.getDate(SESSION_END));
+            session.setStart(resultSet.getTimestamp(SESSION_START));
+            session.setEnd(resultSet.getTimestamp(SESSION_END));
             film.setId(resultSet.getInt(SESSION_FILM_ID));
             session.setFilm(film);
             session.setPrice(resultSet.getDouble(SESSION_TICKET_PRICE));
