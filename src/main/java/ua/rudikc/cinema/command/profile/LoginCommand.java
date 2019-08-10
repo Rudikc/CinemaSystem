@@ -1,8 +1,11 @@
-package ua.rudikc.cinema.command;
+package ua.rudikc.cinema.command.profile;
 
+import ua.rudikc.cinema.command.Command;
 import ua.rudikc.cinema.dao.UserDao;
 import ua.rudikc.cinema.dao.exception.DaoException;
 import ua.rudikc.cinema.dao.sqlimplementation.UserSqlDao;
+import ua.rudikc.cinema.factory.DaoFactory;
+import ua.rudikc.cinema.model.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,15 +14,26 @@ public class LoginCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         UserDao userDao = new UserSqlDao();
-        String email = request.getParameter("email");
+
+        User user = null;
+
+        if (request.getParameter("email") == null) {
+            return "login";
+        }
+        String email = request.getParameter("email").toLowerCase();
         String password = request.getParameter("password");
+
         try {
-            if (userDao.isRegistered(email)) {
-                return "seances";
-            }
+            user = userDao.findByEmailAndPassword(email, password);
         } catch (DaoException e) {
             e.printStackTrace();
         }
-        return "login";
+        if (user == null) {
+            //wrong email or pass
+            return "login";
+        }
+        request.setAttribute("user", user);
+
+        return "seances";
     }
 }

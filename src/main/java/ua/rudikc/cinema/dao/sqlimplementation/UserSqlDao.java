@@ -20,7 +20,7 @@ public class UserSqlDao implements UserDao {
     private final static Logger logger = Logger.getLogger(UserSqlDao.class);
 
     private static final String SELECT_BY_ID = "SELECT * FROM cinema_db.users WHERE user_id = ?";
-    private static final String SELECT_BY_EMAIL_AND_PASSWORD = "SELECT * FROM cinema_db WHERE email = ? AND password = ?";
+    private static final String SELECT_BY_EMAIL_AND_PASSWORD = "SELECT * FROM cinema_db.users WHERE email = ? AND password = ?";
     private static final String SELECT_BY_EMAIL = "SELECT * FROM cinema_db.users WHERE email = ?";
     private static final String UPDATE_ROLE = "UPDATE cinema_db.users SET user_role = ? WHERE user_id = ?";
     private final static String UPDATE_USER = "UPDATE cinema_db.users SET password=?, email=? ,first_name=?, last_name=?, user_role=?, phone=? WHERE user_id=?";
@@ -119,16 +119,20 @@ public class UserSqlDao implements UserDao {
 
     @Override
     public User findByEmailAndPassword(String email, String password) throws DaoException {
+        User user = null;
         try {
             PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(SELECT_BY_EMAIL_AND_PASSWORD);
             preparedStatement.setString(1, email);
             preparedStatement.setString(2, password);
             ResultSet resultSet = preparedStatement.executeQuery();
-            return extractFromResultSet(resultSet);
+            if (resultSet.next()){
+                user=extractFromResultSet(resultSet);
+            }
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Unable to find user by email and password ", e);
             throw new DaoException();
         }
+        return user;
     }
 
     @Override
