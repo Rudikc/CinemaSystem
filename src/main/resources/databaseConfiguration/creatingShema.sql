@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS `cinema_db`.`seats` (
     FOREIGN KEY (`seat_types_id`)
     REFERENCES `cinema_db`.`seat_types` (`seat_types_id`));
 
-CREATE TABLE IF NOT EXISTS `cinema_db`.`sessions` (
+CREATE TABLE IF NOT EXISTS `cinema_db`.`seances` (
   `session_id` INT(11) NOT NULL AUTO_INCREMENT,
   `session_start` DATETIME NOT NULL,
   `session_end` DATETIME NOT NULL,
@@ -111,4 +111,4 @@ CREATE TABLE IF NOT EXISTS `cinema_db`.`tickets` (
     REFERENCES `cinema_db`.`seats` (`seat_id`),
   CONSTRAINT `fk_tickets_sessions1`
     FOREIGN KEY (`session_id`)
-    REFERENCES `cinema_db`.`sessions` (`session_id`));
+    REFERENCES `cinema_db`.`seances` (`session_id`));
