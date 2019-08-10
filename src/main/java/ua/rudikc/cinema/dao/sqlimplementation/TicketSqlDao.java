@@ -7,7 +7,7 @@ import ua.rudikc.cinema.dao.exception.DaoException;
 import ua.rudikc.cinema.db.ConnectionPool;
 import ua.rudikc.cinema.model.Order;
 import ua.rudikc.cinema.model.Seat;
-import ua.rudikc.cinema.model.Session;
+import ua.rudikc.cinema.model.Seance;
 import ua.rudikc.cinema.model.Ticket;
 
 import java.sql.PreparedStatement;
@@ -96,7 +96,7 @@ public class TicketSqlDao implements TicketDao {
             PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(INSERT_TICKET);
             preparedStatement.setInt(1, ticket.getSeat().getId());
             preparedStatement.setInt(2, ticket.getOrder().getId());
-            preparedStatement.setInt(3, ticket.getSession().getId());
+            preparedStatement.setInt(3, ticket.getSeance().getId());
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
@@ -122,15 +122,15 @@ public class TicketSqlDao implements TicketDao {
     public Ticket extractFromResultSet(ResultSet resultSet) throws DaoException {
         Ticket ticket = new Ticket();
         Order order = new Order();
-        Session session = new Session();
+        Seance seance = new Seance();
         Seat seat = new Seat();
         try {
             ticket.setId(resultSet.getInt(TICKET_ID));
-            session.setId(resultSet.getInt(TICKET_SESSION_ID));
+            seance.setId(resultSet.getInt(TICKET_SEANCE_ID));
             order.setId(resultSet.getInt(TICKET_ORDER_ID));
             seat.setId(resultSet.getInt(TICKET_SEAT_ID));
             ticket.setOrder(order);
-            ticket.setSession(session);
+            ticket.setSeance(seance);
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Unable to extract ticket from result set", e);
             throw new DaoException();

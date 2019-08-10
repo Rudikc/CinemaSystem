@@ -1,6 +1,5 @@
 package ua.rudikc.cinema.dao.sqlimplementation;
 
-import com.sun.tools.corba.se.idl.constExpr.Or;
 import org.apache.log4j.Logger;
 import ua.rudikc.cinema.dao.OrderDao;
 import ua.rudikc.cinema.dao.exception.DaoException;

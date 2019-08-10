@@ -1,4 +1,4 @@
 package ua.rudikc.cinema.service;
 
-public class SessionService {
+public class SeanceService {
 }

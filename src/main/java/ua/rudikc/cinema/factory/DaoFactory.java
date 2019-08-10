@@ -14,7 +14,7 @@ public class DaoFactory {
         daoMap.put("orderDao", new OrderSqlDao());
         daoMap.put("seatDao", new SeatSqlDao());
         daoMap.put("seatTypeDao", new SeatTypeSqlDao());
-        daoMap.put("sessionDao", new SessionSqlDao());
+        daoMap.put("seanceDao", new SeanceSqlDao());
         daoMap.put("ticketDao", new TicketSqlDao());
         daoMap.put("userDao", new UserSqlDao());
     }

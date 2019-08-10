@@ -2,17 +2,17 @@ package ua.rudikc.cinema.model;
 
 import java.util.Date;
 
-public class Session {
+public class Seance {
     private int id;
     private Date start;
     private Date end;
     private Film film;
     private double price;
 
-    public Session() {
+    public Seance() {
     }
 
-    public Session(int id, Date start, Date end, Film film, double price) {
+    public Seance(int id, Date start, Date end, Film film, double price) {
         this.id = id;
         this.start = start;
         this.end = end;
@@ -62,7 +62,7 @@ public class Session {
 
     @Override
     public String toString() {
-        return "Session{" +
+        return "Seance{" +
                 "id=" + id +
                 ", start=" + start +
                 ", end=" + end +

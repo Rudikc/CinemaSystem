@@ -4,16 +4,16 @@ public class Ticket {
     private int id;
     private Seat seat;
     private Order order;
-    private Session session;
+    private Seance seance;
 
     public Ticket() {
     }
 
-    public Ticket(int id, Seat seat, Order order, Session session) {
+    public Ticket(int id, Seat seat, Order order, Seance seance) {
         this.id = id;
         this.seat = seat;
         this.order = order;
-        this.session = session;
+        this.seance = seance;
     }
 
     public int getId() {
@@ -40,12 +40,12 @@ public class Ticket {
         this.order = order;
     }
 
-    public Session getSession() {
-        return session;
+    public Seance getSeance() {
+        return seance;
     }
 
-    public void setSession(Session session) {
-        this.session = session;
+    public void setSeance(Seance seance) {
+        this.seance = seance;
     }
 
 }

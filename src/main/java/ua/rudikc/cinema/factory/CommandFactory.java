@@ -1,7 +1,7 @@
 package ua.rudikc.cinema.factory;
 
 import ua.rudikc.cinema.command.Command;
-import ua.rudikc.cinema.command.GetTitlesCommand;
+import ua.rudikc.cinema.command.GetSeancesCommand;
 import ua.rudikc.cinema.command.HomeCommand;
 import ua.rudikc.cinema.command.LoginCommand;
 
@@ -16,7 +16,7 @@ public class CommandFactory {
         commands = new HashMap<>();
         commands.put("login",new LoginCommand());
         commands.put("",new HomeCommand());
-        commands.put("titles",new GetTitlesCommand());
+        commands.put("seances",new GetSeancesCommand());
 
     }
 

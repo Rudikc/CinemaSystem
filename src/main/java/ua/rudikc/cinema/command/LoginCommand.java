@@ -12,9 +12,10 @@ public class LoginCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         UserDao userDao = new UserSqlDao();
         String email = request.getParameter("email");
+        String password = request.getParameter("password");
         try {
             if (userDao.isRegistered(email)) {
-                return "greeting";
+                return "seances";
             }
         } catch (DaoException e) {
             e.printStackTrace();

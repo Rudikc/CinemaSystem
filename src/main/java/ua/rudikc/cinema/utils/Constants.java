@@ -7,7 +7,7 @@ public class Constants {
     public static final String LOCALE = "locale";
     public static final String BUNDLE = "bundle";
 
-    
+
     //Database table names
 
     //Users
@@ -22,15 +22,15 @@ public class Constants {
     //Tickets
     public static final String TICKET_ID = "ticket_id";
     public static final String TICKET_SEAT_ID = "seat_id";
-    public static final String TICKET_SESSION_ID = "session_id";
+    public static final String TICKET_SEANCE_ID = "seance_id";
     public static final String TICKET_ORDER_ID = "order_id";
 
-    //Sessions
-    public static final String SESSION_ID = "session_id";
-    public static final String SESSION_START= "session_start";
-    public static final String SESSION_END= "session_end";
-    public static final String SESSION_FILM_ID= "film_id";
-    public static final String SESSION_TICKET_PRICE = "ticket_price";
+    //Seances
+    public static final String SEANCE_ID = "seance_id";
+    public static final String SEANCE_START= "seance_start";
+    public static final String SEANCE_END= "seance_end";
+    public static final String SEANCE_FILM_ID= "film_id";
+    public static final String SEANCE_TICKET_PRICE = "ticket_price";
 
     //Seat types
     public static final String SEAT_TYPE_ID = "seat_type_id";

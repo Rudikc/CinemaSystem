@@ -121,13 +121,14 @@ public class FilmSqlDao implements FilmDao {
 
     @Override
     public Film extractFromResultSet(ResultSet resultSet) {
-        Film film = null;
+        Film film = new Film();
         try {
             film.setId(resultSet.getInt(FILM_ID));
             film.setDirector(resultSet.getString(FILM_director));
             film.setDuration(resultSet.getTime(FILM_DURATION));
             film.setPosterPic(resultSet.getString(FILM_POSTER_PIC));
             film.setName(resultSet.getString(FILM_NAME));
+            film.setPremiereDate(resultSet.getDate(FILM_PREMIERE_DATE));
         } catch (SQLException e) {
             e.printStackTrace();
         }
