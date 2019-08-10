@@ -26,28 +26,13 @@ public class DispatcherServlet extends HttpServlet {
     }
 
     private void handleRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-//        String action = req.getRequestURI().substring(req.getRequestURI().lastIndexOf('/') + 1);
-//        Command command = CommandFactory.defineCommand(action);
-//        String resultPage;
-//        resultPage = command.execute(req, resp);
-//        if (req.getMethod().equals("POST")) {
-//            req.getRequestDispatcher("/jsp/" + resultPage + ".jsp").forward(req, resp);
-//        } else if (req.getMethod().equals("GET")) {
-//            req.getRequestDispatcher("/jsp/" + resultPage + ".jsp").forward(req, resp);
-//        }
-        String action = req.getRequestURI().substring(req.getRequestURI().lastIndexOf('/')+1);
-        Command command = CommandFactory.defineCommand(action);
-        String page = command.execute(req,resp);
-
-        if (!page.isEmpty()){
-            try {
-                req.getRequestDispatcher(String.format(JSP_PATH,page)).forward(req,resp);
-            } catch (ServletException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        Command command = CommandFactory.defineCommand(req);
+        String resultPage;
+        resultPage = command.execute(req, resp);
+        if (req.getMethod().equals("POST")) {
+            resp.sendRedirect(resultPage);
+        } else if (req.getMethod().equals("GET")){
+            req.getRequestDispatcher(String.format(JSP_PATH,resultPage)).forward(req,resp);
         }
     }
 }
