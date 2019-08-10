@@ -6,6 +6,7 @@
 
   <display-name>Archetype Created Web Application</display-name>
 
+
   <welcome-file-list>
     <welcome-file>/jsp/index.jsp</welcome-file>
   </welcome-file-list>
@@ -33,7 +34,7 @@
     <filter-name>StaticResourcesFilter</filter-name>
     <filter-class>ua.rudikc.cinema.filters.StaticResourcesFilter</filter-class>
   </filter>
-
+<!---->
   <filter-mapping>
     <filter-name>StaticResourcesFilter</filter-name>
     <url-pattern>/*</url-pattern>

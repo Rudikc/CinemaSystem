@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
-public class GetSessionsCommandTest {
+public class GetSeancesCommandTest {
 
     @Test
     public void execute() throws DaoException {
