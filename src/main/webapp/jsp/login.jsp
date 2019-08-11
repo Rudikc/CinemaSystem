@@ -15,7 +15,9 @@
         <input type="password" required placeholder="password" name="password"><br><br>
         <input class="button" type="submit" value="Увійти">
     </form>
-    <fmt:message key="index.greetings"/>
+    <c:if test="${not empty loginMessage}">
+            <fmt:message key="${loginMessage}"/>
+    </c:if>
 </div>
 </body>
 </html>

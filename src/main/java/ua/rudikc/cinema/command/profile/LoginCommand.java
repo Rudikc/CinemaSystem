@@ -14,7 +14,6 @@ public class LoginCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         UserDao userDao = new UserSqlDao();
-
         User user = null;
 
         if (request.getParameter("email") == null) {
@@ -29,7 +28,7 @@ public class LoginCommand implements Command {
             e.printStackTrace();
         }
         if (user == null) {
-            request.getSession().setAttribute("loginMessage","index.loginError");
+            request.getSession().setAttribute("loginMessage","index.login.error");
             return "login";
         }
         request.setAttribute("user", user);
