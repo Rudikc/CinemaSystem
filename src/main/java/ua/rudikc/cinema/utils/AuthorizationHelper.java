@@ -9,7 +9,7 @@ public class AuthorizationHelper {
     public static boolean isPasswordCorrect(String password){
 
         //Minimum eight characters, at least one letter and one number pattern:
-        Pattern pattern = Pattern.compile("\"^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$\"");
+        Pattern pattern = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,}$");
 
         return pattern.matcher(password).find();
     }
