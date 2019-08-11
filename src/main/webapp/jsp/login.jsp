@@ -1,5 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setBundle basename="${bundle}"/>
+<fmt:setLocale value="${locale}"/>
 <html>
 <head>
     <title></title>
@@ -12,6 +15,7 @@
         <input type="password" required placeholder="password" name="password"><br><br>
         <input class="button" type="submit" value="Увійти">
     </form>
+    <fmt:message key="index.greetings"/>
 </div>
 </body>
 </html>

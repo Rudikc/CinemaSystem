@@ -7,6 +7,6 @@
 
 <html>
 <body>
-<h2><fmt:message key="index.greeting"/></h2>
+<h2><fmt:message key="index.greetings"/></h2>
 </body>
 </html>

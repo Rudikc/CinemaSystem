@@ -9,25 +9,19 @@
 <body>
 <%--<img src="${pageContext.request.contextPath}/images/lion_king.png"/>--%>
 <%--<img src="<c:url value="https://m.media-amazon.com/images/M/MV5BMjIwMjE1Nzc4NV5BMl5BanBnXkFtZTgwNDg4OTA1NzM@._V1_SY1000_CR0,0,674,1000_AL_.jpg"/>"--%>
-     <%--alt="Hello"/>--%>
-<h2><a href="${pageContext.request.contextPath}/logout">logout</a> </h2>
+<%--alt="Hello"/>--%>
+<h2><a href="${pageContext.request.contextPath}/logout">logout</a></h2>
 <div>
-    <c:forEach var="seance" items="${seances}">
-        <div>
-            <h2>
-                    ${seance.start}
-            </h2>
-            <h2>
-                    ${seance.film.id}
-            </h2>
-            <h2>
-                    ${seance.film.duration}
-            </h2>
-            <h2>
-                    ${seance.film.name}
-            </h2>
-        </div>
-    </c:forEach>
+    <table>
+        <tr>
+            <td>Img</td><td>Seance id</td><td>Session start</td><td>Session end</td><td></td><td>Film name</td>
+        </tr>
+        <c:forEach var="seance" items="${seances}">
+        <tr>
+            <td>Тут картинка</td><td>${seance.id}</td><td>${seance.start}</td><td>${seance.end}</td><td>${seance.film.name}</td>
+        </tr>
+        </c:forEach>
+    </table>
 </div>
 </body>
 </html>

@@ -7,7 +7,7 @@
 
 <html>
 <body>
-<h1><a href="http://localhost:8080/finalProject/login">Sign in</a></h1>
-<h1><a href="http://localhost:8080/finalProject/seances">See titles</a></h1>
+<h1><a href="${pageContext.request.contextPath}/login">Sign in</a></h1>
+<h1><a href="${pageContext.request.contextPath}/seances">See titles</a></h1>
 </body>
 </html>

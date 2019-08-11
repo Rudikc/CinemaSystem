@@ -15,12 +15,7 @@ public class GetSeancesCommandTest {
     @Test
     public void execute() throws DaoException {
         FilmSqlDao dao = (FilmSqlDao) DaoFactory.getDao("filmDao");
-        ArrayList<Film> films = dao.findActualFilms();
-        if (films.isEmpty()){
-            System.out.println("Hi");
-        }
-        for (Film film : films) {
-            System.out.println(film);
-        }
+        Film film = dao.findFilmById(1);
+        assertEquals(1, film.getId());
     }
 }
