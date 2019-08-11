@@ -1,5 +1,7 @@
 package ua.rudikc.cinema.filters;
 
+import ua.rudikc.cinema.factory.LanguageBundleFactory;
+
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -25,9 +27,11 @@ public class LocalizationFilter implements Filter {
 
         if (localeSession == null) {
             httpRequest.getSession().setAttribute(LOCALE, locale);
-        }
+            httpRequest.getSession().setAttribute(BUNDLE, defaultBundle);
 
-        httpRequest.getSession().setAttribute(BUNDLE, defaultBundle);
+        }else{
+            httpRequest.getSession().setAttribute(BUNDLE, LanguageBundleFactory.getBundle(locale));
+        }
         filterChain.doFilter(request, response);
     }
 
