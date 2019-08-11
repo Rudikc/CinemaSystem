@@ -23,10 +23,10 @@ public class TicketSqlDao implements TicketDao {
 
     private static final Logger logger = Logger.getLogger(TicketSqlDao.class);
 
-    private static final String FIND_ALL_BY_SESSION_ID = "SELECT * FROM cinema_db.tickets WHERE session_id = ?";
+    private static final String FIND_ALL_BY_SESSION_ID = "SELECT * FROM cinema_db.tickets WHERE seance_id = ?";
     private static final String FIND_ALL_BY_ORDER_ID = "SELECT * FROM cinema_db.tickets WHERE order_id = ?";
     private static final String FIND_BY_ID = "SELECT * FROM cinema_db.tickets WHERE order_id = ?";
-    private static final String INSERT_TICKET = "INSERT INTO cinema_db.tickets (seat_id,order_id,session_id) VALUES (?,?,?)";
+    private static final String INSERT_TICKET = "INSERT INTO cinema_db.tickets (seat_id,order_id,seance_id) VALUES (?,?,?)";
     private static final String DELETE_BY_ID = "DELETE FROM cinema_db.tickets WHERE ticket_id=?";
 
 
@@ -131,6 +131,7 @@ public class TicketSqlDao implements TicketDao {
             seat.setId(resultSet.getInt(TICKET_SEAT_ID));
             ticket.setOrder(order);
             ticket.setSeance(seance);
+            ticket.setSeat(seat);
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Unable to extract ticket from result set", e);
             throw new DaoException();

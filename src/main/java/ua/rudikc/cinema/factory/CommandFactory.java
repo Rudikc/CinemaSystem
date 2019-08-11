@@ -2,6 +2,7 @@ package ua.rudikc.cinema.factory;
 
 import ua.rudikc.cinema.command.Command;
 import ua.rudikc.cinema.command.GetSeancesCommand;
+import ua.rudikc.cinema.command.GetSeatsMapCommand;
 import ua.rudikc.cinema.command.HomeCommand;
 import ua.rudikc.cinema.command.profile.LoginCommand;
 import ua.rudikc.cinema.command.profile.LogoutCommand;
@@ -24,6 +25,7 @@ public class CommandFactory {
         commands.put("/seances",new GetSeancesCommand());
         commands.put("/changeLanguage",new ChangeLanguageCommand());
         commands.put("/register",new RegisterCommand());
+        commands.put("/seats",new GetSeatsMapCommand());
 
     }
 

@@ -1,5 +1,6 @@
 package ua.rudikc.cinema.command.profile;
 
+import org.apache.log4j.Logger;
 import ua.rudikc.cinema.command.Command;
 import ua.rudikc.cinema.dao.UserDao;
 import ua.rudikc.cinema.dao.exception.DaoException;
@@ -10,6 +11,7 @@ import ua.rudikc.cinema.utils.PassowordHashing;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.sql.SQLException;
 
 public class LoginCommand implements Command {
     @Override
@@ -32,7 +34,11 @@ public class LoginCommand implements Command {
             request.getSession().setAttribute("loginMessage","index.login.error");
             return "login";
         }
-        request.setAttribute("user", user);
+        request.getSession().setAttribute("user", user);
+        final Logger logger = Logger.getLogger(LoginCommand.class);
+        logger.error("New sql exception",new SQLException());
+        logger.info("something useless happened");
+
 
         return "seances";
     }

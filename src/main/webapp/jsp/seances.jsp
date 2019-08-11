@@ -14,12 +14,23 @@
 <div>
     <table>
         <tr>
-            <td>Img</td><td>Seance id</td><td>Session start</td><td>Session end</td><td></td><td>Film name</td>
+            <td>Img</td>
+            <td>Seance id</td>
+            <td>Session start</td>
+            <td>Film name</td>
+            <td></td>
         </tr>
         <c:forEach var="seance" items="${seances}">
-        <tr>
-            <td>Тут картинка</td><td>${seance.id}</td><td>${seance.start}</td><td>${seance.end}</td><td>${seance.film.name}</td>
-        </tr>
+            <tr>
+                <td>Тут картинка</td>
+                <td>${seance.id}</td>
+                <td>${seance.start}</td>
+                <td>${seance.film.name}</td>
+                <c:set var="user_role" value="USER"/>
+                <c:if test="${sessionScope.user.role == user_role}">
+                    <td><a href="${pageContext.request.contextPath}/seats?seance_id=${seance.id}"><fmt:message key="seances.purchase.tickets"/></a></td>
+                </c:if>
+            </tr>
         </c:forEach>
     </table>
 </div>
