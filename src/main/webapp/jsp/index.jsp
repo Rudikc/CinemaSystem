@@ -7,7 +7,11 @@
 
 <html>
 <body>
-<h1><a href="${pageContext.request.contextPath}/login">Sign in</a></h1>
-<h1><a href="${pageContext.request.contextPath}/seances">See titles</a></h1>
+<h1><fmt:message key="index.greetings"/> </h1>
+<h2><a href="${pageContext.request.contextPath}/login">Sign in</a></h2>
+<h2><a href="${pageContext.request.contextPath}/seances">See titles</a></h2>
+<h4><a href="${pageContext.request.contextPath}/changeLanguage?locale=ru_RU">Русский</a></h4>
+<h4><a href="${pageContext.request.contextPath}/changeLanguage?locale=uk_UA">Українська</a></h4>
+<h4><a href="${pageContext.request.contextPath}/changeLanguage?locale=en_US">English</a></h4>
 </body>
 </html>

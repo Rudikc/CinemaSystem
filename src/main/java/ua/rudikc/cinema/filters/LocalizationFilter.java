@@ -30,7 +30,7 @@ public class LocalizationFilter implements Filter {
             httpRequest.getSession().setAttribute(BUNDLE, defaultBundle);
 
         }else{
-            httpRequest.getSession().setAttribute(BUNDLE, LanguageBundleFactory.getBundle(locale));
+            httpRequest.getSession().setAttribute(BUNDLE, LanguageBundleFactory.getBundle(localeSession));
         }
         filterChain.doFilter(request, response);
     }

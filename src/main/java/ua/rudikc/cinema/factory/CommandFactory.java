@@ -5,6 +5,7 @@ import ua.rudikc.cinema.command.GetSeancesCommand;
 import ua.rudikc.cinema.command.HomeCommand;
 import ua.rudikc.cinema.command.profile.LoginCommand;
 import ua.rudikc.cinema.command.profile.LogoutCommand;
+import ua.rudikc.cinema.command.utils.ChangeLanguageCommand;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -20,6 +21,7 @@ public class CommandFactory {
         commands.put("/logout",new LogoutCommand());
         commands.put("/",new HomeCommand());
         commands.put("/seances",new GetSeancesCommand());
+        commands.put("/changeLanguage",new ChangeLanguageCommand());
 
     }
 
