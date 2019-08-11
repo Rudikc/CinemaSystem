@@ -1,5 +1,7 @@
 package ua.rudikc.cinema.model;
 
+import java.util.Objects;
+
 public class Seat {
 
     private int id;
@@ -15,6 +17,19 @@ public class Seat {
         this.row = row;
         this.place = place;
         this.seatType = seatType;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Seat seat = (Seat) o;
+        return id == seat.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     public int getId() {
