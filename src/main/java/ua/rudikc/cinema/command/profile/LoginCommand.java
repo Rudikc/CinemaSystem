@@ -29,7 +29,7 @@ public class LoginCommand implements Command {
             e.printStackTrace();
         }
         if (user == null) {
-            //wrong email or pass
+            request.getSession().setAttribute("loginMessage","index.loginError");
             return "login";
         }
         request.setAttribute("user", user);

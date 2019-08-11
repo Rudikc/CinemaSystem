@@ -22,7 +22,7 @@ public class FilmSqlDao implements FilmDao {
     private static final String SELECT_ALL_ACTUAL_FILMS = "SELECT * FROM cinema_db.films WHERE is_actual = 1";
     private static final String SELECT_BY_ID = "SELECT * FROM cinema_db.films WHERE film_id = ?";
     private static final String SELECT_BY_NAME = "SELECT * FROM cinema_db.films WHERE film_name = ?";
-    private static final String DELETE_BY_ID = "DELETE FROM cinema_db.film_genres WHERE film_genre_id = ?";
+    private static final String DELETE_BY_ID = "DELETE FROM cinema_db.films WHERE film_id = ?";
     private final static String UPDATE_FILM = "UPDATE cinema_db.films SET film_name=?,director=?,premiere_date=?,duration=?,poster_pic=? WHERE film_id =?";
     private final static String INSERT_FILM = "INSERT INTO cinema_db.films (film_name,director,premiere_date,duration,poster_pic) VALUES (?,?,?,?,?)";
 
