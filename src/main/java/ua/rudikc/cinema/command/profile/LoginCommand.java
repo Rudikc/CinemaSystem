@@ -6,6 +6,7 @@ import ua.rudikc.cinema.dao.exception.DaoException;
 import ua.rudikc.cinema.dao.sqlimplementation.UserSqlDao;
 import ua.rudikc.cinema.factory.DaoFactory;
 import ua.rudikc.cinema.model.User;
+import ua.rudikc.cinema.utils.PassowordHashing;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,7 +24,7 @@ public class LoginCommand implements Command {
         String password = request.getParameter("password");
 
         try {
-            user = userDao.findByEmailAndPassword(email, password);
+            user = userDao.findByEmailAndPassword(email, PassowordHashing.hashPassword(password));
         } catch (DaoException e) {
             e.printStackTrace();
         }

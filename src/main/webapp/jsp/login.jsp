@@ -17,7 +17,8 @@
     </form>
     <c:if test="${not empty loginMessage}">
             <fmt:message key="${loginMessage}"/>
-    </c:if>
+    </c:if><br>
+    <a href="${pageContext.request.contextPath}/register"><fmt:message key="login.registration"/></a>
 </div>
 </body>
 </html>

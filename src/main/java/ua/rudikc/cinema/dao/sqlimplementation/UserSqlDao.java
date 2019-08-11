@@ -53,11 +53,12 @@ public class UserSqlDao implements UserDao {
         try {
             PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(INSERT_USER);
             preparedStatement.setString(1, user.getPassword());
-            preparedStatement.setString(2, user.getPassword());
+            preparedStatement.setString(2, user.getEmail());
             preparedStatement.setString(3, user.getFirstName());
             preparedStatement.setString(4, user.getLastName());
             preparedStatement.setString(5, String.valueOf(user.getRole()));
             preparedStatement.setString(6, user.getPhone());
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Unable to create a user ", e);
             throw new DaoException();
