@@ -6,16 +6,8 @@ import ua.rudikc.cinema.model.Order;
 import java.sql.ResultSet;
 import java.util.List;
 
-public interface OrderDao {
-    void createOrder(Order order) throws DaoException;
-
-    void deleteOrder(int id) throws DaoException;
-
-    void updateOrder(Order order) throws DaoException;
-
+public interface OrderDao extends Dao<Order> {
     List<Order> findUserOrders(int userId) throws DaoException;
 
-    Order findOrderById(int id) throws DaoException;
-
-    Order extractFromResulSet(ResultSet resultSet) throws DaoException;
+    Order extractFromResultSet(ResultSet resultSet) throws DaoException;
 }

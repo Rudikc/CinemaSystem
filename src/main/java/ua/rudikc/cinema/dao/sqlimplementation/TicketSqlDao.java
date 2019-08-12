@@ -15,7 +15,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import static ua.rudikc.cinema.dao.sqlimplementation.Queries.*;
 import static ua.rudikc.cinema.utils.Constants.*;
 
 
@@ -23,18 +25,11 @@ public class TicketSqlDao implements TicketDao {
 
     private static final Logger logger = Logger.getLogger(TicketSqlDao.class);
 
-    private static final String FIND_ALL_BY_SESSION_ID = "SELECT * FROM cinema_db.tickets WHERE seance_id = ?";
-    private static final String FIND_ALL_BY_ORDER_ID = "SELECT * FROM cinema_db.tickets WHERE order_id = ?";
-    private static final String FIND_BY_ID = "SELECT * FROM cinema_db.tickets WHERE order_id = ?";
-    private static final String INSERT_TICKET = "INSERT INTO cinema_db.tickets (seat_id,order_id,seance_id) VALUES (?,?,?)";
-    private static final String DELETE_BY_ID = "DELETE FROM cinema_db.tickets WHERE ticket_id=?";
-
-
     @Override
     public List<Ticket> findAllTicketsBySessionId(int id) throws DaoException {
         List<Ticket> tickets = new ArrayList<>();
         try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(FIND_ALL_BY_SESSION_ID);
+            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(GET_ALL_TICKETS_BY_SESSION_ID.getQuery());
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -54,7 +49,7 @@ public class TicketSqlDao implements TicketDao {
     public List<Ticket> findTicketsByOrderId(int id) throws DaoException {
         List<Ticket> tickets = new ArrayList<>();
         try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(FIND_ALL_BY_ORDER_ID);
+            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(GET_ALL_TICKETS_BY_ORDER_ID.getQuery());
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -64,22 +59,22 @@ public class TicketSqlDao implements TicketDao {
 
 
         } catch (SQLException e) {
-            logger.log(Level.ERROR, "Unable to find tickets by session id", e);
+            logger.log(Level.ERROR, "Unable to find tickets by order id", e);
             throw new DaoException();
         }
         return tickets;
     }
 
     @Override
-    public Ticket findTicketById(int id) throws DaoException {
-        Ticket ticket = null;
+    public Optional<Ticket> get(int id) throws DaoException {
+        Optional<Ticket> ticket = Optional.empty();
         try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(FIND_BY_ID);
+            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(GET_TICKET.getQuery());
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                ticket = extractFromResultSet(resultSet);
+                ticket = Optional.of(extractFromResultSet(resultSet));
             }
             resultSet.close();
 
@@ -91,14 +86,29 @@ public class TicketSqlDao implements TicketDao {
     }
 
     @Override
-    public void createTicket(Ticket ticket) throws DaoException {
+    public List<Ticket> getAll() throws DaoException {
+        List<Ticket> tickets = new ArrayList<>();
         try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(INSERT_TICKET);
+            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(GET_ALL_TICKETS.getQuery());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                tickets.add(extractFromResultSet(resultSet));
+            }
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return tickets;
+    }
+
+    @Override
+    public void save(Ticket ticket) throws DaoException {
+        try {
+            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(INSERT_TICKET.getQuery());
             preparedStatement.setInt(1, ticket.getSeat().getId());
             preparedStatement.setInt(2, ticket.getOrder().getId());
             preparedStatement.setInt(3, ticket.getSeance().getId());
             preparedStatement.executeUpdate();
-
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Unable to create a ticket ", e);
             throw new DaoException();
@@ -106,10 +116,24 @@ public class TicketSqlDao implements TicketDao {
     }
 
     @Override
-    public void deleteTicketById(int id) throws DaoException {
+    public void update(Ticket ticket) throws DaoException {
         try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(DELETE_BY_ID);
-            preparedStatement.setInt(1, id);
+            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(UPDATE_TICKET.getQuery());
+            preparedStatement.setInt(1, ticket.getSeat().getId());
+            preparedStatement.setInt(2, ticket.getOrder().getId());
+            preparedStatement.setInt(3, ticket.getSeance().getId());
+            preparedStatement.setInt(4, ticket.getId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void delete(Ticket ticket) throws DaoException {
+        try {
+            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(DELETE_TICKET.getQuery());
+            preparedStatement.setInt(1, ticket.getId());
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {

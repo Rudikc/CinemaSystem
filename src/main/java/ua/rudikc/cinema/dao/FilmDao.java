@@ -2,24 +2,17 @@ package ua.rudikc.cinema.dao;
 
 import ua.rudikc.cinema.dao.exception.DaoException;
 import ua.rudikc.cinema.model.Film;
+import ua.rudikc.cinema.model.User;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-public interface FilmDao {
-    Film findFilmById(int id) throws DaoException;
+public interface FilmDao extends Dao<Film> {
+    Optional<Film> findFilmByName(String name) throws DaoException;
 
-    Film findFilmByName(String name) throws DaoException;
-
-    void createFilm(Film film) throws DaoException;
-
-    void deleteFilm(int id) throws DaoException;
-
-    void updateFilm(Film film) throws DaoException;
-
-    ArrayList<Film> findActualFilms() throws DaoException;
+    List<Film> findActualFilms() throws DaoException;
 
     Film extractFromResultSet(ResultSet resultSet);
-
 }

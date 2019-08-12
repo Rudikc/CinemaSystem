@@ -2,53 +2,34 @@ package ua.rudikc.cinema.dao.sqlimplementation;
 
 import org.apache.log4j.Logger;
 import ua.rudikc.cinema.dao.FilmGenreDao;
+import ua.rudikc.cinema.dao.exception.DaoException;
 import ua.rudikc.cinema.db.ConnectionPool;
 import ua.rudikc.cinema.model.FilmGenre;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
+import static ua.rudikc.cinema.dao.sqlimplementation.Queries.*;
 import static ua.rudikc.cinema.utils.Constants.FILM_GENRE_ID;
 import static ua.rudikc.cinema.utils.Constants.FILM_GENRE_NAME;
 
 public class FilmGenreSqlDao implements FilmGenreDao {
 
-    Logger logger = Logger.getLogger(FilmGenreSqlDao.class);
-
-    private static final String SELECT_BY_ID = "SELECT * FROM cinema_db.film_genres WHERE film_genre_id = ?";
-    private static final String DELETE_BY_ID = "DELETE FROM cinema_db.film_genres WHERE film_genre_id = ?";
-    private static final String SELECT_BY_NAME = "SELECT * FROM cinema_db.film_genres WHERE film_genre_name = ?";
-    private static final String INSERT_FILM_GENRE = "INSERT INTO cinema_db.film_genres (name) VALUES (?)";
-
+    private static final Logger logger = Logger.getLogger(FilmGenreSqlDao.class);
 
     @Override
-    public FilmGenre findFilmGenreByName(String name) {
-        FilmGenre filmGenre = null;
+    public Optional<FilmGenre> get(int id) {
+        Optional<FilmGenre> filmGenre = Optional.empty();
         try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(SELECT_BY_NAME);
-            preparedStatement.setString(1,name);
+            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(GET_FILM_GENRE.getQuery());
+            preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                filmGenre = extractFromResultSet(resultSet);
-            }
-            resultSet.close();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return filmGenre;
-    }
-
-    @Override
-    public FilmGenre findFilmGenreById(int id) {
-        FilmGenre filmGenre = null;
-        try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(SELECT_BY_ID);
-            preparedStatement.setInt(1,id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                filmGenre = extractFromResultSet(resultSet);
+                filmGenre = Optional.of(extractFromResultSet(resultSet));
             }
             resultSet.close();
         } catch (SQLException e) {
@@ -58,10 +39,26 @@ public class FilmGenreSqlDao implements FilmGenreDao {
     }
 
     @Override
-    public void createFilmGenre(FilmGenre filmGenre) {
+    public List<FilmGenre> getAll() throws DaoException {
+        List<FilmGenre> filmGenres = new ArrayList<>();
         try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(INSERT_FILM_GENRE);
-            preparedStatement.setString(1,filmGenre.getName());
+            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(GET_ALL_FILM_GENRES.getQuery());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                filmGenres.add(extractFromResultSet(resultSet));
+            }
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return filmGenres;
+    }
+
+    @Override
+    public void save(FilmGenre filmGenre) {
+        try {
+            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(INSERT_FILM_GENRE.getQuery());
+            preparedStatement.setString(1, filmGenre.getName());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -69,19 +66,50 @@ public class FilmGenreSqlDao implements FilmGenreDao {
     }
 
     @Override
-    public void deleteFilmGenre(int id) {
+    public void update(FilmGenre filmGenre) throws DaoException {
         try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(DELETE_BY_ID);
-            preparedStatement.setInt(1,id);
+            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(UPDATE_FILM_GENRE.getQuery());
+            preparedStatement.setString(1, filmGenre.getName());
+            preparedStatement.setInt(2, filmGenre.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+    }
+
+    @Override
+    public void delete(FilmGenre filmGenre) {
+        try {
+            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(DELETE_FILM_GENRE.getQuery());
+            preparedStatement.setInt(1, filmGenre.getId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public Optional<FilmGenre> findFilmGenreByName(String name) {
+        Optional<FilmGenre> filmGenre = Optional.empty();
+        try {
+            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(GET_FILM_GENRE_BY_NAME.getQuery());
+            preparedStatement.setString(1, name);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                filmGenre = Optional.of(extractFromResultSet(resultSet));
+            }
+            resultSet.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return filmGenre;
     }
 
     @Override
     public FilmGenre extractFromResultSet(ResultSet resultSet) {
-        FilmGenre filmGenre = null;
+        FilmGenre filmGenre = new FilmGenre();
         try {
             filmGenre.setId(resultSet.getInt(FILM_GENRE_ID));
             filmGenre.setName(resultSet.getString(FILM_GENRE_NAME));

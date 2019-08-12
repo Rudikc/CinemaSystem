@@ -13,23 +13,54 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import static ua.rudikc.cinema.dao.sqlimplementation.Queries.*;
 import static ua.rudikc.cinema.utils.Constants.*;
 
 public class OrderSqlDao implements OrderDao {
 
-    Logger logger = Logger.getLogger(OrderSqlDao.class);
-
-    private static final String DELETE_BY_ID = "DELETE FROM cinema_db.orders WHERE order_id =?";
-    private static final String SELECT_ORDER_BY_ID = "SELECT * FROM cinema_db.orders WHERE order_id =?";
-    private static final String SELECT_BY_USER_ID = "SELECT * FROM cinema_db.orders WHERE user_id =?";
-    private static final String INSERT_ORDER = "INSERT INTO cinema_db.orders (user_id,price,order_time) VALUES (?,?,?)";
-    private static final String UPDATE_ORDER = "UPDATE cinema_db.orders SET user_id = ?,price = ?, order_time = ?";
+    private static final Logger logger = Logger.getLogger(OrderSqlDao.class);
 
     @Override
-    public void createOrder(Order order) throws DaoException {
+    public Optional<Order> get(int id) throws DaoException {
+        Optional<Order> order = Optional.empty();
         try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(INSERT_ORDER);
+            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(GET_ORDER.getQuery());
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                order = Optional.of(extractFromResultSet(resultSet));
+            }
+            resultSet.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return order;
+    }
+
+    @Override
+    public List<Order> getAll() throws DaoException {
+        List<Order> orders = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(GET_ALL_ORDERS.getQuery());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                orders.add(extractFromResultSet(resultSet));
+            }
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return orders;
+
+    }
+
+    @Override
+    public void save(Order order) throws DaoException {
+        try {
+            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(INSERT_ORDER.getQuery());
             preparedStatement.setInt(1, order.getUser().getId());
             preparedStatement.setDouble(2, order.getPrice());
             preparedStatement.setDate(3, (Date) order.getOrderTime());
@@ -41,10 +72,10 @@ public class OrderSqlDao implements OrderDao {
 
 
     @Override
-    public void deleteOrder(int id) throws DaoException {
+    public void delete(Order order) throws DaoException {
         try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(DELETE_BY_ID);
-            preparedStatement.setInt(1, id);
+            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(DELETE_ORDER.getQuery());
+            preparedStatement.setInt(1, order.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -52,9 +83,9 @@ public class OrderSqlDao implements OrderDao {
     }
 
     @Override
-    public void updateOrder(Order order) throws DaoException {
+    public void update(Order order) throws DaoException {
         try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(UPDATE_ORDER);
+            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(UPDATE_ORDER.getQuery());
             preparedStatement.setInt(1, order.getUser().getId());
             preparedStatement.setDouble(2, order.getPrice());
             preparedStatement.setDate(3, (Date) order.getOrderTime());
@@ -68,11 +99,11 @@ public class OrderSqlDao implements OrderDao {
     public List<Order> findUserOrders(int userId) throws DaoException {
         ArrayList<Order> orders = new ArrayList<>();
         try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(SELECT_BY_USER_ID);
+            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(GET_USERS_ORDERS.getQuery());
             preparedStatement.setInt(1, userId);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                orders.add(extractFromResulSet(resultSet));
+                orders.add(extractFromResultSet(resultSet));
             }
             resultSet.close();
 
@@ -83,25 +114,7 @@ public class OrderSqlDao implements OrderDao {
     }
 
     @Override
-    public Order findOrderById(int id) throws DaoException {
-        Order order = null;
-        try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(SELECT_ORDER_BY_ID);
-            preparedStatement.setInt(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                order = extractFromResulSet(resultSet);
-            }
-            resultSet.close();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return order;
-    }
-
-    @Override
-    public Order extractFromResulSet(ResultSet resultSet) throws DaoException {
+    public Order extractFromResultSet(ResultSet resultSet) throws DaoException {
         User user = new User();
         Order order = new Order();
         try {

@@ -6,36 +6,28 @@ import ua.rudikc.cinema.dao.exception.DaoException;
 import ua.rudikc.cinema.db.ConnectionPool;
 import ua.rudikc.cinema.model.Film;
 
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import static ua.rudikc.cinema.dao.sqlimplementation.Queries.*;
 import static ua.rudikc.cinema.utils.Constants.*;
 
 public class FilmSqlDao implements FilmDao {
 
-    Logger logger = Logger.getLogger(FilmSqlDao.class);
-
-    private static final String SELECT_ALL_ACTUAL_FILMS = "SELECT * FROM cinema_db.films WHERE is_actual = 1";
-    private static final String SELECT_BY_ID = "SELECT * FROM cinema_db.films WHERE film_id = ?";
-    private static final String SELECT_BY_NAME = "SELECT * FROM cinema_db.films WHERE film_name = ?";
-    private static final String DELETE_BY_ID = "DELETE FROM cinema_db.films WHERE film_id = ?";
-    private final static String UPDATE_FILM = "UPDATE cinema_db.films SET film_name=?,director=?,premiere_date=?,duration=?,poster_pic=? WHERE film_id =?";
-    private final static String INSERT_FILM = "INSERT INTO cinema_db.films (film_name,director,premiere_date,duration,poster_pic) VALUES (?,?,?,?,?)";
+    private static final Logger logger = Logger.getLogger(FilmSqlDao.class);
 
 
     @Override
-    public Film findFilmById(int id) throws DaoException {
-        Film film = null;
+    public Optional<Film> get(int id) throws DaoException {
+        Optional<Film> film = Optional.empty();
         try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(SELECT_BY_ID);
+            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(GET_FILM.getQuery());
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                film = extractFromResultSet(resultSet);
+                film = Optional.of(extractFromResultSet(resultSet));
             }
             resultSet.close();
         } catch (SQLException e) {
@@ -45,14 +37,74 @@ public class FilmSqlDao implements FilmDao {
     }
 
     @Override
-    public Film findFilmByName(String name) throws DaoException {
-        Film film = null;
+    public List<Film> getAll() throws DaoException {
+        List<Film> films = new ArrayList<>();
         try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(SELECT_BY_NAME);
+            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(GET_ALL_FILMS.getQuery());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                films.add(extractFromResultSet(resultSet));
+            }
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return films;
+    }
+
+    @Override
+    public void save(Film film) throws DaoException {
+        try {
+            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(INSERT_FILM.getQuery());
+            preparedStatement.setString(1, film.getName());
+            preparedStatement.setString(2, film.getDirector());
+            preparedStatement.setDate(3, (Date) film.getPremiereDate());
+            preparedStatement.setTime(4, film.getDuration());
+            preparedStatement.setString(5, film.getPosterPic());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void delete(Film film) throws DaoException {
+        try {
+            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(DELETE_FILM.getQuery());
+            preparedStatement.setInt(1, film.getId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void update(Film film) throws DaoException {
+        try {
+            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(UPDATE_FILM.getQuery());
+            preparedStatement.setString(1, film.getName());
+            preparedStatement.setString(2, film.getDirector());
+            preparedStatement.setDate(3, (Date) film.getPremiereDate());
+            preparedStatement.setTime(4, film.getDuration());
+            preparedStatement.setString(5, film.getPosterPic());
+            preparedStatement.setInt(6, film.getId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public Optional<Film> findFilmByName(String name) {
+        Optional<Film> film = Optional.empty();
+        try {
+            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(GET_FILM_BY_NAME.getQuery());
             preparedStatement.setString(1, name);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                film = extractFromResultSet(resultSet);
+                film = Optional.of(extractFromResultSet(resultSet));
             }
             resultSet.close();
         } catch (SQLException e) {
@@ -62,52 +114,10 @@ public class FilmSqlDao implements FilmDao {
     }
 
     @Override
-    public void createFilm(Film film) throws DaoException {
-        try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(INSERT_FILM);
-            preparedStatement.setString(1, film.getName());
-            preparedStatement.setString(2, film.getDirector());
-            preparedStatement.setDate(3, (Date) film.getPremiereDate());
-            preparedStatement.setTime(4, film.getDuration());
-            preparedStatement.setString(5, film.getPosterPic());
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    @Override
-    public void deleteFilm(int id) throws DaoException {
-        try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(DELETE_BY_ID);
-            preparedStatement.setInt(1, id);
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    @Override
-    public void updateFilm(Film film) throws DaoException {
-        try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(UPDATE_FILM);
-            preparedStatement.setString(1, film.getName());
-            preparedStatement.setString(2, film.getDirector());
-            preparedStatement.setDate(3, (Date) film.getPremiereDate());
-            preparedStatement.setTime(4, film.getDuration());
-            preparedStatement.setString(5, film.getPosterPic());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public ArrayList<Film> findActualFilms() throws DaoException {
+    public List<Film> findActualFilms() throws DaoException {
         ArrayList<Film> resultFilms = new ArrayList<>();
         try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(SELECT_ALL_ACTUAL_FILMS);
+            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(GET_ALL_ACTUAL_FILMS.getQuery());
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 resultFilms.add(extractFromResultSet(resultSet));

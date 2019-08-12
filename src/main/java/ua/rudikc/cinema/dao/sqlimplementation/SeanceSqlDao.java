@@ -11,61 +11,53 @@ import ua.rudikc.cinema.model.Seance;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import static ua.rudikc.cinema.dao.sqlimplementation.Queries.*;
 import static ua.rudikc.cinema.utils.Constants.*;
 
 public class SeanceSqlDao implements SeanceDao {
 
-    private Logger logger = Logger.getLogger(SeanceSqlDao.class);
-
-
-    private static final String FIND_SEANCES_BY_DATE = "SELECT * FROM cinema_db.seances WHERE DATE(seance_start) = ?";
-    private static final String FIND_BY_ID = "SELECT * FROM cinema_db.seances WHERE seance_id = ?";
-    private static final String DELETE_BY_ID = "DELETE FROM cinema_db.seances WHERE seance_id = ?";
-    private final static String UPDATE_SEANCE = "UPDATE cinema_db.seances SET seance_start=?,seance_end=?,film_id=?,ticket_price=? WHERE seance_id=?";
-    private static final String INSERT_SEANCE = "INSERT INTO cinema_db.seances (seance_start,seance_end,film_id,ticket_price) VALUES (?,?,?,?)";
-
+    private static final Logger logger = Logger.getLogger(SeanceSqlDao.class);
 
     @Override
-    public List<Seance> findSeancesByDate(String date) throws DaoException {
-        ArrayList<Seance> seances = new ArrayList<>();
+    public Optional<Seance> get(int id) throws DaoException {
+        Optional<Seance> seance = Optional.empty();
         try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(FIND_SEANCES_BY_DATE);
-            preparedStatement.setString(1, date);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()){
-                seances.add(extractFromResultSet(resultSet));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return seances;
-    }
-
-    @Override
-    public Seance findSeanceById(int id) throws DaoException {
-        Seance seance = null;
-        try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(FIND_BY_ID);
+            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(GET_SEANCE.getQuery());
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                return extractFromResultSet(resultSet);
+                return Optional.of(extractFromResultSet(resultSet));
             }
             resultSet.close();
-
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Unable to find a seance by id ", e);
             throw new DaoException();
         }
-        return null;
+        return seance;
     }
 
     @Override
-    public void updateSeance(Seance seance) throws DaoException {
+    public List<Seance> getAll() throws DaoException {
+        List<Seance> seances = new ArrayList<>();
         try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(UPDATE_SEANCE);
+            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(GET_ALL_SEANCES.getQuery());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                seances.add(extractFromResultSet(resultSet));
+            }
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return seances;
+    }
+
+    @Override
+    public void update(Seance seance) throws DaoException {
+        try {
+            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(UPDATE_SEANCE.getQuery());
             preparedStatement.setTimestamp(1, (Timestamp) seance.getStart());
             preparedStatement.setTimestamp(2, (Timestamp) seance.getEnd());
             preparedStatement.setInt(3, seance.getFilm().getId());
@@ -79,9 +71,9 @@ public class SeanceSqlDao implements SeanceDao {
     }
 
     @Override
-    public void createSeance(Seance seance) throws DaoException {
+    public void save(Seance seance) throws DaoException {
         try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(INSERT_SEANCE);
+            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(INSERT_SEANCE.getQuery());
             preparedStatement.setTimestamp(1, (Timestamp) seance.getStart());
             preparedStatement.setTimestamp(2, (Timestamp) seance.getEnd());
             preparedStatement.setInt(3, seance.getFilm().getId());
@@ -95,15 +87,32 @@ public class SeanceSqlDao implements SeanceDao {
     }
 
     @Override
-    public void deleteSeance(Seance seance) throws DaoException {
+    public void delete(Seance seance) throws DaoException {
         try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(DELETE_BY_ID);
+            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(DELETE_SEANCE.getQuery());
             preparedStatement.setInt(1, seance.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Unable to delete a seance ", e);
             throw new DaoException("Seance cant be deleted");
         }
+    }
+
+    @Override
+    public List<Seance> findSeancesByDate(String date) throws DaoException {
+        ArrayList<Seance> seances = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(GET_SEANCES_BY_DATE.getQuery());
+            preparedStatement.setString(1, date);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                seances.add(extractFromResultSet(resultSet));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return seances;
     }
 
     @Override

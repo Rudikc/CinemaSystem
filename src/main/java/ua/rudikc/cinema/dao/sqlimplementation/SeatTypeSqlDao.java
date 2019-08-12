@@ -11,23 +11,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import static ua.rudikc.cinema.dao.sqlimplementation.Queries.*;
 import static ua.rudikc.cinema.utils.Constants.*;
 
 public class SeatTypeSqlDao implements SeatTypeDao {
 
     Logger logger = Logger.getLogger(SeatTypeSqlDao.class);
 
-    private static final String SELECT_ALL_TYPES = "SELECT * FROM cinema_db.seat_types";
-    private static final String SELECT_BY_ID = "SELECT * FROM cinema_db.seat_types WHERE seat_type_id=?";
-    private static final String DELETE_BY_ID = "DELETE FROM cinema_db.seat_types WHERE seat_type_id = ?";
-    private static final String INSERT_SEAT_TYPE = "INSERT INTO  cinema_db.seat_types (seat_type,price_multiplier) VALUES (?,?)";
-
-
     @Override
-    public void createSeatType(SeatType seatType) throws DaoException {
+    public void save(SeatType seatType) throws DaoException {
         try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(INSERT_SEAT_TYPE);
+            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(INSERT_SEAT_TYPE.getQuery());
             preparedStatement.setString(1, seatType.getType());
             preparedStatement.setDouble(2, seatType.getPriceMultiplier());
             preparedStatement.executeUpdate();
@@ -37,10 +33,12 @@ public class SeatTypeSqlDao implements SeatTypeDao {
     }
 
     @Override
-    public void deleteSeatType(int id) throws DaoException {
+    public void update(SeatType seatType) throws DaoException {
         try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(DELETE_BY_ID);
-            preparedStatement.setInt(1, id);
+            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(UPDATE_SEAT_TYPE.getQuery());
+            preparedStatement.setString(1, seatType.getType());
+            preparedStatement.setDouble(2, seatType.getPriceMultiplier());
+            preparedStatement.setInt(3, seatType.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -48,16 +46,26 @@ public class SeatTypeSqlDao implements SeatTypeDao {
     }
 
     @Override
-    public SeatType findSeatTypeById(int id) throws DaoException {
-        SeatType seatType = null;
+    public void delete(SeatType seatType) throws DaoException {
         try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(SELECT_BY_ID);
+            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(DELETE_SEAT_TYPE.getQuery());
+            preparedStatement.setInt(1, seatType.getId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public Optional<SeatType> get(int id) throws DaoException {
+        Optional<SeatType> seatType = Optional.empty();
+        try {
+            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(GET_SEAT_TYPE.getQuery());
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                seatType = extractSeatFromResultSet(resultSet);
+                seatType = Optional.of(extractSeatFromResultSet(resultSet));
             }
             resultSet.close();
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -65,16 +73,15 @@ public class SeatTypeSqlDao implements SeatTypeDao {
     }
 
     @Override
-    public List<SeatType> findAllSeatTypes() throws DaoException {
+    public List<SeatType> getAll() throws DaoException {
         ArrayList<SeatType> seatTypes = new ArrayList<>();
         try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(SELECT_ALL_TYPES);
+            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(GET_ALL_SEAT_TYPES.getQuery());
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 seatTypes.add(extractSeatFromResultSet(resultSet));
             }
             resultSet.close();
-
         } catch (SQLException e) {
             e.printStackTrace();
         }

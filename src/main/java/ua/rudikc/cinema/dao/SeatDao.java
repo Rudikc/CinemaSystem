@@ -6,14 +6,6 @@ import ua.rudikc.cinema.model.Seat;
 import java.sql.ResultSet;
 import java.util.List;
 
-public interface SeatDao {
-    Seat findSeatById(int id) throws DaoException;
-
-    List<Seat> findAllSeats() throws DaoException;
-
-    void createSeat(Seat seat) throws DaoException;
-
-    void deleteSeat(int id) throws DaoException;
-
+public interface SeatDao extends Dao<Seat> {
     Seat extractSeatFromResultSet(ResultSet resultSet) throws DaoException;
 }

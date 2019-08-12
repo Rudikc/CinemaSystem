@@ -13,31 +13,26 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import static ua.rudikc.cinema.dao.sqlimplementation.Queries.*;
 import static ua.rudikc.cinema.utils.Constants.*;
 
 public class SeatSqlDao implements SeatDao {
 
-    Logger logger = Logger.getLogger(Seat.class);
-
-    private static final String SELECT_ALL_SEATS = "SELECT * FROM cinema_db.seats";
-    private static final String SELECT_SEAT_BY_ID = "SELECT * FROM cinema_db.seats WHERE seat_id =?";
-    private static final String DELETE_SEAT_BY_ID = "DELETE FROM cinema_db.seats WHERE seat_id =?";
-    private static final String INSERT_SEAT = "INSERT INTO cinema_db.seats(seat_row,seat_place,seat_type_id) VALUES(?,?,?)";
-
+    private static final Logger logger = Logger.getLogger(Seat.class);
 
     @Override
-    public Seat findSeatById(int id) throws DaoException {
-        Seat seat = null;
+    public Optional<Seat> get(int id) throws DaoException {
+        Optional<Seat> seat = Optional.empty();
         try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(SELECT_SEAT_BY_ID);
+            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(GET_SEAT.getQuery());
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                seat = extractSeatFromResultSet(resultSet);
+                seat = Optional.of(extractSeatFromResultSet(resultSet));
             }
             resultSet.close();
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -45,16 +40,15 @@ public class SeatSqlDao implements SeatDao {
     }
 
     @Override
-    public List<Seat> findAllSeats() throws DaoException {
+    public List<Seat> getAll() throws DaoException {
         List<Seat> seats = new ArrayList<>();
         try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(SELECT_ALL_SEATS);
+            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(GET_ALL_SEATS.getQuery());
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 seats.add(extractSeatFromResultSet(resultSet));
             }
             resultSet.close();
-
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Unable to find all seats ", e);
             throw new DaoException();
@@ -63,9 +57,9 @@ public class SeatSqlDao implements SeatDao {
     }
 
     @Override
-    public void createSeat(Seat seat) throws DaoException {
+    public void save(Seat seat) throws DaoException {
         try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(INSERT_SEAT);
+            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(INSERT_SEAT.getQuery());
             preparedStatement.setInt(1, seat.getRow());
             preparedStatement.setInt(2, seat.getPlace());
             preparedStatement.setInt(3, seat.getSeatType().getId());
@@ -77,10 +71,24 @@ public class SeatSqlDao implements SeatDao {
     }
 
     @Override
-    public void deleteSeat(int id) throws DaoException {
+    public void update(Seat seat) throws DaoException {
         try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(DELETE_SEAT_BY_ID);
-            preparedStatement.setInt(1, id);
+            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(UPDATE_SEAT.getQuery());
+            preparedStatement.setInt(1, seat.getRow());
+            preparedStatement.setInt(2, seat.getPlace());
+            preparedStatement.setInt(3, seat.getSeatType().getId());
+            preparedStatement.setInt(4, seat.getId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void delete(Seat seat) throws DaoException {
+        try {
+            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(DELETE_SEAT.getQuery());
+            preparedStatement.setInt(1, seat.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Unable to delete a seat ", e);

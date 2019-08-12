@@ -6,17 +6,8 @@ import ua.rudikc.cinema.model.Seance;
 import java.sql.ResultSet;
 import java.util.List;
 
-public interface SeanceDao {
+public interface SeanceDao extends Dao<Seance> {
     List<Seance> findSeancesByDate(String date) throws DaoException;
 
-    Seance findSeanceById(int id) throws DaoException;
-
-    void updateSeance(Seance seance) throws DaoException;
-
-    void createSeance(Seance seance) throws DaoException;
-
-    void deleteSeance(Seance seance) throws DaoException;
-
     Seance extractFromResultSet(ResultSet resultSet) throws DaoException;
-
 }

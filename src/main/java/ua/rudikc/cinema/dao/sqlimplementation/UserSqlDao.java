@@ -11,7 +11,11 @@ import ua.rudikc.cinema.model.UserRole;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
+import static ua.rudikc.cinema.dao.sqlimplementation.Queries.*;
 import static ua.rudikc.cinema.utils.Constants.*;
 
 
@@ -19,25 +23,15 @@ public class UserSqlDao implements UserDao {
 
     private final static Logger logger = Logger.getLogger(UserSqlDao.class);
 
-    private static final String SELECT_BY_ID = "SELECT * FROM cinema_db.users WHERE user_id = ?";
-    private static final String SELECT_BY_EMAIL_AND_PASSWORD = "SELECT * FROM cinema_db.users WHERE email = ? AND password = ?";
-    private static final String SELECT_BY_EMAIL = "SELECT * FROM cinema_db.users WHERE email = ?";
-    private static final String UPDATE_ROLE = "UPDATE cinema_db.users SET user_role = ? WHERE user_id = ?";
-    private final static String UPDATE_USER = "UPDATE cinema_db.users SET password=?, email=? ,first_name=?, last_name=?, user_role=?, phone=? WHERE user_id=?";
-    private static final String INSERT_USER = "INSERT INTO cinema_db.users (password,email,first_name,last_name,user_role,phone) VALUES (?,?,?,?,?,?)";
-
-    public UserSqlDao() {
-    }
-
     @Override
-    public User getUserById(int id) throws DaoException {
-        User user = null;
+    public Optional<User> get(int id) throws DaoException {
+        Optional<User> user = Optional.empty();
         try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(SELECT_BY_ID);
+            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(GET_USER.getQuery());
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                user = extractFromResultSet(resultSet);
+                user = Optional.of(extractFromResultSet(resultSet));
             }
 
             resultSet.close();
@@ -49,9 +43,26 @@ public class UserSqlDao implements UserDao {
     }
 
     @Override
-    public void createUser(User user) throws DaoException {
+    public List<User> getAll() throws DaoException {
+        List<User> users = new ArrayList<>();
         try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(INSERT_USER);
+            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(GET_ALL_USERS.getQuery());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                users.add(extractFromResultSet(resultSet));
+            }
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
+
+    }
+
+    @Override
+    public void save(User user) throws DaoException {
+        try {
+            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(INSERT_USER.getQuery());
             preparedStatement.setString(1, user.getPassword());
             preparedStatement.setString(2, user.getEmail());
             preparedStatement.setString(3, user.getFirstName());
@@ -66,9 +77,9 @@ public class UserSqlDao implements UserDao {
     }
 
     @Override
-    public void updateUser(User user) throws DaoException {
+    public void update(User user) throws DaoException {
         try {
-            PreparedStatement statement = ConnectionPool.getConnection().prepareStatement(UPDATE_USER);
+            PreparedStatement statement = ConnectionPool.getConnection().prepareStatement(UPDATE_USER.getQuery());
             statement.setString(1, user.getPassword());
             statement.setString(2, user.getEmail());
             statement.setString(3, user.getFirstName());
@@ -84,14 +95,20 @@ public class UserSqlDao implements UserDao {
     }
 
     @Override
-    public void deleteUser(User user) {
-        throw new UnsupportedOperationException();
+    public void delete(User user) {
+        try {
+            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(DELETE_USER.getQuery());
+            preparedStatement.setInt(1, user.getId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void changeUserRole(User user, UserRole userRole) throws DaoException {
         try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(UPDATE_ROLE);
+            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(UPDATE_USERS_ROLE.getQuery());
             preparedStatement.setString(1, String.valueOf(userRole));
             preparedStatement.setInt(2, user.getId());
             preparedStatement.executeUpdate();
@@ -101,13 +118,10 @@ public class UserSqlDao implements UserDao {
         }
     }
 
-    /**
-     * mistake with return statement
-     */
     @Override
     public boolean isRegistered(String email) throws DaoException {
         try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(SELECT_BY_EMAIL);
+            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(GET_USER_BY_EMAIL.getQuery());
             preparedStatement.setString(1, email);
             ResultSet resultSet = preparedStatement.executeQuery();
             return resultSet.next();
@@ -122,13 +136,14 @@ public class UserSqlDao implements UserDao {
     public User findByEmailAndPassword(String email, String password) throws DaoException {
         User user = null;
         try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(SELECT_BY_EMAIL_AND_PASSWORD);
+            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(GET_USER_BY_EMAIL_AND_PASSWORD.getQuery());
             preparedStatement.setString(1, email);
             preparedStatement.setString(2, password);
             ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()){
-                user=extractFromResultSet(resultSet);
+            if (resultSet.next()) {
+                user = extractFromResultSet(resultSet);
             }
+            resultSet.close();
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Unable to find user by email and password ", e);
             throw new DaoException();
