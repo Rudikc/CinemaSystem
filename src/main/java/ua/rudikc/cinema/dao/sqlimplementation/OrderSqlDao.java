@@ -4,8 +4,8 @@ import org.apache.log4j.Logger;
 import ua.rudikc.cinema.dao.OrderDao;
 import ua.rudikc.cinema.dao.exception.DaoException;
 import ua.rudikc.cinema.db.ConnectionPool;
-import ua.rudikc.cinema.model.Order;
-import ua.rudikc.cinema.model.User;
+import ua.rudikc.cinema.entity.Order;
+import ua.rudikc.cinema.entity.User;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -121,6 +121,7 @@ public class OrderSqlDao implements OrderDao {
             order.setId(resultSet.getInt(ORDER_ID));
             order.setPrice(resultSet.getDouble(ORDER_PRICE));
             user.setId(resultSet.getInt(ORDER_USER_ID));
+            order.setOrderTime(resultSet.getTimestamp(ORDER_ORDER_TIME));
             order.setUser(user);
         } catch (SQLException e) {
             e.printStackTrace();

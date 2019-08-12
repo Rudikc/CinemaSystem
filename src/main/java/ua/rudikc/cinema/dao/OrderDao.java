@@ -1,7 +1,7 @@
 package ua.rudikc.cinema.dao;
 
 import ua.rudikc.cinema.dao.exception.DaoException;
-import ua.rudikc.cinema.model.Order;
+import ua.rudikc.cinema.entity.Order;
 
 import java.sql.ResultSet;
 import java.util.List;

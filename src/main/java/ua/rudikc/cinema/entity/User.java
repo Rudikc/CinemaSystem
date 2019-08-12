@@ -1,6 +1,4 @@
-package ua.rudikc.cinema.model;
-
-import java.util.Date;
+package ua.rudikc.cinema.entity;
 
 public class User {
 

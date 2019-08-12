@@ -1,19 +1,18 @@
-package ua.rudikc.cinema.command.profile;
+package ua.rudikc.cinema.controller.actions.profile;
 
 import org.apache.log4j.Logger;
-import ua.rudikc.cinema.command.Command;
+import ua.rudikc.cinema.controller.actions.Action;
 import ua.rudikc.cinema.dao.UserDao;
 import ua.rudikc.cinema.dao.exception.DaoException;
 import ua.rudikc.cinema.dao.sqlimplementation.UserSqlDao;
-import ua.rudikc.cinema.factory.DaoFactory;
-import ua.rudikc.cinema.model.User;
+import ua.rudikc.cinema.entity.User;
 import ua.rudikc.cinema.utils.PassowordHashing;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 
-public class LoginCommand implements Command {
+public class LoginAction implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         UserDao userDao = new UserSqlDao();
@@ -35,7 +34,7 @@ public class LoginCommand implements Command {
             return "login";
         }
         request.getSession().setAttribute("user", user);
-        final Logger logger = Logger.getLogger(LoginCommand.class);
+        final Logger logger = Logger.getLogger(LoginAction.class);
         logger.error("New sql exception",new SQLException());
         logger.info("something useless happened");
 

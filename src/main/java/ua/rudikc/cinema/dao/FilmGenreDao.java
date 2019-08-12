@@ -1,7 +1,7 @@
 package ua.rudikc.cinema.dao;
 
 import ua.rudikc.cinema.dao.exception.DaoException;
-import ua.rudikc.cinema.model.FilmGenre;
+import ua.rudikc.cinema.entity.FilmGenre;
 
 import java.sql.ResultSet;
 import java.util.Optional;

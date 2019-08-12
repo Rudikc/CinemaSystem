@@ -1,11 +1,9 @@
 package ua.rudikc.cinema.dao;
 
 import ua.rudikc.cinema.dao.exception.DaoException;
-import ua.rudikc.cinema.model.Film;
-import ua.rudikc.cinema.model.User;
+import ua.rudikc.cinema.entity.Film;
 
 import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

@@ -1,4 +1,4 @@
-package ua.rudikc.cinema.model;
+package ua.rudikc.cinema.entity;
 
 import java.util.Date;
 

@@ -5,8 +5,8 @@ import org.apache.log4j.Logger;
 import ua.rudikc.cinema.dao.SeanceDao;
 import ua.rudikc.cinema.dao.exception.DaoException;
 import ua.rudikc.cinema.db.ConnectionPool;
-import ua.rudikc.cinema.model.Film;
-import ua.rudikc.cinema.model.Seance;
+import ua.rudikc.cinema.entity.Film;
+import ua.rudikc.cinema.entity.Seance;
 
 import java.sql.*;
 import java.util.ArrayList;

@@ -2,11 +2,13 @@ package ua.rudikc.cinema.service;
 
 import ua.rudikc.cinema.dao.exception.DaoException;
 import ua.rudikc.cinema.dao.sqlimplementation.FilmSqlDao;
+import ua.rudikc.cinema.entity.Film;
 import ua.rudikc.cinema.factory.DaoFactory;
-import ua.rudikc.cinema.model.Seance;
+import ua.rudikc.cinema.entity.Seance;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class SeanceService {
 
@@ -16,7 +18,7 @@ public class SeanceService {
         for (Seance seance : seances) {
             int filmId = seance.getFilm().getId();
             try {
-                seance.setFilm(filmDao.findFilmById(filmId));
+                filmDao.get(filmId).ifPresent(seance::setFilm);
                 seancesResult.add(seance);
             } catch (DaoException e) {
                 e.printStackTrace();

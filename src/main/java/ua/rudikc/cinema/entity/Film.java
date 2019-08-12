@@ -1,8 +1,7 @@
-package ua.rudikc.cinema.model;
+package ua.rudikc.cinema.entity;
 
 import java.sql.Time;
 import java.util.Date;
-import java.util.Set;
 
 public class Film {
 
@@ -11,7 +10,6 @@ public class Film {
     private String director;
     private Date premiereDate;
     private Time duration;
-    private Set<FilmGenre> genres;
     private String posterPic;
 
 
@@ -73,13 +71,5 @@ public class Film {
 
     public void setPosterPic(String posterPic) {
         this.posterPic = posterPic;
-    }
-
-    public Set<FilmGenre> getGenres() {
-        return genres;
-    }
-
-    public void setGenres(Set<FilmGenre> genres) {
-        this.genres = genres;
     }
 }

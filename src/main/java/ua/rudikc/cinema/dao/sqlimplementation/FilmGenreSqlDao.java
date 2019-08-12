@@ -4,7 +4,7 @@ import org.apache.log4j.Logger;
 import ua.rudikc.cinema.dao.FilmGenreDao;
 import ua.rudikc.cinema.dao.exception.DaoException;
 import ua.rudikc.cinema.db.ConnectionPool;
-import ua.rudikc.cinema.model.FilmGenre;
+import ua.rudikc.cinema.entity.FilmGenre;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

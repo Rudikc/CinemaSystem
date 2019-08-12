@@ -41,7 +41,7 @@ public class Constants {
     public static final String SEAT_ID = "seat_id";
     public static final String SEAT_ROW = "seat_row";
     public static final String SEAT_PLACE = "seat_place";
-    public static final String SEAT_SEAT_TYPE_ID = "seat_types_id";
+    public static final String SEAT_SEAT_TYPE_ID = "seat_type_id";
 
     //Orders
     public static final String ORDER_ID = "order_id";

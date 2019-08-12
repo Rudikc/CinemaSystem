@@ -1,12 +1,12 @@
-package ua.rudikc.cinema.command.utils;
+package ua.rudikc.cinema.controller.actions.utils;
 
-import ua.rudikc.cinema.command.Command;
+import ua.rudikc.cinema.controller.actions.Action;
 import ua.rudikc.cinema.factory.LanguageBundleFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class ChangeLanguageCommand implements Command {
+public class ChangeLanguageAction implements Action {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {

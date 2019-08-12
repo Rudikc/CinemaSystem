@@ -1,10 +1,9 @@
 package ua.rudikc.cinema.dao.sqlimplementation;
 
-import org.apache.log4j.Level;
 import org.junit.Test;
 import ua.rudikc.cinema.dao.exception.DaoException;
 import ua.rudikc.cinema.db.ConnectionPool;
-import ua.rudikc.cinema.model.User;
+import ua.rudikc.cinema.entity.User;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

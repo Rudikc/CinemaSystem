@@ -1,4 +1,4 @@
-package ua.rudikc.cinema.model;
+package ua.rudikc.cinema.entity;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -9,7 +9,6 @@ public class Order {
     private User user;
     private double price;
     private Date orderTime;
-    private ArrayList<Ticket> tickets;
 
     public Order() {
     }
@@ -51,13 +50,5 @@ public class Order {
 
     public void setOrderTime(Date orderTime) {
         this.orderTime = orderTime;
-    }
-
-    public ArrayList<Ticket> getTickets() {
-        return tickets;
-    }
-
-    public void setTickets(ArrayList<Ticket> tickets) {
-        this.tickets = tickets;
     }
 }

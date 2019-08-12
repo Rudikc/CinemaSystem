@@ -5,8 +5,8 @@ import org.apache.log4j.Logger;
 import ua.rudikc.cinema.dao.UserDao;
 import ua.rudikc.cinema.dao.exception.DaoException;
 import ua.rudikc.cinema.db.ConnectionPool;
-import ua.rudikc.cinema.model.User;
-import ua.rudikc.cinema.model.UserRole;
+import ua.rudikc.cinema.entity.User;
+import ua.rudikc.cinema.entity.UserRole;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

@@ -4,8 +4,8 @@ import ua.rudikc.cinema.dao.exception.DaoException;
 import ua.rudikc.cinema.dao.sqlimplementation.SeatSqlDao;
 import ua.rudikc.cinema.dao.sqlimplementation.TicketSqlDao;
 import ua.rudikc.cinema.factory.DaoFactory;
-import ua.rudikc.cinema.model.Seat;
-import ua.rudikc.cinema.model.Ticket;
+import ua.rudikc.cinema.entity.Seat;
+import ua.rudikc.cinema.entity.Ticket;
 
 import java.util.*;
 
@@ -14,7 +14,7 @@ public class SeatService {
         SeatSqlDao seatSqlDao = (SeatSqlDao) DaoFactory.getDao("seatDao");
         Map<Integer, ArrayList<Seat>> seatsMap = new TreeMap<>();
         try {
-            List<Seat> allSeats = seatSqlDao.findAllSeats();
+            List<Seat> allSeats = seatSqlDao.getAll();
             for (Seat seat : allSeats) {
                 if (seatsMap.get(seat.getRow()) != null) {
                     seatsMap.get(seat.getRow()).add(seat);

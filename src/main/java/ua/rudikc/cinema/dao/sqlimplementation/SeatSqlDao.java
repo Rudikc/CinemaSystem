@@ -5,8 +5,8 @@ import org.apache.log4j.Logger;
 import ua.rudikc.cinema.dao.SeatDao;
 import ua.rudikc.cinema.dao.exception.DaoException;
 import ua.rudikc.cinema.db.ConnectionPool;
-import ua.rudikc.cinema.model.Seat;
-import ua.rudikc.cinema.model.SeatType;
+import ua.rudikc.cinema.entity.Seat;
+import ua.rudikc.cinema.entity.SeatType;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

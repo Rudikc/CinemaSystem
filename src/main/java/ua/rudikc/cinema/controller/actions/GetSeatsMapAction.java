@@ -1,14 +1,14 @@
-package ua.rudikc.cinema.command;
+package ua.rudikc.cinema.controller.actions;
 
 import ua.rudikc.cinema.factory.ServiceFactory;
-import ua.rudikc.cinema.model.Seat;
+import ua.rudikc.cinema.entity.Seat;
 import ua.rudikc.cinema.service.SeatService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 
-public class GetSeatsMapCommand implements Command {
+public class GetSeatsMapAction implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         SeatService seatService = (SeatService) ServiceFactory.getService("seatService");

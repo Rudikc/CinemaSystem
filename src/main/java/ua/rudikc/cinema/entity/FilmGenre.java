@@ -1,12 +1,9 @@
-package ua.rudikc.cinema.model;
-
-import java.util.Set;
+package ua.rudikc.cinema.entity;
 
 public class FilmGenre {
 
     private int id;
     private String name;
-    private Set<Film> films;
 
     public FilmGenre() {
     }
@@ -30,13 +27,5 @@ public class FilmGenre {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Set<Film> getFilms() {
-        return films;
-    }
-
-    public void setFilms(Set<Film> films) {
-        this.films = films;
     }
 }

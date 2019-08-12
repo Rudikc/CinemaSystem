@@ -1,17 +1,17 @@
-package ua.rudikc.cinema.command.profile;
+package ua.rudikc.cinema.controller.actions.profile;
 
-import ua.rudikc.cinema.command.Command;
+import ua.rudikc.cinema.controller.actions.Action;
 import ua.rudikc.cinema.dao.UserDao;
 import ua.rudikc.cinema.dao.exception.DaoException;
 import ua.rudikc.cinema.factory.DaoFactory;
-import ua.rudikc.cinema.model.User;
+import ua.rudikc.cinema.entity.User;
 import ua.rudikc.cinema.utils.AuthorizationHelper;
 import ua.rudikc.cinema.utils.PassowordHashing;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class RegisterCommand implements Command {
+public class RegisterAction implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         UserDao dao = (UserDao) DaoFactory.getDao("userDao");
@@ -33,7 +33,7 @@ public class RegisterCommand implements Command {
             return "register";
         }
         try {
-            dao.createUser(user);
+            dao.save(user);
             request.getSession().setAttribute("loginMessage","login.registration.success");
         } catch (DaoException e) {
             e.printStackTrace();

@@ -1,17 +1,17 @@
-package ua.rudikc.cinema.command;
+package ua.rudikc.cinema.controller.actions;
 
 import ua.rudikc.cinema.dao.SeanceDao;
 import ua.rudikc.cinema.dao.exception.DaoException;
 import ua.rudikc.cinema.factory.DaoFactory;
 import ua.rudikc.cinema.factory.ServiceFactory;
-import ua.rudikc.cinema.model.Seance;
+import ua.rudikc.cinema.entity.Seance;
 import ua.rudikc.cinema.service.SeanceService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-public class GetSeancesCommand implements Command {
+public class GetSeancesAction implements Action {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {

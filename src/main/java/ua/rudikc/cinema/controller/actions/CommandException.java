@@ -1,4 +1,4 @@
-package ua.rudikc.cinema.command;
+package ua.rudikc.cinema.controller.actions;
 
 public class CommandException extends Exception {
 

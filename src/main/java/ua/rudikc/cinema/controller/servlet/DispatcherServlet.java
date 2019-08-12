@@ -1,6 +1,6 @@
-package ua.rudikc.cinema.servlet;
+package ua.rudikc.cinema.controller.servlet;
 
-import ua.rudikc.cinema.command.Command;
+import ua.rudikc.cinema.controller.actions.Action;
 import ua.rudikc.cinema.factory.CommandFactory;
 
 import javax.servlet.ServletException;
@@ -26,9 +26,9 @@ public class DispatcherServlet extends HttpServlet {
     }
 
     private void handleRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Command command = CommandFactory.defineCommand(req);
+        Action action = CommandFactory.defineCommand(req);
         String resultPage;
-        resultPage = command.execute(req, resp);
+        resultPage = action.execute(req, resp);
         if (req.getMethod().equals("POST")) {
             resp.sendRedirect(resultPage);
         } else if (req.getMethod().equals("GET")){
