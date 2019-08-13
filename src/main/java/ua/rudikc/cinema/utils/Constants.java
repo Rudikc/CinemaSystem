@@ -7,7 +7,6 @@ public class Constants {
     public static final String LOCALE = "locale";
     public static final String BUNDLE = "bundle";
 
-
     //Database table names
 
     //Users

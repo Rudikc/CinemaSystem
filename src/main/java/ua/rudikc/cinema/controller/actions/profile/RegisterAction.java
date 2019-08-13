@@ -11,10 +11,11 @@ import ua.rudikc.cinema.utils.PassowordHashing;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 public class RegisterAction implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        UserDao dao = (UserDao) DaoFactory.getDao("userDao");
+        UserDao dao = (UserDao) DaoFactory.getDao(DaoFactory.USER_DAO);
         User user;
         String email = request.getParameter("email");
         String password = request.getParameter("password");
