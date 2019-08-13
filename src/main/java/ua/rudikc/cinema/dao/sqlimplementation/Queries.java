@@ -53,7 +53,7 @@ public enum Queries {
     GET_ALL_TICKETS_BY_SESSION_ID("SELECT * FROM cinema_db.tickets WHERE seance_id = ?"),
     GET_ALL_TICKETS_BY_ORDER_ID("SELECT * FROM cinema_db.tickets WHERE order_id = ?"),
     GET_ALL_TICKETS("SELECT * FROM cinema_db.tickets"),
-    GET_TICKET("SELECT * FROM cinema_db.tickets WHERE order_id = ?"),
+    GET_TICKET("SELECT * FROM cinema_db.tickets WHERE ticket_id = ?"),
     INSERT_TICKET("INSERT INTO cinema_db.tickets (seat_id,order_id,seance_id) VALUES (?,?,?)"),
     DELETE_TICKET("DELETE FROM cinema_db.tickets WHERE ticket_id=?"),
     UPDATE_TICKET("UPDATE cinema_db.tickets SET seat_id=?,order_id=?,seance_id=? WHERE ticket_id=?"),
