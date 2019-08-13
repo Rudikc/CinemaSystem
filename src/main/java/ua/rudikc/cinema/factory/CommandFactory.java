@@ -1,9 +1,6 @@
 package ua.rudikc.cinema.factory;
 
-import ua.rudikc.cinema.controller.actions.Action;
-import ua.rudikc.cinema.controller.actions.GetSeancesAction;
-import ua.rudikc.cinema.controller.actions.GetSeatsMapAction;
-import ua.rudikc.cinema.controller.actions.HomeAction;
+import ua.rudikc.cinema.controller.actions.*;
 import ua.rudikc.cinema.controller.actions.profile.GetUserProfileAction;
 import ua.rudikc.cinema.controller.actions.profile.LoginAction;
 import ua.rudikc.cinema.controller.actions.profile.LogoutAction;
@@ -20,9 +17,9 @@ public class CommandFactory {
 
     static {
         commands = new HashMap<>();
+        commands.put("/",new HomeAction());
         commands.put("/login",new LoginAction());
         commands.put("/logout",new LogoutAction());
-        commands.put("/",new HomeAction());
         commands.put("/seances",new GetSeancesAction());
         commands.put("/changeLanguage",new ChangeLanguageAction());
         commands.put("/register",new RegisterAction());
@@ -32,7 +29,7 @@ public class CommandFactory {
     }
 
     public static Action defineCommand(HttpServletRequest request) {
-        return commands.getOrDefault(request.getPathInfo(), new HomeAction());
+        return commands.getOrDefault(request.getPathInfo(),new Error404Action());
 
     }
 }
