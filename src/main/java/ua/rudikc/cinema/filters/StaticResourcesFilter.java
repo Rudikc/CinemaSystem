@@ -5,13 +5,7 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-public class StaticResourcesFilter
-        implements Filter {
-    private String resourcePath = "/resources/";
-
-    private String pagePath = "/jsp/";
-
-    private String forwardPath = "/finalProject";
+public class StaticResourcesFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -28,6 +22,9 @@ public class StaticResourcesFilter
         HttpServletRequest req = (HttpServletRequest) request;
         String path = req.getRequestURI().substring(req.getContextPath().length());
 
+        String resourcePath = "/resources/";
+        String pagePath = "/jsp/";
+        String forwardPath = "/finalProject";
         if (path.startsWith(resourcePath) || path.startsWith(pagePath)
                 || path.endsWith(forwardPath)) {
             filterChain.doFilter(request, response);

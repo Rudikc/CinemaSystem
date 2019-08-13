@@ -47,5 +47,4 @@ public class Ticket {
     public void setSeance(Seance seance) {
         this.seance = seance;
     }
-
 }
