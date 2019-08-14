@@ -1,4 +1,4 @@
-package ua.rudikc.cinema.controller.servlet;
+package ua.rudikc.cinema.servlet;
 
 import ua.rudikc.cinema.controller.actions.Action;
 import ua.rudikc.cinema.factory.CommandFactory;
