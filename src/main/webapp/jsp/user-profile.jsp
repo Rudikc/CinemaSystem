@@ -11,6 +11,15 @@
 </head>
 <body>
 
+<table>
+    <c:forEach var="order" items="${orders}">
+        <tr>
+            <td>
+                    ${order}
+            </td>
+        </tr>
+    </c:forEach>
+</table>
 
 </body>
 </html>
