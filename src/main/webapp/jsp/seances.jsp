@@ -5,12 +5,14 @@
 <fmt:setBundle basename="${bundle}"/>
 <fmt:setLocale value=""/>
 
+
 <html>
 <body>
-<%--<img src="${pageContext.request.contextPath}/images/lion_king.png"/>--%>
+<img src="${pageContext.request.contextPath}/images/lion_king_v2.jpg" width="591" height="887" />
 <%--<img src="<c:url value="https://m.media-amazon.com/images/M/MV5BMjIwMjE1Nzc4NV5BMl5BanBnXkFtZTgwNDg4OTA1NzM@._V1_SY1000_CR0,0,674,1000_AL_.jpg"/>"--%>
 <%--alt="Hello"/>--%>
 <h2><a href="${pageContext.request.contextPath}/logout">logout</a></h2>
+<h2><a href="${pageContext.request.contextPath}/user-profile">Profile</a> </h2>
 <div>
     <table>
         <tr>
