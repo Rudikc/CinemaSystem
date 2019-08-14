@@ -10,6 +10,7 @@ import ua.rudikc.cinema.entity.Seat;
 import ua.rudikc.cinema.entity.Seance;
 import ua.rudikc.cinema.entity.Ticket;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,8 +29,8 @@ public class TicketSqlDao implements TicketDao {
     @Override
     public List<Ticket> findAllTicketsBySessionId(int id) throws DaoException {
         List<Ticket> tickets = new ArrayList<>();
-        try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(GET_ALL_TICKETS_BY_SESSION_ID.getQuery());
+        try (Connection connection = ConnectionPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_TICKETS_BY_SESSION_ID.getQuery());
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -48,8 +49,8 @@ public class TicketSqlDao implements TicketDao {
     @Override
     public List<Ticket> findTicketsByOrderId(int id) throws DaoException {
         List<Ticket> tickets = new ArrayList<>();
-        try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(GET_ALL_TICKETS_BY_ORDER_ID.getQuery());
+        try (Connection connection = ConnectionPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_TICKETS_BY_ORDER_ID.getQuery());
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -68,8 +69,8 @@ public class TicketSqlDao implements TicketDao {
     @Override
     public Optional<Ticket> get(int id) throws DaoException {
         Optional<Ticket> ticket = Optional.empty();
-        try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(GET_TICKET.getQuery());
+        try (Connection connection = ConnectionPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_TICKET.getQuery());
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -88,8 +89,8 @@ public class TicketSqlDao implements TicketDao {
     @Override
     public List<Ticket> getAll() throws DaoException {
         List<Ticket> tickets = new ArrayList<>();
-        try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(GET_ALL_TICKETS.getQuery());
+        try (Connection connection = ConnectionPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_TICKETS.getQuery());
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 tickets.add(extractFromResultSet(resultSet));
@@ -103,8 +104,8 @@ public class TicketSqlDao implements TicketDao {
 
     @Override
     public void save(Ticket ticket) throws DaoException {
-        try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(INSERT_TICKET.getQuery());
+        try (Connection connection = ConnectionPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(INSERT_TICKET.getQuery());
             preparedStatement.setInt(1, ticket.getSeat().getId());
             preparedStatement.setInt(2, ticket.getOrder().getId());
             preparedStatement.setInt(3, ticket.getSeance().getId());
@@ -117,8 +118,8 @@ public class TicketSqlDao implements TicketDao {
 
     @Override
     public void update(Ticket ticket) throws DaoException {
-        try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(UPDATE_TICKET.getQuery());
+        try (Connection connection = ConnectionPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_TICKET.getQuery());
             preparedStatement.setInt(1, ticket.getSeat().getId());
             preparedStatement.setInt(2, ticket.getOrder().getId());
             preparedStatement.setInt(3, ticket.getSeance().getId());
@@ -131,8 +132,8 @@ public class TicketSqlDao implements TicketDao {
 
     @Override
     public void delete(Ticket ticket) throws DaoException {
-        try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(DELETE_TICKET.getQuery());
+        try (Connection connection = ConnectionPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_TICKET.getQuery());
             preparedStatement.setInt(1, ticket.getId());
             preparedStatement.executeUpdate();
 

@@ -7,10 +7,7 @@ import ua.rudikc.cinema.db.ConnectionPool;
 import ua.rudikc.cinema.entity.Order;
 import ua.rudikc.cinema.entity.User;
 
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -25,8 +22,8 @@ public class OrderSqlDao implements OrderDao {
     @Override
     public Optional<Order> get(int id) throws DaoException {
         Optional<Order> order = Optional.empty();
-        try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(GET_ORDER.getQuery());
+        try (Connection connection = ConnectionPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_ORDER.getQuery());
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -43,8 +40,8 @@ public class OrderSqlDao implements OrderDao {
     @Override
     public List<Order> getAll() throws DaoException {
         List<Order> orders = new ArrayList<>();
-        try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(GET_ALL_ORDERS.getQuery());
+        try (Connection connection = ConnectionPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_ORDERS.getQuery());
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 orders.add(extractFromResultSet(resultSet));
@@ -59,8 +56,8 @@ public class OrderSqlDao implements OrderDao {
 
     @Override
     public void save(Order order) throws DaoException {
-        try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(INSERT_ORDER.getQuery());
+        try (Connection connection = ConnectionPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(INSERT_ORDER.getQuery());
             preparedStatement.setInt(1, order.getUser().getId());
             preparedStatement.setDouble(2, order.getPrice());
             preparedStatement.setDate(3, (Date) order.getOrderTime());
@@ -73,8 +70,8 @@ public class OrderSqlDao implements OrderDao {
 
     @Override
     public void delete(Order order) throws DaoException {
-        try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(DELETE_ORDER.getQuery());
+        try (Connection connection = ConnectionPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_ORDER.getQuery());
             preparedStatement.setInt(1, order.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -84,8 +81,8 @@ public class OrderSqlDao implements OrderDao {
 
     @Override
     public void update(Order order) throws DaoException {
-        try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(UPDATE_ORDER.getQuery());
+        try (Connection connection = ConnectionPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_ORDER.getQuery());
             preparedStatement.setInt(1, order.getUser().getId());
             preparedStatement.setDouble(2, order.getPrice());
             preparedStatement.setDate(3, (Date) order.getOrderTime());
@@ -98,8 +95,8 @@ public class OrderSqlDao implements OrderDao {
     @Override
     public List<Order> findUserOrders(int userId) throws DaoException {
         ArrayList<Order> orders = new ArrayList<>();
-        try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(GET_USERS_ORDERS.getQuery());
+        try (Connection connection = ConnectionPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_USERS_ORDERS.getQuery());
             preparedStatement.setInt(1, userId);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {

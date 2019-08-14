@@ -22,8 +22,8 @@ public class FilmSqlDao implements FilmDao {
     @Override
     public Optional<Film> get(int id) throws DaoException {
         Optional<Film> film = Optional.empty();
-        try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(GET_FILM.getQuery());
+        try (Connection connection = ConnectionPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_FILM.getQuery());
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -39,8 +39,8 @@ public class FilmSqlDao implements FilmDao {
     @Override
     public List<Film> getAll() throws DaoException {
         List<Film> films = new ArrayList<>();
-        try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(GET_ALL_FILMS.getQuery());
+        try (Connection connection = ConnectionPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_FILMS.getQuery());
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 films.add(extractFromResultSet(resultSet));
@@ -54,8 +54,8 @@ public class FilmSqlDao implements FilmDao {
 
     @Override
     public void save(Film film) throws DaoException {
-        try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(INSERT_FILM.getQuery());
+        try (Connection connection = ConnectionPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(INSERT_FILM.getQuery());
             preparedStatement.setString(1, film.getName());
             preparedStatement.setString(2, film.getDirector());
             preparedStatement.setDate(3, (Date) film.getPremiereDate());
@@ -70,8 +70,8 @@ public class FilmSqlDao implements FilmDao {
 
     @Override
     public void delete(Film film) throws DaoException {
-        try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(DELETE_FILM.getQuery());
+        try (Connection connection = ConnectionPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_FILM.getQuery());
             preparedStatement.setInt(1, film.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -82,8 +82,8 @@ public class FilmSqlDao implements FilmDao {
 
     @Override
     public void update(Film film) throws DaoException {
-        try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(UPDATE_FILM.getQuery());
+        try (Connection connection = ConnectionPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_FILM.getQuery());
             preparedStatement.setString(1, film.getName());
             preparedStatement.setString(2, film.getDirector());
             preparedStatement.setDate(3, (Date) film.getPremiereDate());
@@ -99,8 +99,8 @@ public class FilmSqlDao implements FilmDao {
     @Override
     public Optional<Film> findFilmByName(String name) {
         Optional<Film> film = Optional.empty();
-        try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(GET_FILM_BY_NAME.getQuery());
+        try (Connection connection = ConnectionPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_FILM_BY_NAME.getQuery());
             preparedStatement.setString(1, name);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -116,8 +116,8 @@ public class FilmSqlDao implements FilmDao {
     @Override
     public List<Film> findActualFilms() throws DaoException {
         ArrayList<Film> resultFilms = new ArrayList<>();
-        try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(GET_ALL_ACTUAL_FILMS.getQuery());
+        try (Connection connection = ConnectionPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_ACTUAL_FILMS.getQuery());
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 resultFilms.add(extractFromResultSet(resultSet));

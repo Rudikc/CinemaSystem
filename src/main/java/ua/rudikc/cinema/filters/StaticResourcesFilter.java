@@ -25,8 +25,10 @@ public class StaticResourcesFilter implements Filter {
         String resourcePath = "/resources/";
         String pagePath = "/jsp/";
         String forwardPath = "/finalProject";
+        String jpgPath = ".jpg";
+        String pngPath = ".png";
         if (path.startsWith(resourcePath) || path.startsWith(pagePath)
-                || path.endsWith(forwardPath)) {
+                || path.endsWith(forwardPath) || path.endsWith(jpgPath) || path.endsWith(pngPath)) {
             filterChain.doFilter(request, response);
         } else {
             req.getRequestDispatcher(forwardPath + path).forward(request, response); // Goes to controller.

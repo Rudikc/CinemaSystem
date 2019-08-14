@@ -8,6 +8,7 @@ import ua.rudikc.cinema.db.ConnectionPool;
 import ua.rudikc.cinema.entity.User;
 import ua.rudikc.cinema.entity.UserRole;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,8 +27,8 @@ public class UserSqlDao implements UserDao {
     @Override
     public Optional<User> get(int id) throws DaoException {
         Optional<User> user = Optional.empty();
-        try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(GET_USER.getQuery());
+        try (Connection connection = ConnectionPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_USER.getQuery());
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -45,8 +46,8 @@ public class UserSqlDao implements UserDao {
     @Override
     public List<User> getAll() throws DaoException {
         List<User> users = new ArrayList<>();
-        try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(GET_ALL_USERS.getQuery());
+        try (Connection connection = ConnectionPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_USERS.getQuery());
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 users.add(extractFromResultSet(resultSet));
@@ -61,8 +62,8 @@ public class UserSqlDao implements UserDao {
 
     @Override
     public void save(User user) throws DaoException {
-        try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(INSERT_USER.getQuery());
+        try (Connection connection = ConnectionPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USER.getQuery());
             preparedStatement.setString(1, user.getPassword());
             preparedStatement.setString(2, user.getEmail());
             preparedStatement.setString(3, user.getFirstName());
@@ -78,8 +79,8 @@ public class UserSqlDao implements UserDao {
 
     @Override
     public void update(User user) throws DaoException {
-        try {
-            PreparedStatement statement = ConnectionPool.getConnection().prepareStatement(UPDATE_USER.getQuery());
+        try (Connection connection = ConnectionPool.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(UPDATE_USER.getQuery());
             statement.setString(1, user.getPassword());
             statement.setString(2, user.getEmail());
             statement.setString(3, user.getFirstName());
@@ -96,8 +97,8 @@ public class UserSqlDao implements UserDao {
 
     @Override
     public void delete(User user) {
-        try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(DELETE_USER.getQuery());
+        try (Connection connection = ConnectionPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_USER.getQuery());
             preparedStatement.setInt(1, user.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -107,8 +108,8 @@ public class UserSqlDao implements UserDao {
 
     @Override
     public void changeUserRole(User user, UserRole userRole) throws DaoException {
-        try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(UPDATE_USERS_ROLE.getQuery());
+        try (Connection connection = ConnectionPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USERS_ROLE.getQuery());
             preparedStatement.setString(1, String.valueOf(userRole));
             preparedStatement.setInt(2, user.getId());
             preparedStatement.executeUpdate();
@@ -120,8 +121,8 @@ public class UserSqlDao implements UserDao {
 
     @Override
     public boolean isRegistered(String email) throws DaoException {
-        try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(GET_USER_BY_EMAIL.getQuery());
+        try (Connection connection = ConnectionPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_USER_BY_EMAIL.getQuery());
             preparedStatement.setString(1, email);
             ResultSet resultSet = preparedStatement.executeQuery();
             return resultSet.next();
@@ -135,8 +136,8 @@ public class UserSqlDao implements UserDao {
     @Override
     public User findByEmailAndPassword(String email, String password) throws DaoException {
         User user = null;
-        try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(GET_USER_BY_EMAIL_AND_PASSWORD.getQuery());
+        try (Connection connection = ConnectionPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_USER_BY_EMAIL_AND_PASSWORD.getQuery());
             preparedStatement.setString(1, email);
             preparedStatement.setString(2, password);
             ResultSet resultSet = preparedStatement.executeQuery();

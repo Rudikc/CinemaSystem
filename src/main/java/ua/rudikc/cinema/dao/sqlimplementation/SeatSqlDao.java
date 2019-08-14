@@ -8,6 +8,7 @@ import ua.rudikc.cinema.db.ConnectionPool;
 import ua.rudikc.cinema.entity.Seat;
 import ua.rudikc.cinema.entity.SeatType;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,8 +26,8 @@ public class SeatSqlDao implements SeatDao {
     @Override
     public Optional<Seat> get(int id) throws DaoException {
         Optional<Seat> seat = Optional.empty();
-        try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(GET_SEAT.getQuery());
+        try (Connection connection = ConnectionPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_SEAT.getQuery());
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -42,8 +43,8 @@ public class SeatSqlDao implements SeatDao {
     @Override
     public List<Seat> getAll() throws DaoException {
         List<Seat> seats = new ArrayList<>();
-        try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(GET_ALL_SEATS.getQuery());
+        try (Connection connection = ConnectionPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_SEATS.getQuery());
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 seats.add(extractSeatFromResultSet(resultSet));
@@ -58,8 +59,8 @@ public class SeatSqlDao implements SeatDao {
 
     @Override
     public void save(Seat seat) throws DaoException {
-        try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(INSERT_SEAT.getQuery());
+        try (Connection connection = ConnectionPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(INSERT_SEAT.getQuery());
             preparedStatement.setInt(1, seat.getRow());
             preparedStatement.setInt(2, seat.getPlace());
             preparedStatement.setInt(3, seat.getSeatType().getId());
@@ -72,8 +73,8 @@ public class SeatSqlDao implements SeatDao {
 
     @Override
     public void update(Seat seat) throws DaoException {
-        try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(UPDATE_SEAT.getQuery());
+        try (Connection connection = ConnectionPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_SEAT.getQuery());
             preparedStatement.setInt(1, seat.getRow());
             preparedStatement.setInt(2, seat.getPlace());
             preparedStatement.setInt(3, seat.getSeatType().getId());
@@ -86,8 +87,8 @@ public class SeatSqlDao implements SeatDao {
 
     @Override
     public void delete(Seat seat) throws DaoException {
-        try {
-            PreparedStatement preparedStatement = ConnectionPool.getConnection().prepareStatement(DELETE_SEAT.getQuery());
+        try (Connection connection = ConnectionPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_SEAT.getQuery());
             preparedStatement.setInt(1, seat.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
