@@ -1,8 +1,6 @@
 CREATE SCHEMA IF NOT EXISTS `cinema_db` DEFAULT CHARACTER SET utf8 ;
-
 USE `cinema_db` ;
 
-DROP TABLE IF EXISTS `cinema_db`.`film_genres` ;
 
 CREATE TABLE IF NOT EXISTS `cinema_db`.`film_genres` (
   `film_genre_id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -38,17 +36,6 @@ CREATE TABLE IF NOT EXISTS `cinema_db`.`films_film_genres` (
     REFERENCES `cinema_db`.`films` (`film_id`)
     ON DELETE CASCADE);
 
-CREATE TABLE IF NOT EXISTS `cinema_db`.`users` (
-  `user_id` INT(11) NOT NULL AUTO_INCREMENT,
-  `password` VARCHAR(45) NOT NULL,
-  `email` VARCHAR(45) NOT NULL,
-  `first_name` VARCHAR(45) NOT NULL,
-  `last_name` VARCHAR(45) NULL DEFAULT NULL,
-  `user_role` ENUM('ADMIN', 'USER', 'GUEST') NOT NULL,
-  `phone` VARCHAR(45) NULL DEFAULT NULL,
-  PRIMARY KEY (`user_id`),
-  UNIQUE INDEX `user_id_UNIQUE` (`user_id` ASC) VISIBLE);
-
 CREATE TABLE IF NOT EXISTS `cinema_db`.`orders` (
   `order_id` INT(11) NOT NULL AUTO_INCREMENT,
   `user_id` INT(11) NOT NULL,
@@ -61,48 +48,48 @@ CREATE TABLE IF NOT EXISTS `cinema_db`.`orders` (
     FOREIGN KEY (`user_id`)
     REFERENCES `cinema_db`.`users` (`user_id`));
 
-CREATE TABLE IF NOT EXISTS `cinema_db`.`seat_types` (
-  `seat_types_id` INT(11) NOT NULL AUTO_INCREMENT,
-  `seat_type` VARCHAR(45) NOT NULL,
-  `price_multiplier` DOUBLE NOT NULL,
-  PRIMARY KEY (`seat_types_id`),
-  UNIQUE INDEX `seat_types_id_UNIQUE` (`seat_types_id` ASC) VISIBLE);
-
-CREATE TABLE IF NOT EXISTS `cinema_db`.`seats` (
-  `seat_id` INT(11) NOT NULL AUTO_INCREMENT,
-  `seat_row` INT(11) NOT NULL,
-  `seat_place` INT(11) NOT NULL,
-  `seat_types_id` INT(11) NOT NULL,
-  PRIMARY KEY (`seat_id`),
-  UNIQUE INDEX `hall_id_UNIQUE` (`seat_id` ASC) VISIBLE,
-  INDEX `fk_seats_seat_types1_idx` (`seat_types_id` ASC) VISIBLE,
-  CONSTRAINT `fk_seats_seat_types1`
-    FOREIGN KEY (`seat_types_id`)
-    REFERENCES `cinema_db`.`seat_types` (`seat_types_id`));
-
 CREATE TABLE IF NOT EXISTS `cinema_db`.`seances` (
-  `session_id` INT(11) NOT NULL AUTO_INCREMENT,
-  `session_start` DATETIME NOT NULL,
-  `session_end` DATETIME NOT NULL,
+  `seance_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `seance_start` DATETIME NOT NULL,
+  `seance_end` DATETIME NOT NULL,
   `film_id` INT(11) NOT NULL,
   `ticket_price` DOUBLE NOT NULL,
-  PRIMARY KEY (`session_id`),
-  UNIQUE INDEX `session_id_UNIQUE` (`session_id` ASC) VISIBLE,
+  PRIMARY KEY (`seance_id`),
+  UNIQUE INDEX `session_id_UNIQUE` (`seance_id` ASC) VISIBLE,
   INDEX `fk_sessions_films1_idx` (`film_id` ASC) VISIBLE,
   CONSTRAINT `fk_sessions_films1`
     FOREIGN KEY (`film_id`)
     REFERENCES `cinema_db`.`films` (`film_id`));
 
+CREATE TABLE IF NOT EXISTS `cinema_db`.`seats` (
+  `seat_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `seat_row` INT(11) NOT NULL,
+  `seat_place` INT(11) NOT NULL,
+  `seat_type_id` INT(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`seat_id`),
+  UNIQUE INDEX `hall_id_UNIQUE` (`seat_id` ASC) VISIBLE,
+  INDEX `fk_seats_seat_types1_idx` (`seat_type_id` ASC) VISIBLE,
+  CONSTRAINT `fk_seats_seat_types1`
+    FOREIGN KEY (`seat_type_id`)
+    REFERENCES `cinema_db`.`seat_types` (`seat_type_id`));
+
+CREATE TABLE IF NOT EXISTS `cinema_db`.`seat_types` (
+  `seat_type_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `seat_type` VARCHAR(45) NOT NULL,
+  `price_multiplier` DOUBLE NOT NULL,
+  PRIMARY KEY (`seat_type_id`),
+  UNIQUE INDEX `seat_types_id_UNIQUE` (`seat_type_id` ASC) VISIBLE);
+
 CREATE TABLE IF NOT EXISTS `cinema_db`.`tickets` (
   `ticket_id` INT(11) NOT NULL AUTO_INCREMENT,
   `seat_id` INT(11) NOT NULL,
   `order_id` INT(11) NOT NULL,
-  `session_id` INT(11) NOT NULL,
+  `seance_id` INT(11) NOT NULL,
   PRIMARY KEY (`ticket_id`),
   UNIQUE INDEX `ticket_id_UNIQUE` (`ticket_id` ASC) VISIBLE,
   INDEX `fk_tickets_seats_idx` (`seat_id` ASC) VISIBLE,
   INDEX `fk_tickets_orders1_idx` (`order_id` ASC) VISIBLE,
-  INDEX `fk_tickets_sessions1_idx` (`session_id` ASC) VISIBLE,
+  INDEX `fk_tickets_sessions1_idx` (`seance_id` ASC) VISIBLE,
   CONSTRAINT `fk_tickets_orders1`
     FOREIGN KEY (`order_id`)
     REFERENCES `cinema_db`.`orders` (`order_id`),
@@ -110,5 +97,16 @@ CREATE TABLE IF NOT EXISTS `cinema_db`.`tickets` (
     FOREIGN KEY (`seat_id`)
     REFERENCES `cinema_db`.`seats` (`seat_id`),
   CONSTRAINT `fk_tickets_sessions1`
-    FOREIGN KEY (`session_id`)
-    REFERENCES `cinema_db`.`seances` (`session_id`));
+    FOREIGN KEY (`seance_id`)
+    REFERENCES `cinema_db`.`seances` (`seance_id`));
+
+CREATE TABLE IF NOT EXISTS `cinema_db`.`users` (
+  `user_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `password` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
+  `first_name` VARCHAR(45) NOT NULL,
+  `last_name` VARCHAR(45) NULL DEFAULT NULL,
+  `user_role` ENUM('ADMIN', 'USER', 'GUEST') NOT NULL,
+  `phone` VARCHAR(45) NULL DEFAULT NULL,
+  PRIMARY KEY (`user_id`),
+  UNIQUE INDEX `user_id_UNIQUE` (`user_id` ASC) VISIBLE);

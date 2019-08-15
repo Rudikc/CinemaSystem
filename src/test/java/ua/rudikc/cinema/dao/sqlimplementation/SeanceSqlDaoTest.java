@@ -25,13 +25,11 @@ public class SeanceSqlDaoTest {
             if (resultSet.next()) {
                 seance = seanceSqlDao.extractFromResultSet(resultSet);
             }
-            System.out.println(seance);
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd mm:HH:ss");
-            System.out.println(dateFormat.format(seance.getStart()));
-            System.out.println(dateFormat.format(seance.getEnd()));
         } catch (SQLException | DaoException e) {
             e.printStackTrace();
         }
+
     }
 
     @Test
