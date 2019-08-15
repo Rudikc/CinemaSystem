@@ -1,0 +1,10 @@
+.container-login{
+}
+h1,h2,h3,h4,h5{
+    color: #126;
+}
+.login-form{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}

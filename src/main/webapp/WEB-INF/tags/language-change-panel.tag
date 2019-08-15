@@ -7,11 +7,7 @@
 <head>
     <style type="text/css">
         #language-panel {
-            position: absolute;
-            bottom: 5%;
-            right: 5%;
         }
-
         .language-icon {
             width: 24px;
             height: 24px;

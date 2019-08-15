@@ -9,7 +9,8 @@
 <html>
 <head>
     <style>
-        body{
+
+        body {
             height: 100%;
         }
     </style>
@@ -20,5 +21,6 @@
 <h2><a href="${pageContext.request.contextPath}/login">Sign in</a></h2>
 <h2><a href="${pageContext.request.contextPath}/seances">See titles</a></h2>
 <myTag:language-change-panel/>
+
 </body>
 </html>
