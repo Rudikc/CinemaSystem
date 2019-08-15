@@ -33,7 +33,7 @@ public class Constants {
 
     //Seat types
     public static final String SEAT_TYPE_ID = "seat_type_id";
-    public static final String SEAT_TYPE_TYPE = "type";
+    public static final String SEAT_TYPE_TYPE = "seat_type";
     public static final String SEAT_TYPE_PRICE_MULTIPLIER = "price_multiplier";
 
     //Seats

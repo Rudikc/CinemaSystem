@@ -26,13 +26,18 @@ public class DispatcherServlet extends HttpServlet {
     }
 
     private void handleRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Action action = CommandFactory.defineCommand(req);
-        String resultPage;
-        resultPage = action.execute(req, resp);
-        if (req.getMethod().equals("POST")) {
-            resp.sendRedirect(resultPage);
-        } else if (req.getMethod().equals("GET")){
-            req.getRequestDispatcher(String.format(JSP_PATH,resultPage)).forward(req,resp);
+        String path = req.getPathInfo();
+        Action action = CommandFactory.defineCommand(path);
+        String resultPage = action.execute(req, resp);
+
+        if (!resultPage.isEmpty()) {
+            req.getRequestDispatcher(String.format(JSP_PATH, resultPage))
+                    .forward(req, resp);
         }
+//        if (req.getMethod().equals("POST")) {
+//            resp.sendRedirect(resultPage);
+//        } else if (req.getMethod().equals("GET")){
+//            req.getRequestDispatcher(String.format(JSP_PATH,resultPage)).forward(req,resp);
+//        }
     }
 }

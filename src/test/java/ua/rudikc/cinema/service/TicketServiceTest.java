@@ -3,8 +3,6 @@ package ua.rudikc.cinema.service;
 import org.junit.Test;
 import ua.rudikc.cinema.dto.TicketDto;
 
-import static org.junit.Assert.*;
-
 public class TicketServiceTest {
 
     @Test
@@ -19,7 +17,5 @@ public class TicketServiceTest {
         System.out.println(ticketDto.getSeance().getPrice());
         System.out.println(ticketDto.getSeat().getRow());
         System.out.println(ticketDto.getSeat().getPlace());
-        System.out.println(ticketDto.getSeat().getSeatType().getType());
-        System.out.println(ticketDto.getSeat().getSeatType().getPriceMultiplier());
     }
 }

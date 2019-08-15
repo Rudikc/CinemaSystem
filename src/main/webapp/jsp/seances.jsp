@@ -26,11 +26,12 @@
                 <td>${seance.id}</td>
                 <td>${seance.start}</td>
                 <td>${seance.film.name}</td>
-                <c:set var="user_role" value="USER"/>
-                <c:if test="${sessionScope.user.role == user_role}">
-                    <td><a href="${pageContext.request.contextPath}/seats?seance_id=${seance.id}"><fmt:message
-                            key="seances.purchase.tickets"/></a></td>
-                </c:if>
+                <td>
+                    <form method="GET" action="${pageContext.request.contextPath}/seats">
+                        <input type="hidden" name="seance-id" value="${seance.id}">
+                        <button><fmt:message key="seances.see.free.tickets"/></button>
+                    </form>
+                </td>
             </tr>
         </c:forEach>
     </table>

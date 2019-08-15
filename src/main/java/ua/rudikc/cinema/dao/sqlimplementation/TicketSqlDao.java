@@ -106,9 +106,9 @@ public class TicketSqlDao implements TicketDao {
     public void save(Ticket ticket) throws DaoException {
         try (Connection connection = ConnectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_TICKET.getQuery());
-            preparedStatement.setInt(1, ticket.getSeat().getId());
-            preparedStatement.setInt(2, ticket.getOrder().getId());
-            preparedStatement.setInt(3, ticket.getSeance().getId());
+            preparedStatement.setInt(1, ticket.getSeatId());
+            preparedStatement.setInt(2, ticket.getOrder());
+            preparedStatement.setInt(3, ticket.getSeance());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Unable to create a ticket ", e);
@@ -120,9 +120,9 @@ public class TicketSqlDao implements TicketDao {
     public void update(Ticket ticket) throws DaoException {
         try (Connection connection = ConnectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_TICKET.getQuery());
-            preparedStatement.setInt(1, ticket.getSeat().getId());
-            preparedStatement.setInt(2, ticket.getOrder().getId());
-            preparedStatement.setInt(3, ticket.getSeance().getId());
+            preparedStatement.setInt(1, ticket.getSeatId());
+            preparedStatement.setInt(2, ticket.getOrder());
+            preparedStatement.setInt(3, ticket.getSeance());
             preparedStatement.setInt(4, ticket.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -146,17 +146,11 @@ public class TicketSqlDao implements TicketDao {
     @Override
     public Ticket extractFromResultSet(ResultSet resultSet) throws DaoException {
         Ticket ticket = new Ticket();
-        Order order = new Order();
-        Seance seance = new Seance();
-        Seat seat = new Seat();
         try {
             ticket.setId(resultSet.getInt(TICKET_ID));
-            seance.setId(resultSet.getInt(TICKET_SEANCE_ID));
-            order.setId(resultSet.getInt(TICKET_ORDER_ID));
-            seat.setId(resultSet.getInt(TICKET_SEAT_ID));
-            ticket.setOrder(order);
-            ticket.setSeance(seance);
-            ticket.setSeat(seat);
+            ticket.setOrder(resultSet.getInt(TICKET_ORDER_ID));
+            ticket.setSeance(resultSet.getInt(TICKET_SEANCE_ID));
+            ticket.setSeatId(resultSet.getInt(TICKET_SEAT_ID));
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Unable to extract ticket from result set", e);
             throw new DaoException();

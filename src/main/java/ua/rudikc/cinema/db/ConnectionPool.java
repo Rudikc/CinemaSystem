@@ -16,7 +16,7 @@ public class ConnectionPool {
         basicDataSource.setUsername(dbSettings.getString("username"));
         basicDataSource.setPassword(dbSettings.getString("password"));
         basicDataSource.setMaxOpenPreparedStatements(100);
-        basicDataSource.setMaxTotal(7);
+        basicDataSource.setMaxTotal(Integer.parseInt(dbSettings.getString("poolsize"))*4);
         basicDataSource.setInitialSize(Integer.parseInt(dbSettings.getString("poolsize")));
         basicDataSource.setMinIdle(Integer.parseInt(dbSettings.getString("poolsize")));
         basicDataSource.setMaxIdle(Integer.parseInt(dbSettings.getString("poolsize")) * 2);

@@ -3,7 +3,9 @@ package ua.rudikc.cinema.service;
 import org.junit.Test;
 import ua.rudikc.cinema.dto.OrderDto;
 import ua.rudikc.cinema.dto.TicketDto;
+import ua.rudikc.cinema.entity.Order;
 import ua.rudikc.cinema.entity.User;
+import ua.rudikc.cinema.factory.ServiceFactory;
 
 import static org.junit.Assert.*;
 
@@ -31,5 +33,18 @@ public class OrderServiceTest {
         for (OrderDto order : orderService.getUserOrders(user)) {
             System.out.println(order);
         }
+    }
+
+    @Test
+    public void saveOrder() {
+        OrderService orderService = (OrderService) ServiceFactory.getService("orderService");
+
+        Order order = Order.newBuilder()
+                .setOrderTime()
+                .setPrice(90)
+                .setUser(1)
+                .build();
+        orderService.saveOrder(order,1,30);
+
     }
 }

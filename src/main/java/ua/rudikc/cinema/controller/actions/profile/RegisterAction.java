@@ -6,7 +6,7 @@ import ua.rudikc.cinema.dao.exception.DaoException;
 import ua.rudikc.cinema.factory.DaoFactory;
 import ua.rudikc.cinema.entity.User;
 import ua.rudikc.cinema.utils.AuthorizationHelper;
-import ua.rudikc.cinema.utils.PassowordHashing;
+import ua.rudikc.cinema.utils.PasswordHashing;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,7 +27,7 @@ public class RegisterAction implements Action {
             return "register";
         }
         if (AuthorizationHelper.isEmailCorrect(email) && AuthorizationHelper.isPasswordCorrect(password)) {
-            String passwordHash = PassowordHashing.hashPassword(password);
+            String passwordHash = PasswordHashing.hashPassword(password);
             user = new User(passwordHash, email, first_name, last_name, phone);
         }else {
             request.getSession().setAttribute("registrationMessage","registration.data.failure");

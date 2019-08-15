@@ -63,7 +63,7 @@ public class SeatSqlDao implements SeatDao {
             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_SEAT.getQuery());
             preparedStatement.setInt(1, seat.getRow());
             preparedStatement.setInt(2, seat.getPlace());
-            preparedStatement.setInt(3, seat.getSeatType().getId());
+            preparedStatement.setInt(3, seat.getSeatTypeId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Unable to create a seat ", e);
@@ -77,7 +77,7 @@ public class SeatSqlDao implements SeatDao {
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_SEAT.getQuery());
             preparedStatement.setInt(1, seat.getRow());
             preparedStatement.setInt(2, seat.getPlace());
-            preparedStatement.setInt(3, seat.getSeatType().getId());
+            preparedStatement.setInt(3, seat.getSeatTypeId());
             preparedStatement.setInt(4, seat.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -100,14 +100,12 @@ public class SeatSqlDao implements SeatDao {
     @Override
     public Seat extractSeatFromResultSet(ResultSet resultSet) throws DaoException {
         Seat seat = new Seat();
-        SeatType seatType = new SeatType();
 
         try {
             seat.setId(resultSet.getInt(SEAT_ID));
             seat.setPlace(resultSet.getInt(SEAT_PLACE));
             seat.setRow(resultSet.getInt(SEAT_ROW));
-            seatType.setId(resultSet.getInt(SEAT_SEAT_TYPE_ID));
-            seat.setSeatType(seatType);
+            seat.setSeatTypeId(resultSet.getInt(SEAT_SEAT_TYPE_ID));
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Unable to extract a seat from result set ", e);
             throw new DaoException();

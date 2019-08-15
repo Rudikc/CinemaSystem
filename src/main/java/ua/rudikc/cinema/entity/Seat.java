@@ -7,16 +7,16 @@ public class Seat {
     private int id;
     private int row;
     private int place;
-    private SeatType seatType;
+    private int seatTypeId;
 
     public Seat() {
     }
 
-    public Seat(int id, int row, int place, SeatType seatType) {
+    public Seat(int id, int row, int place, int seatType) {
         this.id = id;
         this.row = row;
         this.place = place;
-        this.seatType = seatType;
+        this.seatTypeId = seatType;
     }
 
     @Override
@@ -56,11 +56,11 @@ public class Seat {
         this.place = place;
     }
 
-    public SeatType getSeatType() {
-        return seatType;
+    public int getSeatTypeId() {
+        return seatTypeId;
     }
 
-    public void setSeatType(SeatType seatType) {
-        this.seatType = seatType;
+    public void setSeatTypeId(int seatType) {
+        this.seatTypeId = seatType;
     }
 }

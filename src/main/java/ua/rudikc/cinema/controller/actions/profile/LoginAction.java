@@ -6,7 +6,8 @@ import ua.rudikc.cinema.dao.UserDao;
 import ua.rudikc.cinema.dao.exception.DaoException;
 import ua.rudikc.cinema.dao.sqlimplementation.UserSqlDao;
 import ua.rudikc.cinema.entity.User;
-import ua.rudikc.cinema.utils.PassowordHashing;
+import ua.rudikc.cinema.factory.CommandFactory;
+import ua.rudikc.cinema.utils.PasswordHashing;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,7 +26,7 @@ public class LoginAction implements Action {
         String password = request.getParameter("password");
 
         try {
-            user = userDao.findByEmailAndPassword(email, PassowordHashing.hashPassword(password));
+            user = userDao.findByEmailAndPassword(email, PasswordHashing.hashPassword(password));
         } catch (DaoException e) {
             e.printStackTrace();
         }
@@ -39,6 +40,6 @@ public class LoginAction implements Action {
         logger.info("something useless happened");
 
 
-        return "seances";
+        return CommandFactory.defineCommand("/seances").execute(request,response);
     }
 }

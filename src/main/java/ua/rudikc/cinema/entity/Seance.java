@@ -6,13 +6,13 @@ public class Seance {
     private int id;
     private Date start;
     private Date end;
-    private Film film;
+    private int film;
     private double price;
 
     public Seance() {
     }
 
-    public Seance(int id, Date start, Date end, Film film, double price) {
+    public Seance(int id, Date start, Date end, int film, double price) {
         this.id = id;
         this.start = start;
         this.end = end;
@@ -44,11 +44,11 @@ public class Seance {
         this.end = end;
     }
 
-    public Film getFilm() {
+    public int getFilm() {
         return film;
     }
 
-    public void setFilm(Film film) {
+    public void setFilm(int film) {
         this.film = film;
     }
 

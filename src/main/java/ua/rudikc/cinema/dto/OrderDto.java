@@ -3,7 +3,6 @@ package ua.rudikc.cinema.dto;
 import ua.rudikc.cinema.entity.Order;
 import ua.rudikc.cinema.entity.User;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -20,7 +19,6 @@ public class OrderDto {
 
     public OrderDto(Order order) {
         this.id = order.getId();
-        this.user = order.getUser();
         this.price = order.getPrice();
         this.orderTime = order.getOrderTime();
     }

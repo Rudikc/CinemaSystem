@@ -6,21 +6,5 @@
 <fmt:setBundle basename="${bundle}"/>
 <fmt:setLocale value="${locale}"/>
 
-<html>
-<head>
-
-</head>
-<body>
-
-<table>
-    <c:forEach var="order" items="${orders}">
-        <tr>
-            <td>
-                    ${order}
-            </td>
-        </tr>
-    </c:forEach>
-</table>
-
-</body>
-</html>
+<h1>It's 500 error</h1>
+<h2>Wrong request</h2>

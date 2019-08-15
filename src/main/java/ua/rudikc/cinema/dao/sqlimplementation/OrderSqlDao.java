@@ -58,7 +58,7 @@ public class OrderSqlDao implements OrderDao {
     public void save(Order order) throws DaoException {
         try (Connection connection = ConnectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_ORDER.getQuery());
-            preparedStatement.setInt(1, order.getUser().getId());
+            preparedStatement.setInt(1, order.getUserId());
             preparedStatement.setDouble(2, order.getPrice());
             preparedStatement.setDate(3, (Date) order.getOrderTime());
             preparedStatement.executeUpdate();
@@ -83,7 +83,7 @@ public class OrderSqlDao implements OrderDao {
     public void update(Order order) throws DaoException {
         try (Connection connection = ConnectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_ORDER.getQuery());
-            preparedStatement.setInt(1, order.getUser().getId());
+            preparedStatement.setInt(1, order.getUserId());
             preparedStatement.setDouble(2, order.getPrice());
             preparedStatement.setDate(3, (Date) order.getOrderTime());
             preparedStatement.executeUpdate();
@@ -111,15 +111,35 @@ public class OrderSqlDao implements OrderDao {
     }
 
     @Override
+    public Integer transactionSave(Order order, Connection connection) throws DaoException {
+        int id = 0;
+        try  {
+            PreparedStatement preparedStatement = connection.prepareStatement(INSERT_ORDER.getQuery(),1);
+            preparedStatement.setInt(1, order.getUserId());
+            preparedStatement.setDouble(2, order.getPrice());
+            preparedStatement.setObject(3,  order.getOrderTime());
+            preparedStatement.executeUpdate();
+            ResultSet genId = preparedStatement.getGeneratedKeys();
+            if (genId.next()){
+                id = genId.getInt(1);
+            }
+            genId.close();
+            preparedStatement.close();
+        } catch (SQLException e) {
+                    e.printStackTrace();
+        }
+
+        return id;
+    }
+
+    @Override
     public Order extractFromResultSet(ResultSet resultSet) throws DaoException {
-        User user = new User();
         Order order = new Order();
         try {
             order.setId(resultSet.getInt(ORDER_ID));
             order.setPrice(resultSet.getDouble(ORDER_PRICE));
-            user.setId(resultSet.getInt(ORDER_USER_ID));
             order.setOrderTime(resultSet.getTimestamp(ORDER_ORDER_TIME));
-            order.setUser(user);
+            order.setUserId(resultSet.getInt(ORDER_USER_ID));
         } catch (SQLException e) {
             e.printStackTrace();
         }

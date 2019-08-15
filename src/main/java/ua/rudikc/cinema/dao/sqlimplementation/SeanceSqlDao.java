@@ -60,7 +60,7 @@ public class SeanceSqlDao implements SeanceDao {
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_SEANCE.getQuery());
             preparedStatement.setTimestamp(1, (Timestamp) seance.getStart());
             preparedStatement.setTimestamp(2, (Timestamp) seance.getEnd());
-            preparedStatement.setInt(3, seance.getFilm().getId());
+            preparedStatement.setInt(3, seance.getFilm());
             preparedStatement.setDouble(4, seance.getPrice());
             preparedStatement.executeUpdate();
 
@@ -76,7 +76,7 @@ public class SeanceSqlDao implements SeanceDao {
             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_SEANCE.getQuery());
             preparedStatement.setTimestamp(1, (Timestamp) seance.getStart());
             preparedStatement.setTimestamp(2, (Timestamp) seance.getEnd());
-            preparedStatement.setInt(3, seance.getFilm().getId());
+            preparedStatement.setInt(3, seance.getFilm());
             preparedStatement.setDouble(4, seance.getPrice());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -124,8 +124,7 @@ public class SeanceSqlDao implements SeanceDao {
             seance.setId(resultSet.getInt(SEANCE_ID));
             seance.setStart(resultSet.getTimestamp(SEANCE_START));
             seance.setEnd(resultSet.getTimestamp(SEANCE_END));
-            film.setId(resultSet.getInt(SEANCE_FILM_ID));
-            seance.setFilm(film);
+            seance.setFilm(resultSet.getInt(SEANCE_FILM_ID));
             seance.setPrice(resultSet.getDouble(SEANCE_TICKET_PRICE));
 
         } catch (SQLException e) {

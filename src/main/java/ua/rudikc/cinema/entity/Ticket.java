@@ -2,18 +2,18 @@ package ua.rudikc.cinema.entity;
 
 public class Ticket {
     private int id;
-    private Seat seat;
-    private Order order;
-    private Seance seance;
+    private int seatId;
+    private int orderId;
+    private int seanceId;
 
     public Ticket() {
     }
 
-    public Ticket(int id, Seat seat, Order order, Seance seance) {
+    public Ticket(int id, int seat, int order, int seance) {
         this.id = id;
-        this.seat = seat;
-        this.order = order;
-        this.seance = seance;
+        this.seanceId = seat;
+        this.orderId = order;
+        this.seanceId = seance;
     }
 
     public int getId() {
@@ -24,27 +24,55 @@ public class Ticket {
         this.id = id;
     }
 
-    public Seat getSeat() {
-        return seat;
+    public int getSeatId() {
+        return seatId;
     }
 
-    public void setSeat(Seat seat) {
-        this.seat = seat;
+    public void setSeatId(int seat) {
+        this.seatId = seat;
     }
 
-    public Order getOrder() {
-        return order;
+    public int getOrder() {
+        return orderId;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setOrder(int order) {
+        this.orderId = order;
     }
 
-    public Seance getSeance() {
-        return seance;
+    public int getSeance() {
+        return seanceId;
     }
 
-    public void setSeance(Seance seance) {
-        this.seance = seance;
+    public void setSeance(int seance) {
+        this.seanceId = seance;
+    }
+
+    public static Builder newBuilder() {
+        return new Ticket().new Builder();
+    }
+
+    public class Builder {
+
+        private Builder() {
+        }
+
+        public Builder setSeatId(int seatId) {
+            Ticket.this.seatId = seatId;
+            return this;
+        }
+
+        public Builder setSeanceId(int seanceId){
+            Ticket.this.seanceId = seanceId;
+            return this;
+        }
+        public Builder setOrderId(int orderId){
+            Ticket.this.orderId = orderId;
+            return this;
+        }
+
+        public Ticket build(){
+            return Ticket.this;
+        }
     }
 }

@@ -22,19 +22,25 @@
     <table id="language-panel">
         <tr>
             <td>
-                <h4><a href="${pageContext.request.contextPath}/changeLanguage?locale=ru_RU"><img class="language-icon"
-                                                                                                  src="${pageContext.request.contextPath}/images/languageIcons/russia.png"
-                                                                                                  alt="ru"> </a></h4>
+                <h4><a href="${pageContext.request.contextPath}/changeLanguage?locale=ru_RU">
+                    <img class="language-icon"
+                         src="${pageContext.request.contextPath}/images/languageIcons/russia.png"
+                         alt="ru"> </a>
+                </h4>
             </td>
             <td>
-                <h4><a href="${pageContext.request.contextPath}/changeLanguage?locale=uk_UA"><img class="language-icon"
-                                                                                                  src="${pageContext.request.contextPath}/images/languageIcons/ukraine.png"
-                                                                                                  alt="ua"></a></h4>
+                <h4><a href="${pageContext.request.contextPath}/changeLanguage?locale=uk_UA">
+                    <img class="language-icon"
+                         src="${pageContext.request.contextPath}/images/languageIcons/ukraine.png"
+                         alt="ua"></a>
+                    </h4>
             </td>
             <td>
-                <h4><a href="${pageContext.request.contextPath}/changeLanguage?locale=en_US"><img class="language-icon"
-                                                                                                  src="${pageContext.request.contextPath}/images/languageIcons/united-kingdom.png"
-                                                                                                  alt="uk"></a></h4>
+                <h4><a href="${pageContext.request.contextPath}/changeLanguage?locale=en_US">
+                    <img class="language-icon"
+                         src="${pageContext.request.contextPath}/images/languageIcons/united-kingdom.png"
+                         alt="uk"></a>
+                </h4>
                 </a></h4>
             </td>
         </tr>

@@ -41,7 +41,7 @@ public class SeanceService {
             Optional<Seance> seanceEntity = seanceSqlDao.get(seanceId);
             if (seanceEntity.isPresent()) {
                 seanceDto = new SeanceDto(seanceEntity.get());
-                filmSqlDao.get(seanceEntity.get().getFilm().getId()).ifPresent(seanceDto::setFilm);
+                filmSqlDao.get(seanceEntity.get().getFilm()).ifPresent(seanceDto::setFilm);
             }
         } catch (DaoException e) {
             e.printStackTrace();
@@ -53,9 +53,9 @@ public class SeanceService {
         FilmSqlDao filmDao = (FilmSqlDao) DaoFactory.getDao(FILM_DAO);
         List<Seance> seancesResult = new ArrayList<>();
         for (Seance seance : seances) {
-            int filmId = seance.getFilm().getId();
+            int filmId = seance.getFilm();
             try {
-                filmDao.get(filmId).ifPresent(seance::setFilm);
+                filmDao.get(filmId).ifPresent(film -> {seance.setFilm(film.getId());});
                 seancesResult.add(seance);
             } catch (DaoException e) {
                 e.printStackTrace();

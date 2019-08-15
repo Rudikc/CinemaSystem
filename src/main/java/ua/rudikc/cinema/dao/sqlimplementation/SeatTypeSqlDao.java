@@ -62,6 +62,7 @@ public class SeatTypeSqlDao implements SeatTypeDao {
         Optional<SeatType> seatType = Optional.empty();
         try (Connection connection = ConnectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(GET_SEAT_TYPE.getQuery());
+            preparedStatement.setInt(1,id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 seatType = Optional.of(extractSeatFromResultSet(resultSet));

@@ -25,11 +25,12 @@ public class CommandFactory {
         commands.put("/register",new RegisterAction());
         commands.put("/seats",new GetSeatsMapAction());
         commands.put("/user-profile",new GetUserProfileAction());
-
+        commands.put("/purchase-ticket",new PurchaseTicketAction());
+        commands.put("/purchase-confirm",new TicketPurchaseConfirmAction());
     }
 
-    public static Action defineCommand(HttpServletRequest request) {
-        return commands.getOrDefault(request.getPathInfo(),new Error404Action());
+    public static Action defineCommand(String path) {
+        return commands.getOrDefault(path,new Error404Action());
 
     }
 }

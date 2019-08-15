@@ -1,21 +1,20 @@
 package ua.rudikc.cinema.entity;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 public class Order {
 
     private int id;
-    private User user;
+    private int userId;
     private double price;
     private Date orderTime;
 
     public Order() {
     }
 
-    public Order(int id, User user, double price, Date orderTime) {
+    public Order(int id, int userId, double price, Date orderTime) {
         this.id = id;
-        this.user = user;
+        this.userId = userId;
         this.price = price;
         this.orderTime = orderTime;
     }
@@ -28,12 +27,12 @@ public class Order {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public double getPrice() {
@@ -51,4 +50,36 @@ public class Order {
     public void setOrderTime(Date orderTime) {
         this.orderTime = orderTime;
     }
+
+
+    public static Builder newBuilder() {
+        return new Order().new Builder();
+    }
+
+    public class Builder {
+        private Builder() {
+
+        }
+
+        public Builder setOrderTime() {
+            Order.this.orderTime = new Date();
+            return this;
+        }
+
+        public Builder setUser(int user) {
+            Order.this.userId = user;
+            return this;
+        }
+
+        public Builder setPrice(double price) {
+            Order.this.price = price;
+            return this;
+        }
+
+        public Order build() {
+            return Order.this;
+        }
+    }
+
+
 }
