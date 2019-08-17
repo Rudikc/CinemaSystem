@@ -22,7 +22,7 @@
         <td><img src="${pageContext.request.contextPath}/images/${seance.film.posterPic}" width="100"
                  height="148"></td>
         <td>${seance.film.name}</td>
-        <td>${seance.start}</td>
+        <td><fmt:formatDate type="both" value="${seance.start}"/></td>
     </tr>
 </table>
 <table>

@@ -24,7 +24,7 @@
                 <td><img src="${pageContext.request.contextPath}/images/${seance.film.posterPic}" width="100"
                          height="148"></td>
                 <td>${seance.id}</td>
-                <td>${seance.start}</td>
+                <td><fmt:formatDate type="time" timeStyle="short" value="${seance.start}"/></td>
                 <td>${seance.film.name}</td>
                 <td>
                     <form method="GET" action="${pageContext.request.contextPath}/seats">

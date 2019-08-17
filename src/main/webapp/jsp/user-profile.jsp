@@ -25,7 +25,7 @@
                     ${order.id}
             </td>
             <td>
-                    ${order.orderTime}
+                    <fmt:formatDate type="both" value="${order.orderTime}"/>
             </td>
             <td>
                 <c:forEach var="ticket" items="${order.tickets}">
@@ -42,6 +42,10 @@
             </td>
             <td>
 
+                <form method="POST" action="${pageContext.request.contextPath}/remove-order">
+                    <input type="hidden" name="order-id" value="${order.id}">
+                    <button><fmt:message key="order.remove"/></button>
+                </form>
             </td>
         </tr>
     </c:forEach>

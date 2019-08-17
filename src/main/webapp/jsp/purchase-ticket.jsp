@@ -43,7 +43,7 @@
                 <h2><fmt:message key="seance.time"/></h2>
             </td>
             <td>
-                ${seance.start}
+                <fmt:formatDate type="both" value="${seance.start}"/>
             </td>
         </tr>
         <tr>

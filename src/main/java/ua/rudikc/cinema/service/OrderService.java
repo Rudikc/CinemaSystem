@@ -44,7 +44,8 @@ public class OrderService {
             try {
                 if (connection != null) {
                     connection.rollback();
-                }e.printStackTrace();
+                }
+                e.printStackTrace();
             } catch (SQLException e1) {
                 e1.printStackTrace();
             }
@@ -59,8 +60,18 @@ public class OrderService {
             }
 
         }
+    }
 
-
+    public void removeOrder(User user, int orderId) {
+        OrderSqlDao orderSqlDao = (OrderSqlDao) DaoFactory.getDao(DaoFactory.ORDER_DAO);
+        try {
+            Optional<Order> orderByIdFromDb = orderSqlDao.get(orderId);
+            if (orderByIdFromDb.isPresent() && orderByIdFromDb.get().getUserId() == user.getId()) {
+                orderSqlDao.delete(orderByIdFromDb.get());
+            }
+        } catch (DaoException e) {
+            e.printStackTrace();
+        }
     }
 
     public OrderDto getOrderDtoById(int orderId) {

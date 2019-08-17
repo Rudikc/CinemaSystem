@@ -27,6 +27,7 @@ public class CommandFactory {
         commands.put("/user-profile",new GetUserProfileAction());
         commands.put("/purchase-ticket",new PurchaseTicketAction());
         commands.put("/purchase-confirm",new TicketPurchaseConfirmAction());
+        commands.put("/remove-order",new RemoveOrderAction());
     }
 
     public static Action defineCommand(String path) {
