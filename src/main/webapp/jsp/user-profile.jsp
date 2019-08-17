@@ -9,14 +9,39 @@
 <html>
 <head>
 
+    <style>
+        #poster-pic {
+            width: 100px;
+            height: 148px;
+        }
+    </style>
+
 </head>
 <body>
-
 <table>
     <c:forEach var="order" items="${orders}">
         <tr>
             <td>
-                    ${order}
+                    ${order.id}
+            </td>
+            <td>
+                    ${order.orderTime}
+            </td>
+            <td>
+                <c:forEach var="ticket" items="${order.tickets}">
+                    <span><fmt:message key="seats.row"/> ${ticket.seat.row}</span>
+                    <span><fmt:message key="seats.place"/> ${ticket.seat.place}</span>
+                </c:forEach>
+            </td>
+            <td>
+                <img id="poster-pic"
+                     src="${pageContext.request.contextPath}/images/${order.tickets[0].seance.film.posterPic}"/>
+            </td>
+            <td>
+                <span><fmt:message key="ticket.purchase.price"/> ${order.price}</span>
+            </td>
+            <td>
+
             </td>
         </tr>
     </c:forEach>
