@@ -9,7 +9,8 @@
 
 <html>
 <body>
-<myTag:user-panel/>
+<jsp:include page="header.jsp"/>
+
 <div>
     <table>
         <tr>

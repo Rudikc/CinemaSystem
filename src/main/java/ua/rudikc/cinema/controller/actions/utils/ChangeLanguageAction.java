@@ -26,6 +26,6 @@ public class ChangeLanguageAction implements Action {
         }
         request.getSession().setAttribute("locale", locale);
         request.getSession().setAttribute("bundle", LanguageBundleFactory.getBundle(locale));
-        return "index";
+        return CommandFactory.defineCommand("/").execute(request,response);
     }
 }

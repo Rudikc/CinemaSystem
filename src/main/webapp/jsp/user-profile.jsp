@@ -18,6 +18,8 @@
 
 </head>
 <body>
+<jsp:include page="header.jsp"/>
+
 <table>
     <c:forEach var="order" items="${orders}">
         <tr>

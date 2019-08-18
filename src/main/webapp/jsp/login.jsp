@@ -12,7 +12,7 @@
     <style>
 
         body {
-            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-family: "Helvetica Neue", Helvetica, sans-serif;
             position: relative;
         }
 
@@ -23,11 +23,11 @@
             margin: 4px 0;
             box-sizing: border-box;
             border: none;
-            border-bottom: 2px solid #0192ff;
+            border-bottom: 2px solid #35ccff;
         }
 
         #login-text {
-            color: #0192ff;
+            color: #35ccff;
             padding-bottom: 30px;
             font-size: 40px;
         }
@@ -51,9 +51,9 @@
 
         input[type=button], input[type=submit], input[type=reset] {
             background-color: white;
-            border: 1px solid #0192ff;
+            border: 1px solid #35ccff;
             border-radius: 4px;
-            color: #0192ff;
+            color: #35ccff;
             padding: 8px 20px;
             text-decoration: none;
             margin: 0;
@@ -68,7 +68,7 @@
 
         #registration-message {
             margin: 100px 100px;
-            color: #0192ff;
+            color: #35ccff;
         }
 
     </style>

@@ -45,6 +45,6 @@ public class LoginAction implements Action {
         logger.info("something useless happened");
 
 
-        return CommandFactory.defineCommand("/seances").execute(request,response);
+        return CommandFactory.defineCommand("/").execute(request,response);
     }
 }

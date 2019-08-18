@@ -11,6 +11,8 @@
     <title>Title</title>
 </head>
 <body>
+<jsp:include page="header.jsp"/>
+
 <div>
     <fmt:message key="ticket.purchase.confirm"/>
     <table>

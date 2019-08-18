@@ -23,11 +23,11 @@
             margin: 4px 0;
             box-sizing: border-box;
             border: none;
-            border-bottom: 2px solid #0171ff;
+            border-bottom: 2px solid #35ccff;
         }
 
         #registration-text {
-            color: #0171ff;
+            color: #35ccff;
             padding-bottom: 30px;
             font-size: 40px;
         }
@@ -49,8 +49,8 @@
         }
         input[type=button], input[type=submit], input[type=reset] {
             background-color: white;
-            border: 1px solid #0171ff;
-            color: #0171ff;
+            border: 1px solid #35ccff;
+            color: #35ccff;
             padding: 8px 20px;
             text-decoration: none;
             margin: 0;

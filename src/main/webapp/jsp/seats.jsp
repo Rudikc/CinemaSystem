@@ -8,6 +8,8 @@
 
 <html>
 <head>
+    <jsp:include page="header.jsp"/>
+
     <title></title>
     <style>
 
@@ -19,7 +21,7 @@
         #whole-container {
             text-align: center;
             position: absolute;
-            top: 40%;
+            top: 37%;
             left: 50%;
             transform: translate(-50%, -50%)
         }
@@ -39,7 +41,7 @@
         .seat-button {
             width: 30px;
             height: 30px;
-            background-color: #0192ff;
+            background-color: #35ccff;
             /*border: 1px solid #0192ff;*/
             border: 0;
             border-radius: 4px;
@@ -61,7 +63,7 @@
         }
 
         .vip-seat {
-            background-color: #005fff;
+            background-color: #0192ff;
         }
 
     </style>
@@ -94,7 +96,7 @@
                             <c:when test="${sessionScope.user.role == guest_role}">
                                 <c:choose>
                                     <c:when test="${busy_seats.contains(seat)}">
-                                        <button class="seat-button" id="busy-seat" disabled>${seat.place}</button>
+                                        <button class="seat-button" id="busy-seat" disabled></button>
                                     </c:when>
                                     <c:otherwise>
                                         <c:if test="${seat.seatTypeId == 1}">
@@ -109,7 +111,7 @@
                             <c:otherwise>
                                 <c:choose>
                                     <c:when test="${busy_seats.contains(seat)}">
-                                        <button class="seat-button" id="busy-seat" disabled>${seat.place}</button>
+                                        <button class="seat-button" id="busy-seat" disabled></button>
                                     </c:when>
                                     <c:otherwise>
                                         <c:if test="${seat.seatTypeId == 1}">
