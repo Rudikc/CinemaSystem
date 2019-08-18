@@ -1,5 +1,6 @@
 package ua.rudikc.cinema.service;
 
+import ua.rudikc.cinema.dao.Dao;
 import ua.rudikc.cinema.dao.FilmDao;
 import ua.rudikc.cinema.dao.SeanceDao;
 import ua.rudikc.cinema.dao.exception.DaoException;
@@ -62,5 +63,17 @@ public class SeanceService {
             }
         }
         return seancesResult;
+    }
+
+    public void removeSeance(int seanceId){
+        SeanceSqlDao seanceSqlDao = (SeanceSqlDao) DaoFactory.getDao(DaoFactory.SEANCE_DAO);
+        try {
+            Optional<Seance> seance = seanceSqlDao.get(seanceId);
+            if (seance.isPresent()) {
+                seanceSqlDao.delete(seance.get());
+            }
+        } catch (DaoException e) {
+            e.printStackTrace();
+        }
     }
 }
