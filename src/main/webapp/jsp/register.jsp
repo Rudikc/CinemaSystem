@@ -66,6 +66,8 @@
     </style>
 </head>
 <body>
+<jsp:include page="header.jsp"/>
+
 <div class="container-register">
     <div class="register-form">
         <span id="registration-text">

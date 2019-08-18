@@ -11,13 +11,13 @@
 <head>
     <style>
 
-        body{
-            font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
             position: relative;
         }
 
 
-        input[type = text],input[type = password]{
+        input[type = text], input[type = password] {
             width: 300px;
             padding: 12px 20px;
             margin: 4px 0;
@@ -35,7 +35,8 @@
         .login-form {
             text-align: center;
         }
-        .container-login{
+
+        .container-login {
             margin: 0;
             position: absolute;
             top: 50%;
@@ -44,12 +45,14 @@
         }
 
 
-        a:visited{
+        a:visited {
             color: #1D67A4;
         }
+
         input[type=button], input[type=submit], input[type=reset] {
             background-color: white;
             border: 1px solid #0192ff;
+            border-radius: 4px;
             color: #0192ff;
             padding: 8px 20px;
             text-decoration: none;
@@ -57,12 +60,13 @@
             cursor: pointer;
             font-size: 20px;
         }
-        #login-message{
+
+        #login-message {
             color: grey;
             margin-bottom: 4px;
         }
 
-        #registration-message{
+        #registration-message {
             margin: 100px 100px;
             color: #0192ff;
         }
@@ -73,6 +77,7 @@
     </title>
 </head>
 <body>
+<jsp:include page="header.jsp"/>
 <div class="container-login">
     <div class="login-form">
         <span id="login-text">

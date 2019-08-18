@@ -10,59 +10,134 @@
 <head>
     <title></title>
     <style>
-        #seat-button {
 
+        .poster-picture{
+            width: 100px;
+            height: 148px;
+            border: 1px solid black;
+        }
+        #whole-container {
+            text-align: center;
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%)
+        }
+
+        #film-info-container{
+            display: flex;
+            justify-content: center;
+        }
+        #film-info-table {
+            text-align: center;
+        }
+
+        form {
+            margin: 0;
+        }
+
+        .seat-button {
+            width: 30px;
+            height: 30px;
+            background-color: #0192ff;
+            /*border: 1px solid #0192ff;*/
+            border: 0;
+            border-radius: 4px;
+            color: white;
+            /*padding: 4px 8px;*/
+            text-decoration: none;
+            margin: 1px;
+            cursor: pointer;
+            font-size: 16px;
 
         }
+
+        #busy-seat {
+            background-color: grey;
+        }
+
+        #free-seat {
+
+        }
+
+        .vip-seat {
+            background-color: #005fff;
+        }
+
     </style>
 </head>
+
 <body>
-<table>
-    <tr>
-        <td><img src="${pageContext.request.contextPath}/images/${seance.film.posterPic}" width="100"
-                 height="148"></td>
-        <td>${seance.film.name}</td>
-        <td><fmt:formatDate type="both" value="${seance.start}"/></td>
-    </tr>
-</table>
-<table>
-    <c:set var="guest_role" value="GUEST"/>
-    <c:forEach var="row" items="${all_seats}">
-        <tr>
-            <td><fmt:message key="seats.row"/>${row[1].row}</td>
-            <c:forEach var="seat" items="${row}">
-                <td>
-                    <c:choose>
-                        <c:when test="${sessionScope.user.role == guest_role}">
-                            <c:choose>
-                                <c:when test="${busy_seats.contains(seat)}">
-                                    <button disabled>${seat.place}</button>
-                                </c:when>
-                                <c:otherwise>
-                                        <button>${seat.place}</button>
-                                </c:otherwise>
-                            </c:choose>
-                        </c:when>
-                        <c:otherwise>
-                            <c:choose>
-                                <c:when test="${busy_seats.contains(seat)}">
-                                    <button disabled>${seat.place}</button>
-                                </c:when>
-                                <c:otherwise>
-                                    <form id="seat-button" method="POST"
-                                          action="${pageContext.request.contextPath}/purchase-ticket">
-                                        <input type="hidden" name="seat-id" value="${seat.id}">
-                                        <input type="hidden" name="seance-id" value="${seance.id}">
-                                        <button>${seat.place}</button>
-                                    </form>
-                                </c:otherwise>
-                            </c:choose>
-                        </c:otherwise>
-                    </c:choose>
-                </td>
-            </c:forEach>
-        </tr>
-    </c:forEach>
-</table>
+<div id="whole-container">
+
+    <div id="film-info-container">
+        <table id="film-info-table">
+            <tr>
+                <td><img class="poster-picture" src="${pageContext.request.contextPath}/images/${seance.film.posterPic}" ></td>
+            </tr>
+            <tr>
+                <td>${seance.film.name}</td>
+            </tr>
+            <tr>
+                <td><fmt:formatDate type="both" timeStyle="short" value="${seance.start}"/></td>
+            </tr>
+        </table>
+    </div>
+    <table>
+        <c:set var="guest_role" value="GUEST"/>
+        <c:forEach var="row" items="${all_seats}">
+            <tr>
+                    <%--<td><fmt:message key="seats.row"/>${row[1].row}</td>--%>
+                <c:forEach var="seat" items="${row}">
+                    <td>
+                        <c:choose>
+                            <c:when test="${sessionScope.user.role == guest_role}">
+                                <c:choose>
+                                    <c:when test="${busy_seats.contains(seat)}">
+                                        <button class="seat-button" id="busy-seat" disabled>${seat.place}</button>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:if test="${seat.seatTypeId == 1}">
+                                            <button class="seat-button" id="free-seat">${seat.place}</button>
+                                        </c:if>
+                                        <c:if test="${seat.seatTypeId == 2}">
+                                            <button class="seat-button vip-seat">${seat.place}</button>
+                                        </c:if>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:when>
+                            <c:otherwise>
+                                <c:choose>
+                                    <c:when test="${busy_seats.contains(seat)}">
+                                        <button class="seat-button" id="busy-seat" disabled>${seat.place}</button>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:if test="${seat.seatTypeId == 1}">
+                                            <form method="POST"
+                                                  action="${pageContext.request.contextPath}/purchase-ticket">
+                                                <input type="hidden" name="seat-id" value="${seat.id}">
+                                                <input type="hidden" name="seance-id" value="${seance.id}">
+                                                <button class="seat-button">${seat.place}</button>
+                                            </form>
+                                        </c:if>
+
+                                        <c:if test="${seat.seatTypeId == 2}">
+                                            <form method="POST"
+                                                  action="${pageContext.request.contextPath}/purchase-ticket">
+                                                <input type="hidden" name="seat-id" value="${seat.id}">
+                                                <input type="hidden" name="seance-id" value="${seance.id}">
+                                                <button class="seat-button vip-seat">${seat.place}</button>
+                                            </form>
+                                        </c:if>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
+                </c:forEach>
+            </tr>
+        </c:forEach>
+    </table>
+</div>
 </body>
 </html>

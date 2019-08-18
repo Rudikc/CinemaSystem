@@ -6,6 +6,7 @@ import ua.rudikc.cinema.dao.UserDao;
 import ua.rudikc.cinema.dao.exception.DaoException;
 import ua.rudikc.cinema.dao.sqlimplementation.UserSqlDao;
 import ua.rudikc.cinema.entity.User;
+import ua.rudikc.cinema.entity.UserRole;
 import ua.rudikc.cinema.factory.CommandFactory;
 import ua.rudikc.cinema.utils.PasswordHashing;
 
@@ -16,8 +17,12 @@ import java.sql.SQLException;
 public class LoginAction implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+        User user = (User) request.getSession().getAttribute("user");
+        if (user.getRole() == UserRole.USER || user.getRole() == UserRole.ADMIN){
+            return CommandFactory.defineCommand("/").execute(request,response);
+        }
+
         UserDao userDao = new UserSqlDao();
-        User user = null;
 
         if (request.getParameter("email") == null) {
             return "login";

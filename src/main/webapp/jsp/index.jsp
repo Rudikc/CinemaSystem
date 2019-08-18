@@ -13,14 +13,29 @@
         body {
             height: 100%;
         }
+
+        #main-container{
+            text-align: center;
+        }
+        #language-panel{
+            display: flex;
+            justify-content: center;
+        }
     </style>
 
     <title><fmt:message key="title.index"/></title></head>
 <body>
-<h1><fmt:message key="index.greetings"/></h1>
-<h2><a href="${pageContext.request.contextPath}/login">Sign in</a></h2>
-<h2><a href="${pageContext.request.contextPath}/seances">See titles</a></h2>
-<myTag:language-change-panel/>
+<c:set var="guest" value="GUEST"/>
+<div id="main-container">
+    <h1><fmt:message key="index.greetings"/></h1>
+    <h2><a href="${pageContext.request.contextPath}/seances">See titles</a></h2>
+    <c:if test="${sessionScope.user.role == guest}">
+        <h2><a href="${pageContext.request.contextPath}/login">Sign in</a></h2>
+    </c:if>
+    <div id="language-panel">
+        <myTag:language-change-panel page="${pageContext.request.pathInfo}"/>
+    </div>
+</div>
 
 </body>
 </html>
