@@ -129,6 +129,35 @@ public class FilmSqlDao implements FilmDao {
         return resultFilms;
     }
 
+    public List<Film> paginationGet(int low, int upper){
+        List<Film> resultFilms = new ArrayList<>();
+        try(Connection connection = ConnectionPool.getConnection()){
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_FILMS_PAGINATION.getQuery());
+            preparedStatement.setInt(1,low);
+            preparedStatement.setInt(2,upper);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                resultFilms.add(extractFromResultSet(resultSet));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return resultFilms;
+    }
+    public Integer countFilms(){
+        int count = 0;
+        try(Connection connection = ConnectionPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_FILMS_COUNT.getQuery());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                count = resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+
     @Override
     public Film extractFromResultSet(ResultSet resultSet) {
         Film film = new Film();

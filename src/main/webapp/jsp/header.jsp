@@ -82,6 +82,9 @@
             </c:when>
             <c:when test="${sessionScope.user.role == admin}">
                 <div class="user-text">
+                    <a href="${pageContext.request.contextPath}/film-catalogue?page=1">
+                        <button class="user-button"><span><fmt:message key="catalogue"/></span></button>
+                    </a>
                     <a href="${pageContext.request.contextPath}/user-profile">
                         <button class="user-button"><span><fmt:message key="profile"/></span></button>
                     </a>

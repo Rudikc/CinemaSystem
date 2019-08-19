@@ -30,6 +30,7 @@ public class CommandFactory {
         commands.put("/remove-order",new RemoveOrderAction());
         commands.put("/remove-seance",new RemoveSeanceAction());
         commands.put("/add-seance",new AddSeanceAction());
+        commands.put("/film-catalogue",new GetFilmCatalogueAction());
     }
 
     public static Action defineCommand(String path) {

@@ -7,6 +7,8 @@ public enum Queries {
     GET_FILM("SELECT * FROM cinema_db.films WHERE film_id = ?"),
     GET_ALL_FILMS("SELECT * FROM cinema_db.films"),
     GET_FILM_BY_NAME("SELECT * FROM cinema_db.films WHERE film_name = ?"),
+    GET_FILMS_PAGINATION("SELECT * FROM cinema_db.films LIMIT ?,?"),
+    GET_FILMS_COUNT("SELECT COUNT(*) FROM cinema_db.films"),
     DELETE_FILM("DELETE FROM cinema_db.films WHERE film_id = ?"),
     UPDATE_FILM("UPDATE cinema_db.films SET film_name=?,director=?,premiere_date=?,duration=?,poster_pic=? WHERE film_id =?"),
     INSERT_FILM("INSERT INTO cinema_db.films (film_name,director,premiere_date,duration,poster_pic) VALUES (?,?,?,?,?)"),
