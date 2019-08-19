@@ -8,6 +8,8 @@ import ua.rudikc.cinema.dao.sqlimplementation.FilmSqlDao;
 import ua.rudikc.cinema.dao.sqlimplementation.SeanceSqlDao;
 import ua.rudikc.cinema.dto.SeanceDto;
 import ua.rudikc.cinema.entity.Film;
+import ua.rudikc.cinema.entity.User;
+import ua.rudikc.cinema.entity.UserRole;
 import ua.rudikc.cinema.factory.DaoFactory;
 import ua.rudikc.cinema.entity.Seance;
 
@@ -20,6 +22,16 @@ import static ua.rudikc.cinema.factory.DaoFactory.FILM_DAO;
 public class SeanceService {
 
 
+    public void addSeance(User user, Seance seance){
+        SeanceDao seanceDao = (SeanceDao) DaoFactory.getDao(DaoFactory.SEANCE_DAO);
+        if (user.getRole() == UserRole.ADMIN){
+            try {
+                seanceDao.save(seance);
+            } catch (DaoException e) {
+                e.printStackTrace();
+            }
+        }
+    }
     public List<SeanceDto> getSeancesByDate(String date) {
         SeanceSqlDao seanceDao = (SeanceSqlDao) DaoFactory.getDao(DaoFactory.SEANCE_DAO);
         List<SeanceDto> dtoSeances = new ArrayList<>();

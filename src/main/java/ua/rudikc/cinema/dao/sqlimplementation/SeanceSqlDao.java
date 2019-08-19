@@ -74,8 +74,8 @@ public class SeanceSqlDao implements SeanceDao {
     public void save(Seance seance) throws DaoException {
         try (Connection connection = ConnectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_SEANCE.getQuery());
-            preparedStatement.setTimestamp(1, (Timestamp) seance.getStart());
-            preparedStatement.setTimestamp(2, (Timestamp) seance.getEnd());
+            preparedStatement.setObject(1,  seance.getStart());
+            preparedStatement.setObject(2,  seance.getEnd());
             preparedStatement.setInt(3, seance.getFilm());
             preparedStatement.setDouble(4, seance.getPrice());
             preparedStatement.executeUpdate();

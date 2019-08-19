@@ -11,6 +11,23 @@
 <body>
 <jsp:include page="header.jsp"/>
 <c:set var="admin" value="ADMIN"/>
+<c:if test="${sessionScope.user.role == admin}">
+    <div>
+        <form method="POST" action="${pageContext.request.contextPath}/add-seance">
+            <label for="datetime"></label><input id="datetime" type="datetime-local" name="start"/>
+            <label>
+                <input list="films" name="film-id">
+            </label>
+            <datalist id="films">
+                <c:forEach var="film" items="${allFilms}">
+                    <option value="${film.id}">${film.name}
+                </c:forEach>
+            </datalist>
+            <input type="text" name="ticket-price">
+            <input type="submit"/>
+        </form>
+    </div>
+</c:if>
 <div>
     <table>
         <tr>

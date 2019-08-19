@@ -1,9 +1,6 @@
 package ua.rudikc.cinema.factory;
 
-import ua.rudikc.cinema.service.OrderService;
-import ua.rudikc.cinema.service.SeanceService;
-import ua.rudikc.cinema.service.SeatService;
-import ua.rudikc.cinema.service.TicketService;
+import ua.rudikc.cinema.service.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,6 +13,7 @@ public class ServiceFactory {
         serviceMap.put("seatService",new SeatService());
         serviceMap.put("ticketService",new TicketService());
         serviceMap.put("orderService",new OrderService());
+        serviceMap.put("filmService",new FilmService());
 
     }
 

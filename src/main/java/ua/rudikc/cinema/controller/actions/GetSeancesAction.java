@@ -1,7 +1,9 @@
 package ua.rudikc.cinema.controller.actions;
 
 import ua.rudikc.cinema.dto.SeanceDto;
+import ua.rudikc.cinema.entity.Film;
 import ua.rudikc.cinema.factory.ServiceFactory;
+import ua.rudikc.cinema.service.FilmService;
 import ua.rudikc.cinema.service.SeanceService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,8 +16,12 @@ public class GetSeancesAction implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         SeanceService seanceService = (SeanceService) ServiceFactory.getService("seanceService");
-        String givenDate = request.getParameter("given-date");
-        List<SeanceDto> seances = seanceService.getSeancesByDate(givenDate);
+        FilmService filmService = (FilmService) ServiceFactory.getService("filmService");
+
+        List<SeanceDto> seances = seanceService.getSeancesByDate(request.getParameter("given-date"));
+        List<Film> allFilms = filmService.getAllFilms();
+
+        request.setAttribute("allFilms",allFilms);
         request.setAttribute("seances", seances);
         return "seances";
     }

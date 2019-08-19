@@ -60,6 +60,41 @@ public class Seance {
         this.price = price;
     }
 
+
+    public static Builder newBuilder() {
+        return new Seance().new Builder();
+    }
+
+    public class Builder {
+        private Builder() {
+
+        }
+
+        public Builder setStart(Date start) {
+            Seance.this.start = start;
+            return this;
+        }
+
+        public Builder setEnd(Date end) {
+            Seance.this.end = end;
+            return this;
+        }
+
+        public Builder setFilm(int film) {
+            Seance.this.film = film;
+            return this;
+        }
+
+        public Builder setPrice(double price) {
+            Seance.this.price = price;
+            return this;
+        }
+
+        public Seance build() {
+            return Seance.this;
+        }
+    }
+
     @Override
     public String toString() {
         return "Seance{" +

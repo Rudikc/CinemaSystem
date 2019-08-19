@@ -12,7 +12,11 @@
 </head>
 <body>
 <jsp:include page="header.jsp"/>
+<a href="${pageContext.request.contextPath}/add-seance">
+    <button>
 
+    </button>
+</a>
 
 
 </body>
