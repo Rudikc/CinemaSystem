@@ -3,6 +3,8 @@ package ua.rudikc.cinema.controller.actions.profile;
 import ua.rudikc.cinema.controller.actions.Action;
 import ua.rudikc.cinema.dto.OrderDto;
 import ua.rudikc.cinema.entity.User;
+import ua.rudikc.cinema.entity.UserRole;
+import ua.rudikc.cinema.factory.CommandFactory;
 import ua.rudikc.cinema.factory.ServiceFactory;
 import ua.rudikc.cinema.service.OrderService;
 
@@ -18,7 +20,14 @@ public class GetUserProfileAction implements Action {
         List<OrderDto> orders = orderService.getUserOrders(user);
 
         request.setAttribute("orders",orders);
-        return "user-profile";
+        if(user.getRole().equals(UserRole.USER)) {
+            return "user-profile";
+        }
+        else if(user.getRole().equals(UserRole.ADMIN)){
+            return "admin-profile";
+        }else {
+            return CommandFactory.defineCommand("/").execute(request,response);
+        }
 
 
     }

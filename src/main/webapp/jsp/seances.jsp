@@ -10,7 +10,7 @@
 <html>
 <body>
 <jsp:include page="header.jsp"/>
-
+<c:set var="admin" value="ADMIN"/>
 <div>
     <table>
         <tr>
@@ -32,6 +32,12 @@
                         <input type="hidden" name="seance-id" value="${seance.id}">
                         <button><fmt:message key="seances.see.free.tickets"/></button>
                     </form>
+                    <c:if test="${sessionScope.user.role == admin}">
+                        <form method="POST" action="${pageContext.request.contextPath}/remove-seance" >
+                            <input type="hidden" name = "seance-id" value="${seance.id}">
+                            <button><fmt:message key="button.remove"/> </button>
+                        </form>
+                    </c:if>
                 </td>
             </tr>
         </c:forEach>

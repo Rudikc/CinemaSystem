@@ -18,6 +18,7 @@
 
         #main-container {
             text-align: center;
+            margin: 30px 30px;
         }
 
         #language-panel {
@@ -32,20 +33,17 @@
 
 <c:set var="guest" value="GUEST"/>
 <div id="main-container">
-    <h1><fmt:message key="index.greetings"/></h1>
+    <span><fmt:message key="index.greetings"/></span>
     <div class="date-pick-container">
         <form method="GET" action="${pageContext.request.contextPath}/seances">
             <h2><fmt:message key="choose.date"/></h2>
             <label>
-                <input type="date" name="given-date" value="${todayDate}" min="${todayDate}" max="${todayAfterSevenDays}">
+                <input type="date" name="given-date" value="${todayDate}" min="${todayDate}"
+                       max="${todayAfterSevenDays}">
             </label>
             <input type="submit">
         </form>
     </div>
-
-    <c:if test="${sessionScope.user.role == guest}">
-        <h2><a href="${pageContext.request.contextPath}/login"><fmt:message key="login.sign.in"/> </a></h2>
-    </c:if>
     <div id="language-panel">
         <myTag:language-change-panel page="${pageContext.request.pathInfo}"/>
     </div>

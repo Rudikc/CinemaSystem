@@ -52,6 +52,7 @@
         width: 100%;
         height: 70px;
         background-color: #35ccff;
+        border-bottom: 1px solid #2392b4;
 
     }
 </style>
@@ -80,7 +81,14 @@
                 </div>
             </c:when>
             <c:when test="${sessionScope.user.role == admin}">
-
+                <div class="user-text">
+                    <a href="${pageContext.request.contextPath}/user-profile">
+                        <button class="user-button"><span><fmt:message key="profile"/></span></button>
+                    </a>
+                    <a href="${pageContext.request.contextPath}/logout">
+                        <button class="user-button"><span><fmt:message key="user.action.logout"/></span></button>
+                    </a>
+                </div>
             </c:when>
             <c:when test="${sessionScope.user.role == guest}">
                 <div class="user-text">
