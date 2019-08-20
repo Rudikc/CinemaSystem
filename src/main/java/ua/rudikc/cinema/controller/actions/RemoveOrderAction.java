@@ -8,21 +8,19 @@ import ua.rudikc.cinema.service.OrderService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class RemoveOrderAction implements Action{
+public class RemoveOrderAction implements Action {
 
 
+    /**
+     * Action that removes the order.
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         OrderService orderService = (OrderService) ServiceFactory.getService("orderService");
         User user = (User) request.getSession().getAttribute("user");
         int orderId = Integer.parseInt(request.getParameter("order-id"));
-        orderService.removeOrder(user,orderId);
+        orderService.removeOrder(user, orderId);
 
-
-
-
-
-
-        return CommandFactory.defineCommand("/user-profile").execute(request,response);
+        return CommandFactory.defineCommand("/user-profile").execute(request, response);
     }
 }

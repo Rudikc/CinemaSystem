@@ -12,8 +12,16 @@ import ua.rudikc.cinema.factory.ServiceFactory;
 
 import java.util.Optional;
 
+/**
+ * Service for work with tickets
+ */
 public class TicketService {
 
+    /**
+     * Returns ticket dto by ticket entity id
+     * @param ticketId
+     * @return
+     */
     public TicketDto getTicketDtoById(int ticketId) {
         SeatSqlDao seatSqlDao = (SeatSqlDao) DaoFactory.getDao(DaoFactory.SEAT_DAO);
         SeanceService seanceService = (SeanceService) ServiceFactory.getService("seanceService");

@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 public class RemoveSeanceAction implements Action{
 
+    /**
+     * Action that removes seance.
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         SeanceService seanceService = (SeanceService) ServiceFactory.getService("seanceService");

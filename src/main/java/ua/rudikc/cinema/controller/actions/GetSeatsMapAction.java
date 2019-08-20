@@ -15,6 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 
 public class GetSeatsMapAction implements Action {
+    /**
+     * Action that creates map of free seats for seance.
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         SeanceDao seanceDao = (SeanceDao) DaoFactory.getDao(DaoFactory.SEANCE_DAO);

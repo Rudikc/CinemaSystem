@@ -2,6 +2,9 @@ package ua.rudikc.cinema.entity;
 
 import java.util.Date;
 
+/**
+ * Seance entity
+ */
 public class Seance {
     private int id;
     private Date start;

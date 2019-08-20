@@ -5,6 +5,9 @@ import ua.rudikc.cinema.service.*;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Factory for services
+ */
 public class ServiceFactory {
     private static Map<String, Object> serviceMap = new HashMap<>();
 

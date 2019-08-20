@@ -13,6 +13,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class AddSeanceAction implements Action {
+    /**
+     * Action to add a new seance.
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         SeanceService seanceService = (SeanceService) ServiceFactory.getService("seanceService");

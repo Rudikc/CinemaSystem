@@ -9,6 +9,9 @@ import java.io.IOException;
 import static ua.rudikc.cinema.utils.Constants.*;
 
 
+/**
+ * Filter to read users locale and set the correct bundle
+ */
 public class LocalizationFilter implements Filter {
 
     private String defaultBundle;

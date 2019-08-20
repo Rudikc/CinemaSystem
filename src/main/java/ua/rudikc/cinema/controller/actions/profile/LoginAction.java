@@ -15,6 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 
 public class LoginAction implements Action {
+    /**
+     * Action to get get info for user login.
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         User user = (User) request.getSession().getAttribute("user");

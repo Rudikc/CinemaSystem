@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class TicketPurchaseConfirmAction implements Action{
+    /**
+     * Action that creates a new ticket in database.
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         OrderService orderService = (OrderService) ServiceFactory.getService("orderService");

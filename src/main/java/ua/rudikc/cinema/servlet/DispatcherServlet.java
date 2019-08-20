@@ -13,6 +13,9 @@ import java.io.IOException;
 import static ua.rudikc.cinema.utils.Constants.JSP_PATH;
 
 
+/**
+ * Main dispatcher servlet to precess actions
+ */
 @WebServlet("/finalProject/*")
 public class DispatcherServlet extends HttpServlet {
     @Override
@@ -25,6 +28,13 @@ public class DispatcherServlet extends HttpServlet {
         handleRequest(req, resp);
     }
 
+    /**
+     * Main method that handles uri path and defines action
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
     private void handleRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String path = req.getPathInfo();
         Action action = CommandFactory.defineCommand(path);
@@ -34,10 +44,5 @@ public class DispatcherServlet extends HttpServlet {
             req.getRequestDispatcher(String.format(JSP_PATH, resultPage))
                     .forward(req, resp);
         }
-//        if (req.getMethod().equals("POST")) {
-//            resp.sendRedirect(resultPage);
-//        } else if (req.getMethod().equals("GET")){
-//            req.getRequestDispatcher(String.format(JSP_PATH,resultPage)).forward(req,resp);
-//        }
     }
 }

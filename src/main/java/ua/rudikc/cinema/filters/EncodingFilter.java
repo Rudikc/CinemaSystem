@@ -5,6 +5,9 @@ import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 import java.util.Optional;
 
+/**
+ * Filter that is setting encoding on every url to UTF-8
+ */
 @WebFilter("/*")
 public class EncodingFilter implements Filter {
     private static final String DEFAULT_ENCODING = "UTF-8";

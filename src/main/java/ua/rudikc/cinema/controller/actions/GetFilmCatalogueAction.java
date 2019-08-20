@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public class GetFilmCatalogueAction implements Action {
+    /**
+     * Action that return catalogue of films for admin.
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         User user = (User) request.getSession().getAttribute("user");

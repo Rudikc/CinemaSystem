@@ -13,6 +13,9 @@ import java.util.Date;
 
 public class AddFilmAction implements Action {
 
+    /**
+     * Action to add a new film.
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");

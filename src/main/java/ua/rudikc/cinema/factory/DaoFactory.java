@@ -5,6 +5,9 @@ import ua.rudikc.cinema.dao.sqlimplementation.*;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Factory for daos
+ */
 public class DaoFactory {
 
 
@@ -30,6 +33,11 @@ public class DaoFactory {
         daoMap.put(USER_DAO, new UserSqlDao());
     }
 
+    /**
+     * Returns dao by name
+     * @param name dao name
+     * @return dao
+     */
     public static Object getDao(String name){
         return daoMap.get(name);
     }

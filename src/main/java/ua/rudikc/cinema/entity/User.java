@@ -1,5 +1,8 @@
 package ua.rudikc.cinema.entity;
 
+/**
+ * User entity
+ */
 public class User {
 
 

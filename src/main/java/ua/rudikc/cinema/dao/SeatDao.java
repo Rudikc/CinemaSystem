@@ -6,5 +6,10 @@ import ua.rudikc.cinema.entity.Seat;
 import java.sql.ResultSet;
 
 public interface SeatDao extends Dao<Seat> {
+    /**
+     * Extracting entity from result set
+     * @param resultSet
+     * @return entity
+     */
     Seat extractSeatFromResultSet(ResultSet resultSet) throws DaoException;
 }

@@ -1,5 +1,8 @@
 package ua.rudikc.cinema.entity;
 
+/**
+ * Ticket entity
+ */
 public class Ticket {
     private int id;
     private int seatId;

@@ -18,6 +18,9 @@ public class ChangeLanguageAction implements Action {
         allowedLocales.add("uk_UA");
     }
 
+    /**
+     * Action to change language localization.
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String locale = request.getParameter("locale");

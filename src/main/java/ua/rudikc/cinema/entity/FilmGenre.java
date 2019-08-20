@@ -1,5 +1,8 @@
 package ua.rudikc.cinema.entity;
 
+/**
+ * Film genre entity
+ */
 public class FilmGenre {
 
     private int id;

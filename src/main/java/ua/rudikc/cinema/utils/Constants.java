@@ -1,5 +1,8 @@
 package ua.rudikc.cinema.utils;
 
+/**
+ * Util class for constants
+ */
 public class Constants {
 
     public static final String JSP_PATH = "/jsp/%s.jsp";

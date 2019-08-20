@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Factory of commands for dispatcher servlet
+ */
 public class CommandFactory {
 
     private static final Map<String, Action> commands;
@@ -35,6 +38,12 @@ public class CommandFactory {
         commands.put("/remove-film",new RemoveFilmAction());
     }
 
+    /**
+     * Defining the uri and gives right action for dispatcher servlet
+     *
+     * @param path servlet uri
+     * @return action
+     */
     public static Action defineCommand(String path) {
         return commands.getOrDefault(path,new Error404Action());
 

@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 
 
 public class RegisterAction implements Action {
+    /**
+     * Action to register a new user.
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         UserDao dao = (UserDao) DaoFactory.getDao(DaoFactory.USER_DAO);

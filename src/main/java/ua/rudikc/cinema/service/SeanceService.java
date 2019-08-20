@@ -19,9 +19,17 @@ import java.util.Optional;
 
 import static ua.rudikc.cinema.factory.DaoFactory.FILM_DAO;
 
+/**
+ * Seance service for for with seance
+ */
 public class SeanceService {
 
 
+    /**
+     * Adds and order to database
+     * @param user
+     * @param seance
+     */
     public void addSeance(User user, Seance seance){
         SeanceDao seanceDao = (SeanceDao) DaoFactory.getDao(DaoFactory.SEANCE_DAO);
         if (user.getRole() == UserRole.ADMIN){
@@ -32,6 +40,12 @@ public class SeanceService {
             }
         }
     }
+
+    /**
+     * Returns a list of seances by given date
+     * @param date
+     * @return list of seances
+     */
     public List<SeanceDto> getSeancesByDate(String date) {
         SeanceSqlDao seanceDao = (SeanceSqlDao) DaoFactory.getDao(DaoFactory.SEANCE_DAO);
         List<SeanceDto> dtoSeances = new ArrayList<>();
@@ -46,6 +60,11 @@ public class SeanceService {
         return dtoSeances;
     }
 
+    /**
+     * Returning seance dto by id
+     * @param seanceId
+     * @return seanceDto
+     */
     public SeanceDto getSeanceDtoById(int seanceId) {
         SeanceSqlDao seanceSqlDao = (SeanceSqlDao) DaoFactory.getDao(DaoFactory.SEANCE_DAO);
         FilmSqlDao filmSqlDao = (FilmSqlDao) DaoFactory.getDao(FILM_DAO);
@@ -77,6 +96,10 @@ public class SeanceService {
         return seancesResult;
     }
 
+    /**
+     * Removes seance from database
+     * @param seanceId
+     */
     public void removeSeance(int seanceId){
         SeanceSqlDao seanceSqlDao = (SeanceSqlDao) DaoFactory.getDao(DaoFactory.SEANCE_DAO);
         try {

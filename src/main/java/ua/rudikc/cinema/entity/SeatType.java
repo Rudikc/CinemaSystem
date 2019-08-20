@@ -1,5 +1,8 @@
 package ua.rudikc.cinema.entity;
 
+/**
+ * Seat type entity
+ */
 public class SeatType {
 
     private int id;

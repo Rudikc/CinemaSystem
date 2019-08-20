@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class RemoveFilmAction implements Action {
+    /**
+     * Action that removes the film.
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         FilmService filmService = (FilmService) ServiceFactory.getService("filmService");

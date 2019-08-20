@@ -6,6 +6,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+/**
+ * Apache commons DBCP
+ */
 public class ConnectionPool {
 
     private static BasicDataSource basicDataSource = new BasicDataSource();
@@ -22,6 +25,11 @@ public class ConnectionPool {
         basicDataSource.setMaxIdle(Integer.parseInt(dbSettings.getString("poolsize")) * 2);
     }
 
+    /**
+     * Giving the connection
+     * @return connection with database
+     * @throws SQLException
+     */
     public static Connection getConnection() throws SQLException {
         return basicDataSource.getConnection();
     }

@@ -2,6 +2,9 @@ package ua.rudikc.cinema.entity;
 
 import java.util.Date;
 
+/**
+ * Order entity
+ */
 public class Order {
 
     private int id;

@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class PurchaseTicketAction implements Action {
+    /**
+     * Action that redirect user to purchase confirmation of the ticket.
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 

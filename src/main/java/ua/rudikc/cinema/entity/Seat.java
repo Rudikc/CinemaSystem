@@ -2,6 +2,9 @@ package ua.rudikc.cinema.entity;
 
 import java.util.Objects;
 
+/**
+ * Seat entity
+ */
 public class Seat {
 
     private int id;

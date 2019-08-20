@@ -13,6 +13,9 @@ import java.util.List;
 public class GetSeancesAction implements Action {
 
 
+    /**
+     * Action that returns list of seances for given date.
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         SeanceService seanceService = (SeanceService) ServiceFactory.getService("seanceService");
@@ -21,8 +24,8 @@ public class GetSeancesAction implements Action {
         List<SeanceDto> seances = seanceService.getSeancesByDate(request.getParameter("given-date"));
         List<Film> allFilms = filmService.getAllFilms();
 
-        request.setAttribute("date",request.getParameter("given-date"));
-        request.setAttribute("allFilms",allFilms);
+        request.setAttribute("date", request.getParameter("given-date"));
+        request.setAttribute("allFilms", allFilms);
         request.setAttribute("seances", seances);
         return "seances";
     }

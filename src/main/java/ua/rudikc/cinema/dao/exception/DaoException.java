@@ -1,5 +1,8 @@
 package ua.rudikc.cinema.dao.exception;
 
+/**
+ * Base dao exception.
+ */
 public class DaoException extends Exception {
 
     public DaoException() {

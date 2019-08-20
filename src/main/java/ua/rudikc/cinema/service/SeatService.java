@@ -15,6 +15,11 @@ import java.util.*;
 
 public class SeatService {
 
+    /**
+     * Returns seat dto by id
+     * @param seatId seat entity id
+     * @return seat dto
+     */
     public SeatDto getSeatDtoById(int seatId){
         SeatSqlDao seatSqlDao = (SeatSqlDao) DaoFactory.getDao(DaoFactory.SEAT_DAO);
         SeatTypeSqlDao seatTypeSqlDao = (SeatTypeSqlDao) DaoFactory.getDao(DaoFactory.SEAT_TYPE_DAO);
@@ -32,6 +37,12 @@ public class SeatService {
         }
         return seatDto;
     }
+
+    /**
+     * Returns 2-d arrayList where first index represent a row and
+     * the second represent the seat
+     * @return
+     */
     public ArrayList<ArrayList<Seat>> getListOfRowsOfSeats() {
         SeatSqlDao seatSqlDao = (SeatSqlDao) DaoFactory.getDao("seatDao");
         Map<Integer, ArrayList<Seat>> seatsMap = new TreeMap<>();
@@ -52,6 +63,11 @@ public class SeatService {
         return new ArrayList<>(seatsMap.values());
     }
 
+    /**
+     * Returns list of busy seats on the seance
+     * @param id seance id
+     * @return list of seats
+     */
     public ArrayList<Seat> getBusySeatsById(int id) {
         SeatService seatService = (SeatService) ServiceFactory.getService("seatService");
         SeatSqlDao seatSqlDao = (SeatSqlDao) DaoFactory.getDao(DaoFactory.SEAT_DAO);

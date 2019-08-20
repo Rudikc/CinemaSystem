@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public class GetUserProfileAction implements Action {
+    /**
+     * Action to get info for user profile.
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         OrderService orderService = (OrderService) ServiceFactory.getService("orderService");

@@ -7,6 +7,9 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class HomeAction implements Action {
+    /**
+     * Action that redirect user to index page.
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");

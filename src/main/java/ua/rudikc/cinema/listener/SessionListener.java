@@ -6,6 +6,9 @@ import ua.rudikc.cinema.entity.UserRole;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
+/**
+ * Session listener that sets user role to guest.
+ */
 public class SessionListener implements HttpSessionListener {
 
     @Override

@@ -9,5 +9,10 @@ import java.util.Optional;
 public interface FilmGenreDao extends Dao<FilmGenre> {
     Optional<FilmGenre> findFilmGenreByName(String name) throws DaoException;
 
+    /**
+     * Extracting entity from result set
+     * @param resultSet
+     * @return entity
+     */
     FilmGenre extractFromResultSet(ResultSet resultSet) throws DaoException;
 }

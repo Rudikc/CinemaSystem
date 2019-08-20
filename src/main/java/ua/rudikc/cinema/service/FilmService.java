@@ -10,8 +10,14 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * Film service
+ */
 public class FilmService {
 
+    /**
+     * Comparator to sort films in alphabetical order by name
+     */
     private static Comparator<Film> ALPHABETICAL_ORDER = (film1, film2) -> {
         int res = String.CASE_INSENSITIVE_ORDER.compare(film1.getName(), film2.getName());
         if (res == 0) {
@@ -20,6 +26,10 @@ public class FilmService {
         return res;
     };
 
+    /**
+     * Adds film to database
+     * @param film
+     */
     public void addFilm(Film film){
         FilmSqlDao filmSqlDao = (FilmSqlDao) DaoFactory.getDao(DaoFactory.FILM_DAO);
         try {
@@ -29,6 +39,10 @@ public class FilmService {
         }
     }
 
+    /**
+     * Removes film from database
+     * @param film
+     */
     public void removeFilm (Film film){
         FilmSqlDao filmSqlDao = (FilmSqlDao) DaoFactory.getDao(DaoFactory.FILM_DAO);
         try {
@@ -37,6 +51,10 @@ public class FilmService {
             e.printStackTrace();
         }
     }
+
+    /**
+     * @return list of all films in database
+     */
     public List<Film> getAllFilms() {
         FilmDao filmDao = (FilmDao) DaoFactory.getDao(DaoFactory.FILM_DAO);
         List<Film> allFilms = new ArrayList<>();
@@ -49,6 +67,11 @@ public class FilmService {
         return allFilms;
     }
 
+    /**
+     * @param page
+     * @param itemsPerPage
+     * @return film pagination variant of select
+     */
     public List<Film> getFilmsPagination(int page, int itemsPerPage) {
         FilmSqlDao filmSqlDao = (FilmSqlDao) DaoFactory.getDao(DaoFactory.FILM_DAO);
         int lowerLimit = (page - 1) * itemsPerPage;
@@ -56,6 +79,10 @@ public class FilmService {
         return filmSqlDao.paginationGet(lowerLimit, itemsPerPage);
     }
 
+    /**
+     * @param itemsPerPage
+     * @return value of maximum possible pages
+     */
     public List<Integer> getFilmsMaxPages(int itemsPerPage) {
         FilmSqlDao filmSqlDao = (FilmSqlDao) DaoFactory.getDao(DaoFactory.FILM_DAO);
         List<Integer> pages = new ArrayList<>();

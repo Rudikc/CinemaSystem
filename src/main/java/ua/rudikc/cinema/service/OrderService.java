@@ -23,6 +23,12 @@ import java.util.Optional;
 
 public class OrderService {
 
+    /**
+     * Saves the order to database
+     * @param order
+     * @param seanceId
+     * @param seatId
+     */
     public void saveOrder(Order order, int seanceId, int seatId) {
         OrderSqlDao orderSqlDao = (OrderSqlDao) DaoFactory.getDao(DaoFactory.ORDER_DAO);
         TicketSqlDao ticketSqlDao = (TicketSqlDao) DaoFactory.getDao(DaoFactory.TICKET_DAO);
@@ -62,6 +68,11 @@ public class OrderService {
         }
     }
 
+    /**
+     * Removes order from database
+     * @param user
+     * @param orderId
+     */
     public void removeOrder(User user, int orderId) {
         OrderSqlDao orderSqlDao = (OrderSqlDao) DaoFactory.getDao(DaoFactory.ORDER_DAO);
         try {
@@ -74,6 +85,11 @@ public class OrderService {
         }
     }
 
+    /**
+     * Returns order dto by the order id
+     * @param orderId
+     * @return order dto
+     */
     public OrderDto getOrderDtoById(int orderId) {
         OrderSqlDao orderSqlDao = (OrderSqlDao) DaoFactory.getDao(DaoFactory.ORDER_DAO);
         UserSqlDao userSqlDao = (UserSqlDao) DaoFactory.getDao(DaoFactory.USER_DAO);
@@ -95,6 +111,11 @@ public class OrderService {
         return orderDto;
     }
 
+    /**
+     * Setting tickets to order dto
+     * @param orderDto
+     * @return order dto with sated tickets
+     */
     private OrderDto setTicketsToOrder(OrderDto orderDto) {
         TicketSqlDao ticketSqlDao = (TicketSqlDao) DaoFactory.getDao(DaoFactory.TICKET_DAO);
         TicketService ticketService = (TicketService) ServiceFactory.getService("ticketService");
@@ -111,6 +132,11 @@ public class OrderService {
         return orderDto;
     }
 
+    /**
+     * Returns a list of user orders
+     * @param user
+     * @return
+     */
     public ArrayList<OrderDto> getUserOrders(User user) {
         OrderSqlDao orderSqlDao = (OrderSqlDao) DaoFactory.getDao(DaoFactory.ORDER_DAO);
         ArrayList<OrderDto> dtoOrders = new ArrayList<>();
