@@ -21,7 +21,7 @@
         </init-param>
         <init-param>
             <param-name>locale</param-name>
-            <param-value>en_US</param-value>
+            <param-value>en_GB</param-value>
         </init-param>
     </filter>
     <filter-mapping>

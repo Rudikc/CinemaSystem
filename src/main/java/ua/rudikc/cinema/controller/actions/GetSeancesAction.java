@@ -21,6 +21,7 @@ public class GetSeancesAction implements Action {
         List<SeanceDto> seances = seanceService.getSeancesByDate(request.getParameter("given-date"));
         List<Film> allFilms = filmService.getAllFilms();
 
+        request.setAttribute("date",request.getParameter("given-date"));
         request.setAttribute("allFilms",allFilms);
         request.setAttribute("seances", seances);
         return "seances";

@@ -107,6 +107,11 @@ public class Film {
             return this;
         }
 
+        public Builder setId(int id){
+            Film.this.id = id;
+            return this;
+        }
+
         public Film build() {
             return Film.this;
         }

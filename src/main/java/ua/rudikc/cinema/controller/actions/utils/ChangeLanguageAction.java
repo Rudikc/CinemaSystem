@@ -14,7 +14,7 @@ public class ChangeLanguageAction implements Action {
 
     static {
         allowedLocales.add("ru_RU");
-        allowedLocales.add("en_US");
+        allowedLocales.add("en_GB");
         allowedLocales.add("uk_UA");
     }
 
@@ -22,7 +22,7 @@ public class ChangeLanguageAction implements Action {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String locale = request.getParameter("locale");
         if (!allowedLocales.contains(locale)) {
-            locale = "en_US";
+            locale = "en_GB";
         }
         request.getSession().setAttribute("locale", locale);
         request.getSession().setAttribute("bundle", LanguageBundleFactory.getBundle(locale));

@@ -28,6 +28,15 @@ public class FilmService {
             e.printStackTrace();
         }
     }
+
+    public void removeFilm (Film film){
+        FilmSqlDao filmSqlDao = (FilmSqlDao) DaoFactory.getDao(DaoFactory.FILM_DAO);
+        try {
+            filmSqlDao.delete(film);
+        } catch (DaoException e) {
+            e.printStackTrace();
+        }
+    }
     public List<Film> getAllFilms() {
         FilmDao filmDao = (FilmDao) DaoFactory.getDao(DaoFactory.FILM_DAO);
         List<Film> allFilms = new ArrayList<>();

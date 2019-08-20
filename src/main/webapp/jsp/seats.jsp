@@ -8,7 +8,6 @@
 
 <html>
 <head>
-    <jsp:include page="header.jsp"/>
 
     <title></title>
     <style>
@@ -70,6 +69,8 @@
 </head>
 
 <body>
+<jsp:include page="header.jsp"/>
+
 <div id="whole-container">
 
     <div id="film-info-container">

@@ -27,6 +27,6 @@ public class TicketPurchaseConfirmAction implements Action{
                 .build();
         orderService.saveOrder(order,seanceId,seatId);
 
-        return CommandFactory.defineCommand("/seances").execute(request,response);
+        return CommandFactory.defineCommand("/").execute(request,response);
     }
 }
