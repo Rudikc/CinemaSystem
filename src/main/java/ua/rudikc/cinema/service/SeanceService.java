@@ -13,9 +13,7 @@ import ua.rudikc.cinema.entity.UserRole;
 import ua.rudikc.cinema.factory.DaoFactory;
 import ua.rudikc.cinema.entity.Seance;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static ua.rudikc.cinema.factory.DaoFactory.FILM_DAO;
 
@@ -24,6 +22,8 @@ import static ua.rudikc.cinema.factory.DaoFactory.FILM_DAO;
  */
 public class SeanceService {
 
+
+    private static Comparator<SeanceDto> TIME_ORDER = Comparator.comparing(SeanceDto::getStart);
 
     /**
      * Adds and order to database
@@ -57,6 +57,7 @@ public class SeanceService {
         } catch (DaoException e) {
             e.printStackTrace();
         }
+        dtoSeances.sort(TIME_ORDER);
         return dtoSeances;
     }
 

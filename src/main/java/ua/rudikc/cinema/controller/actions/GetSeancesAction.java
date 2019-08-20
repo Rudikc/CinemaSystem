@@ -8,6 +8,7 @@ import ua.rudikc.cinema.service.SeanceService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Collections;
 import java.util.List;
 
 public class GetSeancesAction implements Action {

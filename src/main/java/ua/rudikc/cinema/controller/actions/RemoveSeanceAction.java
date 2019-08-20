@@ -23,6 +23,6 @@ public class RemoveSeanceAction implements Action{
             seanceService.removeSeance(seanceId);
         }
 
-        return CommandFactory.defineCommand("/seances").execute(request,response);
+        return CommandFactory.defineCommand("/").execute(request,response);
     }
 }
