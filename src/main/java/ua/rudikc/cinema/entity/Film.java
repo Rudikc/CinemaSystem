@@ -1,6 +1,7 @@
 package ua.rudikc.cinema.entity;
 
-import java.sql.Time;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class Film {
@@ -9,14 +10,14 @@ public class Film {
     private String name;
     private String director;
     private Date premiereDate;
-    private Time duration;
+    private LocalTime duration;
     private String posterPic;
 
 
     public Film() {
     }
 
-    public Film(int id, String name, double imbdRating, String director, Date premiereDate, long budget, Time duration, String posterPic) {
+    public Film(int id, String name, double imbdRating, String director, Date premiereDate, long budget, LocalTime duration, String posterPic) {
         this.id = id;
         this.name = name;
         this.director = director;
@@ -57,11 +58,11 @@ public class Film {
         this.premiereDate = premiereDate;
     }
 
-    public Time getDuration() {
+    public LocalTime getDuration() {
         return duration;
     }
 
-    public void setDuration(Time duration) {
+    public void setDuration(LocalTime duration) {
         this.duration = duration;
     }
 
@@ -71,5 +72,43 @@ public class Film {
 
     public void setPosterPic(String posterPic) {
         this.posterPic = posterPic;
+    }
+
+    public static Builder newBuilder() {
+        return new Film().new Builder();
+    }
+
+    public class Builder {
+        private Builder() {
+
+        }
+        public Builder setDate(Date premiereDate){
+            Film.this.premiereDate = premiereDate;
+            return this;
+        }
+
+        public Builder setDirector(String director){
+            Film.this.director = director;
+            return this;
+        }
+
+        public Builder setDuration(String time) {
+            Film.this.duration = LocalTime.parse(time, DateTimeFormatter.ofPattern("HH:mm"));
+            return this;
+        }
+
+        public Builder setPosterPic(String posterPic) {
+            Film.this.posterPic = posterPic;
+            return this;
+        }
+
+        public Builder setName(String name) {
+            Film.this.name = name;
+            return this;
+        }
+
+        public Film build() {
+            return Film.this;
+        }
     }
 }

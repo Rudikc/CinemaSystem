@@ -20,7 +20,15 @@ public class FilmService {
         return res;
     };
 
-    public List<Film> getAllFilms(){
+    public void addFilm(Film film){
+        FilmSqlDao filmSqlDao = (FilmSqlDao) DaoFactory.getDao(DaoFactory.FILM_DAO);
+        try {
+            filmSqlDao.save(film);
+        } catch (DaoException e) {
+            e.printStackTrace();
+        }
+    }
+    public List<Film> getAllFilms() {
         FilmDao filmDao = (FilmDao) DaoFactory.getDao(DaoFactory.FILM_DAO);
         List<Film> allFilms = new ArrayList<>();
         try {
@@ -34,7 +42,7 @@ public class FilmService {
 
     public List<Film> getFilmsPagination(int page, int itemsPerPage) {
         FilmSqlDao filmSqlDao = (FilmSqlDao) DaoFactory.getDao(DaoFactory.FILM_DAO);
-        int lowerLimit = (page-1)*itemsPerPage;
+        int lowerLimit = (page - 1) * itemsPerPage;
 
         return filmSqlDao.paginationGet(lowerLimit, itemsPerPage);
     }
@@ -45,7 +53,7 @@ public class FilmService {
         int rows = filmSqlDao.countFilms();
         int pagesCount = rows / itemsPerPage;
 
-        if (rows%itemsPerPage != 0){
+        if (rows % itemsPerPage != 0) {
             pagesCount += 1;
         }
         for (int i = 1; i <= pagesCount; i++) {

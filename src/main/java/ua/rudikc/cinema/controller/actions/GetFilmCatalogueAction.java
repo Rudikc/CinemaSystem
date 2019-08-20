@@ -14,19 +14,22 @@ public class GetFilmCatalogueAction implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         User user = (User) request.getSession().getAttribute("user");
-        if (user.getRole() != UserRole.ADMIN){
+        if (user.getRole() != UserRole.ADMIN) {
             return "index";
         }
         FilmService filmService = (FilmService) ServiceFactory.getService("filmService");
 
-        int page = Integer.parseInt(request.getParameter("page"));
+        int page = 1;
+        if (request.getParameter("page") != null) {
+            page = Integer.parseInt(request.getParameter("page"));
+        }
         int itemsPerPage = 2;
 
-        List<Film> films = filmService.getFilmsPagination(page,itemsPerPage);
+        List<Film> films = filmService.getFilmsPagination(page, itemsPerPage);
         List<Integer> pages = filmService.getFilmsMaxPages(itemsPerPage);
 
-        request.setAttribute("films",films);
-        request.setAttribute("pages",pages);
+        request.setAttribute("films", films);
+        request.setAttribute("pages", pages);
 
         return "film-catalogue";
     }

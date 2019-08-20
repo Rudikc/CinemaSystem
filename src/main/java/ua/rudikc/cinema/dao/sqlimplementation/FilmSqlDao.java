@@ -58,8 +58,8 @@ public class FilmSqlDao implements FilmDao {
             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_FILM.getQuery());
             preparedStatement.setString(1, film.getName());
             preparedStatement.setString(2, film.getDirector());
-            preparedStatement.setDate(3, (Date) film.getPremiereDate());
-            preparedStatement.setTime(4, film.getDuration());
+            preparedStatement.setObject(3, film.getPremiereDate());
+            preparedStatement.setObject(4, film.getDuration());
             preparedStatement.setString(5, film.getPosterPic());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -86,8 +86,8 @@ public class FilmSqlDao implements FilmDao {
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_FILM.getQuery());
             preparedStatement.setString(1, film.getName());
             preparedStatement.setString(2, film.getDirector());
-            preparedStatement.setDate(3, (Date) film.getPremiereDate());
-            preparedStatement.setTime(4, film.getDuration());
+            preparedStatement.setObject(3, film.getPremiereDate());
+            preparedStatement.setObject(4, film.getDuration());
             preparedStatement.setString(5, film.getPosterPic());
             preparedStatement.setInt(6, film.getId());
             preparedStatement.executeUpdate();
@@ -129,12 +129,12 @@ public class FilmSqlDao implements FilmDao {
         return resultFilms;
     }
 
-    public List<Film> paginationGet(int low, int upper){
+    public List<Film> paginationGet(int low, int upper) {
         List<Film> resultFilms = new ArrayList<>();
-        try(Connection connection = ConnectionPool.getConnection()){
+        try (Connection connection = ConnectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(GET_FILMS_PAGINATION.getQuery());
-            preparedStatement.setInt(1,low);
-            preparedStatement.setInt(2,upper);
+            preparedStatement.setInt(1, low);
+            preparedStatement.setInt(2, upper);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 resultFilms.add(extractFromResultSet(resultSet));
@@ -144,9 +144,10 @@ public class FilmSqlDao implements FilmDao {
         }
         return resultFilms;
     }
-    public Integer countFilms(){
+
+    public Integer countFilms() {
         int count = 0;
-        try(Connection connection = ConnectionPool.getConnection()) {
+        try (Connection connection = ConnectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(GET_FILMS_COUNT.getQuery());
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -164,7 +165,7 @@ public class FilmSqlDao implements FilmDao {
         try {
             film.setId(resultSet.getInt(FILM_ID));
             film.setDirector(resultSet.getString(FILM_director));
-            film.setDuration(resultSet.getTime(FILM_DURATION));
+            film.setDuration(resultSet.getTime(FILM_DURATION).toLocalTime());
             film.setPosterPic(resultSet.getString(FILM_POSTER_PIC));
             film.setName(resultSet.getString(FILM_NAME));
             film.setPremiereDate(resultSet.getDate(FILM_PREMIERE_DATE));

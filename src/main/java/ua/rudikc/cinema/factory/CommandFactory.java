@@ -31,6 +31,7 @@ public class CommandFactory {
         commands.put("/remove-seance",new RemoveSeanceAction());
         commands.put("/add-seance",new AddSeanceAction());
         commands.put("/film-catalogue",new GetFilmCatalogueAction());
+        commands.put("/add-film", new AddFilmAction());
     }
 
     public static Action defineCommand(String path) {

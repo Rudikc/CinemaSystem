@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="myTag" tagdir="/WEB-INF/tags" %>
@@ -11,7 +11,15 @@
 </head>
 
 <body>
-<input type="file">
+<form method="POST" action="${pageContext.request.contextPath}/add-film">
+    <input type="file" name="poster-pic">
+    <input type="text" name="film-name">
+    <input type="text" name="director">
+    <input type="date" name="premiere-date">
+    <input type="time" name="duration" >
+    <input type="submit">
+</form>
+
 
 <c:forEach var="film" items="${films}">
     <h1>${film.name}</h1>

@@ -1,23 +1,22 @@
 package ua.rudikc.cinema.filters;
 
 import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
+import java.util.Optional;
 
+@WebFilter("/*")
 public class EncodingFilter implements Filter {
-    private String encoding = "utf-8";
+    private static final String DEFAULT_ENCODING = "UTF-8";
 
-    public void doFilter(ServletRequest request,
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
+        request.setCharacterEncoding(DEFAULT_ENCODING);
+        response.setCharacterEncoding(DEFAULT_ENCODING);
 
-                         ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
-        request.setCharacterEncoding(encoding);
         filterChain.doFilter(request, response);
     }
 
-    public void init(FilterConfig filterConfig) throws ServletException {
-        String encodingParam = filterConfig.getInitParameter("encoding");
-        if (encodingParam != null) {
-            encoding = encodingParam;
-        }
+    public void init(FilterConfig filterConfig) {
     }
 
     public void destroy() {
