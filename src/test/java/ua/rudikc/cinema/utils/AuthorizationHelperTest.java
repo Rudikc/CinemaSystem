@@ -8,13 +8,13 @@ public class AuthorizationHelperTest {
 
     @Test
     public void shouldReturnTrueIfPasswordIsCorrect() {
-        String password = "10133425Max";
+        String password = "123456789Qwerty";
         assertTrue(AuthorizationHelper.isPasswordCorrect(password));
     }
 
     @Test
     public void shouldReturnTrueIfEmailIsCorrect() {
-        String email = "rudikc@gmail.com";
+        String email = "mrudikc@gmail.com";
         assertTrue(AuthorizationHelper.isEmailCorrect(email));
     }
 }

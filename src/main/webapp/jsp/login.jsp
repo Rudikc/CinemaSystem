@@ -9,6 +9,9 @@
 
 <html>
 <head>
+    <title>
+        <fmt:message key="login.title"/>
+    </title>
     <style>
 
         body {

@@ -9,6 +9,9 @@
 <html>
 <head>
 
+    <title>
+        <fmt:message key="user-profile.title"/>
+    </title>
     <style>
         #poster-pic {
             width: 100px;

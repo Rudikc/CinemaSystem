@@ -1,5 +1,7 @@
 package ua.rudikc.cinema.controller.actions;
 
+import ua.rudikc.cinema.controller.actions.Action;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;

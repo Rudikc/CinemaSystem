@@ -1,13 +1,23 @@
 package ua.rudikc.cinema.factory;
 
 import ua.rudikc.cinema.controller.actions.*;
+import ua.rudikc.cinema.controller.actions.HomeAction;
+import ua.rudikc.cinema.controller.actions.films.AddFilmAction;
+import ua.rudikc.cinema.controller.actions.films.GetFilmCatalogueAction;
+import ua.rudikc.cinema.controller.actions.films.RemoveFilmAction;
+import ua.rudikc.cinema.controller.actions.order.RemoveOrderAction;
 import ua.rudikc.cinema.controller.actions.profile.GetUserProfileAction;
 import ua.rudikc.cinema.controller.actions.profile.LoginAction;
 import ua.rudikc.cinema.controller.actions.profile.LogoutAction;
 import ua.rudikc.cinema.controller.actions.profile.RegisterAction;
+import ua.rudikc.cinema.controller.actions.seance.AddSeanceAction;
+import ua.rudikc.cinema.controller.actions.seance.GetSeancesAction;
+import ua.rudikc.cinema.controller.actions.seance.RemoveSeanceAction;
+import ua.rudikc.cinema.controller.actions.seats.GetSeatsMapAction;
+import ua.rudikc.cinema.controller.actions.ticket.PurchaseTicketAction;
+import ua.rudikc.cinema.controller.actions.ticket.TicketPurchaseConfirmAction;
 import ua.rudikc.cinema.controller.actions.utils.ChangeLanguageAction;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 

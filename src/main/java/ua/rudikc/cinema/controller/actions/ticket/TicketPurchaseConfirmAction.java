@@ -1,5 +1,6 @@
-package ua.rudikc.cinema.controller.actions;
+package ua.rudikc.cinema.controller.actions.ticket;
 
+import ua.rudikc.cinema.controller.actions.Action;
 import ua.rudikc.cinema.entity.Order;
 import ua.rudikc.cinema.entity.User;
 import ua.rudikc.cinema.factory.CommandFactory;
@@ -9,7 +10,7 @@ import ua.rudikc.cinema.service.OrderService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class TicketPurchaseConfirmAction implements Action{
+public class TicketPurchaseConfirmAction implements Action {
     /**
      * Action that creates a new ticket in database.
      */

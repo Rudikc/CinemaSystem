@@ -1,5 +1,6 @@
-package ua.rudikc.cinema.controller.actions;
+package ua.rudikc.cinema.controller.actions.seats;
 
+import ua.rudikc.cinema.controller.actions.Action;
 import ua.rudikc.cinema.dao.SeanceDao;
 import ua.rudikc.cinema.dao.exception.DaoException;
 import ua.rudikc.cinema.dto.SeanceDto;

@@ -9,7 +9,7 @@
 <html>
 <head>
 
-    <title></title>
+    <title><fmt:message key="seats.page.title"/> </title>
     <style>
 
         .poster-picture{

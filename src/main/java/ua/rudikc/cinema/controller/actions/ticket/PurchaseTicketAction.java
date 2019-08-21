@@ -1,5 +1,6 @@
-package ua.rudikc.cinema.controller.actions;
+package ua.rudikc.cinema.controller.actions.ticket;
 
+import ua.rudikc.cinema.controller.actions.Action;
 import ua.rudikc.cinema.dto.SeanceDto;
 import ua.rudikc.cinema.dto.SeatDto;
 import ua.rudikc.cinema.factory.ServiceFactory;

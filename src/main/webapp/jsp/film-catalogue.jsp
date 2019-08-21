@@ -8,6 +8,9 @@
 
 <head>
 
+    <title>
+        <fmt:message key="film.catalogue.title"/>
+    </title>
     <style>
         .add-form {
             margin: 10px 10px;

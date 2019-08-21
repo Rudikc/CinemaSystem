@@ -9,6 +9,9 @@
 
 <html>
 <head>
+    <title>
+        <fmt:message key="seances.title"/>
+    </title>
     <style>
         #poster-pic {
             width: 100px;
@@ -40,13 +43,13 @@
             border-left: 1px solid white;
         }
 
-        .small-button{
+        .small-button {
             background-color: white;
             border: 1px solid #35ccff;
             border-radius: 4px;
             color: #35ccff;
             height: 40px;
-            width: 80px;
+            width: 120px;
             text-decoration: none;
             margin: 0;
             cursor: pointer;
@@ -54,7 +57,8 @@
         }
 
         .tickets {
-            text-align: center;
+            position: relative;
+            left: 27%;
         }
 
         table {
@@ -78,6 +82,11 @@
             line-height: 1.154;
         }
 
+        #add-seance {
+            position: relative;
+            left: 30%;
+        }
+
     </style>
 </head>
 <body>
@@ -85,7 +94,7 @@
 <div class="main-container">
     <c:set var="admin" value="ADMIN"/>
     <c:if test="${sessionScope.user.role == admin}">
-        <div>
+        <div id="add-seance">
             <form method="POST" action="${pageContext.request.contextPath}/add-seance">
                 <label for="datetime"></label><input id="datetime" type="datetime-local" name="start"/>
                 <label>

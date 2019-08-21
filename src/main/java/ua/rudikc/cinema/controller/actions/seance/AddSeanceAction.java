@@ -1,5 +1,6 @@
-package ua.rudikc.cinema.controller.actions;
+package ua.rudikc.cinema.controller.actions.seance;
 
+import ua.rudikc.cinema.controller.actions.Action;
 import ua.rudikc.cinema.entity.Seance;
 import ua.rudikc.cinema.entity.User;
 import ua.rudikc.cinema.factory.CommandFactory;

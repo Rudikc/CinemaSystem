@@ -8,7 +8,7 @@
 
 <html>
 <head>
-    <title>Title</title>
+    <title><fmt:message key="ticket.purchase.title"/> </title>
 </head>
 <body>
 <jsp:include page="header.jsp"/>

@@ -6,5 +6,7 @@
 <fmt:setBundle basename="${bundle}"/>
 <fmt:setLocale value="${locale}"/>
 
+
+<jsp:include page="header.jsp"/>
 <h1>It's 404 error</h1>
 <h2>Page is not found</h2>

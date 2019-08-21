@@ -6,5 +6,6 @@
 <fmt:setBundle basename="${bundle}"/>
 <fmt:setLocale value="${locale}"/>
 
+<jsp:include page="header.jsp"/>
 <h1>It's 500 error</h1>
 <h2>Wrong request</h2>
