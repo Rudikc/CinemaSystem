@@ -23,7 +23,6 @@ public class TicketPurchaseConfirmAction implements Action {
         int seatId = Integer.parseInt(request.getParameter("seat-id"));
         double ticketPrice = Double.parseDouble(request.getParameter("ticket-price"));
 
-
         Order order = Order.newBuilder()
                 .setOrderTime()
                 .setPrice(ticketPrice)

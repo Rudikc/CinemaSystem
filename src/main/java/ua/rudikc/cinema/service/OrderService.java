@@ -56,15 +56,6 @@ public class OrderService {
                 e1.printStackTrace();
             }
 
-        } finally {
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
         }
     }
 
