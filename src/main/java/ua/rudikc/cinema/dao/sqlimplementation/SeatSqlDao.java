@@ -6,7 +6,6 @@ import ua.rudikc.cinema.dao.SeatDao;
 import ua.rudikc.cinema.dao.exception.DaoException;
 import ua.rudikc.cinema.db.ConnectionPool;
 import ua.rudikc.cinema.entity.Seat;
-import ua.rudikc.cinema.entity.SeatType;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

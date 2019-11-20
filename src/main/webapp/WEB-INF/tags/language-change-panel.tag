@@ -38,7 +38,6 @@
                          src="${pageContext.request.contextPath}/images/languageIcons/united-kingdom.png"
                          alt="uk"></a>
                 </h4>
-                </a></h4>
             </td>
         </tr>
     </table>

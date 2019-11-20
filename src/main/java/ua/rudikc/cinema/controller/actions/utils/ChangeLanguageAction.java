@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class ChangeLanguageAction implements Action {
 
-    private static ArrayList<String> allowedLocales = new ArrayList<>();
+    private static final ArrayList<String> allowedLocales = new ArrayList<>();
 
     static {
         allowedLocales.add("ru_RU");

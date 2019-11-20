@@ -5,7 +5,6 @@ import ua.rudikc.cinema.dao.OrderDao;
 import ua.rudikc.cinema.dao.exception.DaoException;
 import ua.rudikc.cinema.db.ConnectionPool;
 import ua.rudikc.cinema.entity.Order;
-import ua.rudikc.cinema.entity.User;
 
 import java.sql.*;
 import java.util.ArrayList;

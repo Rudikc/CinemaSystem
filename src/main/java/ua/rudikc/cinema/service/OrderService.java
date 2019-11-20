@@ -1,6 +1,5 @@
 package ua.rudikc.cinema.service;
 
-import ua.rudikc.cinema.dao.Dao;
 import ua.rudikc.cinema.dao.exception.DaoException;
 import ua.rudikc.cinema.dao.sqlimplementation.OrderSqlDao;
 import ua.rudikc.cinema.dao.sqlimplementation.TicketSqlDao;

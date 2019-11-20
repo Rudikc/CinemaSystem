@@ -9,7 +9,6 @@ import ua.rudikc.cinema.entity.SeatType;
 import ua.rudikc.cinema.factory.DaoFactory;
 import ua.rudikc.cinema.entity.Seat;
 import ua.rudikc.cinema.entity.Ticket;
-import ua.rudikc.cinema.factory.ServiceFactory;
 
 import java.util.*;
 

@@ -1,6 +1,5 @@
 package ua.rudikc.cinema.service;
 
-import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -9,20 +8,19 @@ import ua.rudikc.cinema.entity.Film;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-
 import static org.junit.Assert.*;
 
 public class FilmServiceTest {
     private static FilmService filmService;
     private static List<Film> films;
+
     @BeforeClass
     public static void init() {
         filmService = new FilmService();
     }
 
     @Before
-    public void setUp(){
+    public void setUp() {
         films = new ArrayList<>();
     }
 
@@ -36,10 +34,10 @@ public class FilmServiceTest {
     public void quantityOfFilmsShouldEqualsItemsPerPage() {
         int itemsPerPage = 1;
         films = filmService.getFilmsPagination(1, itemsPerPage);
-        assertEquals(itemsPerPage,films.size());
+        assertEquals(itemsPerPage, films.size());
         itemsPerPage = 2;
         films = filmService.getFilmsPagination(2, itemsPerPage);
-        assertEquals(itemsPerPage,films.size());
+        assertEquals(itemsPerPage, films.size());
 
     }
 

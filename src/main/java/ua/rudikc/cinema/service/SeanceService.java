@@ -1,13 +1,10 @@
 package ua.rudikc.cinema.service;
 
-import ua.rudikc.cinema.dao.Dao;
-import ua.rudikc.cinema.dao.FilmDao;
 import ua.rudikc.cinema.dao.SeanceDao;
 import ua.rudikc.cinema.dao.exception.DaoException;
 import ua.rudikc.cinema.dao.sqlimplementation.FilmSqlDao;
 import ua.rudikc.cinema.dao.sqlimplementation.SeanceSqlDao;
 import ua.rudikc.cinema.dto.SeanceDto;
-import ua.rudikc.cinema.entity.Film;
 import ua.rudikc.cinema.entity.User;
 import ua.rudikc.cinema.entity.UserRole;
 import ua.rudikc.cinema.factory.DaoFactory;
@@ -23,7 +20,7 @@ import static ua.rudikc.cinema.factory.DaoFactory.FILM_DAO;
 public class SeanceService {
 
 
-    private static Comparator<SeanceDto> TIME_ORDER = Comparator.comparing(SeanceDto::getStart);
+    private static final Comparator<SeanceDto> TIME_ORDER = Comparator.comparing(SeanceDto::getStart);
 
     /**
      * Adds and order to database

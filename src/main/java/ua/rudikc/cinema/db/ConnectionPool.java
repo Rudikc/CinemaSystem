@@ -11,7 +11,7 @@ import java.util.ResourceBundle;
  */
 public class ConnectionPool {
 
-    private static BasicDataSource basicDataSource = new BasicDataSource();
+    private static final BasicDataSource basicDataSource = new BasicDataSource();
 
     static {
         ResourceBundle dbSettings = ResourceBundle.getBundle("databaseConfiguration/dbSettings");

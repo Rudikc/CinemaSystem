@@ -9,7 +9,7 @@ import java.util.Map;
  * Factory for services
  */
 public class ServiceFactory {
-    private static Map<String, Object> serviceMap = new HashMap<>();
+    private static final Map<String, Object> serviceMap = new HashMap<>();
 
     static {
         serviceMap.put("seanceService",new SeanceService());

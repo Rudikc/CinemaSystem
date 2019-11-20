@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Factory for daos
+ * Factory for dao
  */
 public class DaoFactory {
 
@@ -20,7 +20,7 @@ public class DaoFactory {
     public static final String TICKET_DAO = "ticketDao";
     public static final String USER_DAO = "userDao";
 
-    private static Map<String, Object> daoMap = new HashMap<>();
+    private static final Map<String, Object> daoMap = new HashMap<>();
 
     static {
         daoMap.put(FILM_DAO, new FilmSqlDao());

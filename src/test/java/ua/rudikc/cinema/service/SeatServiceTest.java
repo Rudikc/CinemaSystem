@@ -13,7 +13,6 @@ import static org.junit.Assert.*;
 public class SeatServiceTest {
 
     private static SeatService seatService;
-    private static List<Seat> seats;
 
     @BeforeClass
     private static void init() {
@@ -22,7 +21,7 @@ public class SeatServiceTest {
 
     @Before
     private static void setUp(){
-        seats = new ArrayList<>();
+        List<Seat> seats = new ArrayList<>();
     }
 
     @Test

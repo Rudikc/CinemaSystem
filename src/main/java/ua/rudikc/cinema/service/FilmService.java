@@ -18,7 +18,7 @@ public class FilmService {
     /**
      * Comparator to sort films in alphabetical order by name
      */
-    private static Comparator<Film> ALPHABETICAL_ORDER = (film1, film2) -> {
+    private static final Comparator<Film> ALPHABETICAL_ORDER = (film1, film2) -> {
         int res = String.CASE_INSENSITIVE_ORDER.compare(film1.getName(), film2.getName());
         if (res == 0) {
             res = film1.getName().compareTo(film2.getName());

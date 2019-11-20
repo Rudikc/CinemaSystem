@@ -3,7 +3,6 @@ package ua.rudikc.cinema.filters;
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
-import java.util.Optional;
 
 /**
  * Filter that is setting encoding on every url to UTF-8
